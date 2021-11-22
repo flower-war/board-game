@@ -102,6 +102,11 @@ Instead of sacrificing tokens to the Gods of the Templo Mayor, the player may sa
 
 Within both the day and the week cards are events that can affect game play or bonuses for the player as well as cards for cactus (flower), eagle, and serpent. The ONLY way to win the game is by collecting those three cards. 
 
+
+## List of Effects from Cards
+
+Cards have various effects on game play. This is a large list of all effects that could go on cards. This list will be refined as we go. 
+
 #### Day cards: 
 
 Day cards tell the story of the Aztec people as they wander nomadically searching for the sign to settle their city. 
@@ -112,6 +117,8 @@ Day cards contain events such as victory cards, gifts from gods, or penalties fr
 
 Day cards are the most common cards in the game, and the weakest. 
 
+[Day Card Descriptions](https://github.com/adunderwood/Mexica/blob/main/DAYS.md)
+
 #### Week cards: 
 
 Twenty cards represent each day (space) on the board. Collecting these cards by landing on a space 13 times or as gifts from the Gods provide bonuses to the player by embodying the spirit of the day. 
@@ -120,13 +127,21 @@ If a player holds the card for a day, anyone who lands on that space must pay th
 
 The three winning cards can also be collected as week cards. If more than one player holds a week card, tribute is paid to all players that hold the card. 
 
-#### War cards:
+[Week Card Descriptions](https://github.com/adunderwood/Mexica/blob/main/WEEKS.md)
+
+### God cards (40 each, 80 total)
+
+#### War cards (40):
 
 Acquired by sacrificing tokens to Huitzilopochtli, these cards provide bonuses to player combat. 
 
-#### Rain Cards:
+* Eagle
+
+#### Rain Cards (40):
 
 Acquired by sacrificing tokens to Tlaloc and provide bonuses when a player lands on a space. 
+
+* Serpent 
 
 ## Ending the Game 
 
@@ -155,85 +170,6 @@ No more tokens can be collected from tiles due to flooding. Bonuses and tributes
 #### War:
 
 Tokens are still collected from tiles but one token is lost per tile due to infighting among the tribes. Bonuses and tributes still apply. 
-
-## List of Effects from Cards
-
-Cards have various effects on game play. This is a large list of all effects that could go on cards. This list will be refined as we go. 
-
-### Week cards (20) 
-
-1. Crocodile
-2. Wind
-3. House
-4. Lizard
-5. Serpent
-6. Death 
-7. Deer
-8. Rabbit
-9. Water
-10. Dog
-11. Monkey
-12. Grass
-13. Reed
-14. Jaguar
-15. Eagle
-16. Vulture
-17. Earthquake (movement)
-18. Flint (knife)
-19. Rain 
-20. Flower (Nopales, Cactus flower)
-
-### Day cards (lots)
-
-#### Possible effects:
-
-* Go to a specific space, receive a bonus. Double the bonus if you win in combat. 
-* Go forward x spaces 
-* Go back x spaces
-* Take another turn
-* Gain x tokens
-* Lose x tokens
-* Pay x tokens to each player 
-* Pay x tokens to one player 
-* Demand tokens (TB: Need something to make this different from the "pay tokens". This could be a "forced sacrifice" card, eg: "Immediately sacrifice X tokens to Y God")
-* Get a War card
-* Get a Rain card
-* Get a Day card 
-* Get a Week card
-* Attack the nearest player
-* Attack the East 
-* Attack the North
-* Attack the West
-* Attack the South
-* Give x tokens to War
-* Give x tokens to Rain
-* Go to East starting point 
-* Go to North starting point 
-* Go to West starting Point 
-* Go to South starting point 
-* Cactus
-* (TB: Force a player to discard a card back to the deck/space)
-* (TB: Negate an attack)
-* (TB: Negate a specific type of card/any card)
-* (TB: Give a player a specific bonus
-    * Add value to rolled value in player combat.
-    * Affect number of tokens sacrificed (this can be a positive effect or a negative effect (eg, play it on someone else to make them bump up a counter faster than they want to)
-    * Affect the number of tokens gained.
-    * Affect the number of space moved in a turn)
-
-
-
-God cards (40 each, 80 total?)
-
-War cards (40)
-* Eagle
-
-Rain cards (40)
-* Serpent 
-
-
-
-
 
 #### Legal Notice 
 
