@@ -28,3 +28,13 @@ The three winning cards can also be collected as week cards. If more than one pl
 18. Flint (knife)
 19. Rain
 20. Flower (Nopales, Cactus flower)
+
+## Possible Effects
+
++1 Combat Range
++1 Defense
++1 Attack
++1 Movement
++1 Skulls per Turn
+-1 Sacrifice Cost
+
