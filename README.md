@@ -1,6 +1,8 @@
 # Flower War
 A board game for up to four players 
 
+![IMG_0931](https://user-images.githubusercontent.com/6363445/149651962-98810edd-fc5d-4831-907b-47f51f54f39e.jpg)
+
 ## Game Assets
 
 (1) D6
