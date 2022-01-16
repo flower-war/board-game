@@ -19,34 +19,29 @@ Circular game board divided into 20 sections and four quadrants with a blue sect
 
 3D printed pyramid with two slots for sacrifices to Huitzilopochtli and Tlaloc. A raspberry pi or arduino powered counter keeps track of the sacrifices that the players make. (For early manual tracking, use a stack of post it strips to tally sacrifices.)
 
-(360 + 20) Tokens
+(360) Skull Beads. Players can use skull beads, 3D printed skulls, pony beads, red beans, or other counters. 
 
-(360) Tokens. Players can use red beans, skull beads, or 3D printed skulls. 
+(20) Tzompantli - Token containers that can hold up to 12 tokens each. One for each space on the board. 
 
-(20) Token containers that can hold up to 12 tokens each. One for each space on the board. 
+(20) Week Tokens
 
-(260 + 100 = 360) Cards 
+Twenty tokens representing each day (space) on the board. Collecting these tokens (by landing on a space 13 times, an Aztec week, or as gifts from the Gods) provide bonuses to the player by embodying the spirit of the day. If a player holds the token for a day, anyone who lands on that space must pay them a tribute of one skull bead to occupy it. This tribute is paid even if a battle occurs on the space. 
 
-260 Day Cards
-20 Week Cards
-40 War Cards
-40 Rain Cards
+The three winning cards can also be collected as week tokens. 
 
-(260) Day cards 
+[Week Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/WEEKS.md)
 
-Can be acquired by sacrificing 13 tokens to Tonanzin. Day cards contain events such as victory cards, gifts from gods, or penalties from gods in the form of bonuses or detriments. The flower (cactus) card is contained within this deck. Day cards can also be acquired by landing on a space the first time or other events.
+(n) War cards
 
-(20) Week cards
+Acquired by sacrificing tokens to Huitzilopochtli, these cards provide bonuses to player combat. 
 
-Twenty cards representing each day on the board. Collecting these cards (by landing on a space 13 times, an Aztec week) provide bonuses to the player by embodying the spirit of the day. 
+(n) Rain Cards
 
-(40) War cards
+Acquired by sacrificing tokens to Tlaloc and provide bonuses when a player lands on a space.
 
-Acquired by sacrificing tokens to Huitzilopochtli, these cards provide bonuses to player combat. The eagle card is contained in this deck. 
+## List of Effects from Cards
 
-(40) Rain Cards
-
-Acquired by sacrificing tokens to Tlaloc and provide bonuses when a player lands on a space. The serpent card is contained in this deck. 
+[Day Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/DAYS.md)
 
 ## Objective
 
@@ -103,47 +98,6 @@ When two players land on the same space they must do battle against each other. 
 Instead of sacrificing tokens to the Gods of the Templo Mayor, the player may sacrifice 7 tokens to Mary for the opportunity to draw a Day card from the deck. To do this they trade 7 tokens for a card. Sacrificing to Mary removes the tokens from play (they’re put away, rather than into the lake). 
 
 Within both the day and the week cards are events that can affect game play or bonuses for the player as well as cards for cactus (flower), eagle, and serpent. The ONLY way to win the game is by collecting those three cards. 
-
-
-## List of Effects from Cards
-
-Cards have various effects on game play. This is a large list of all effects that could go on cards. This list will be refined as we go. 
-
-#### Day cards: 
-
-Day cards tell the story of the Aztec people as they wander nomadically searching for the sign to settle their city. 
-
-Day cards are acquired by landing in a space with a day count of zero (13 tokens remaining) or by sacrificing 7 tokens to Mary.
-
-Day cards contain events such as victory cards, gifts from gods, or penalties from gods in the form of bonuses or detriments. They can also be acquired by other events. 
-
-Day cards are the most common cards in the game, and the weakest. 
-
-[Day Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/DAYS.md)
-
-#### Week cards: 
-
-Twenty cards represent each day (space) on the board. Collecting these cards by landing on a space 13 times or as gifts from the Gods provide bonuses to the player by embodying the spirit of the day. 
-
-If a player holds the card for a day, anyone who lands on that space must pay them a tribute of one token to occupy it. This tribute is paid even if a battle occurs on the space. 
-
-The three winning cards can also be collected as week cards. If more than one player holds a week card, tribute is paid to all players that hold the card. 
-
-[Week Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/WEEKS.md)
-
-### God cards (40 each, 80 total)
-
-#### War cards (40):
-
-Acquired by sacrificing tokens to Huitzilopochtli, these cards provide bonuses to player combat. 
-
-* Eagle
-
-#### Rain Cards (40):
-
-Acquired by sacrificing tokens to Tlaloc and provide bonuses when a player lands on a space. 
-
-* Serpent 
 
 ## Ending the Game 
 
