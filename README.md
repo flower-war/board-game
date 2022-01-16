@@ -29,7 +29,7 @@ Twenty tokens representing each day (space) on the board. Collecting these token
 
 The three winning cards can also be collected as week tokens. 
 
-[Week Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/WEEKS.md)
+[Week Token Descriptions](https://github.com/adunderwood/Flower-War/blob/main/WEEKS.md)
 
 (n) War cards
 
@@ -39,9 +39,7 @@ Acquired by sacrificing tokens to Huitzilopochtli, these cards provide bonuses t
 
 Acquired by sacrificing tokens to Tlaloc and provide bonuses when a player lands on a space.
 
-## List of Effects from Cards
-
-[Day Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/DAYS.md)
+[Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/DAYS.md)
 
 ## Objective
 
