@@ -1,4 +1,4 @@
-# Mexica
+# Flower War
 A board game for up to four players 
 
 ## Game Assets
@@ -117,7 +117,7 @@ Day cards contain events such as victory cards, gifts from gods, or penalties fr
 
 Day cards are the most common cards in the game, and the weakest. 
 
-[Day Card Descriptions](https://github.com/adunderwood/Mexica/blob/main/DAYS.md)
+[Day Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/DAYS.md)
 
 #### Week cards: 
 
@@ -127,7 +127,7 @@ If a player holds the card for a day, anyone who lands on that space must pay th
 
 The three winning cards can also be collected as week cards. If more than one player holds a week card, tribute is paid to all players that hold the card. 
 
-[Week Card Descriptions](https://github.com/adunderwood/Mexica/blob/main/WEEKS.md)
+[Week Card Descriptions](https://github.com/adunderwood/Flower-War/blob/main/WEEKS.md)
 
 ### God cards (40 each, 80 total)
 
