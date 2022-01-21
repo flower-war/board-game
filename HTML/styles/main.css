@@ -17,6 +17,16 @@ margin-left: 120px;
 
 }
 
+.cols {
+    width: 100%;
+    float: left;
+}
+
+    .cols.two .col {
+        width: 49%;
+        float: left;
+    }
+
 .info {
 position: absolute;
 top: 50px;
@@ -296,15 +306,33 @@ border-radius: 4px;
     height: 100%;
 
     overflow: none;
-
+    background-color: rgba(0,0,0,.5);
 }
 
-    #battle-modal .content {
+    #battle-modal .modal-content {
         width: 550px;
-        height: 350px;
+        height: 400px;
 
         background: #EEE;
         border: 7px solid #555;
 
         margin: 180px auto;
     }
+
+        #battle-modal .modal-content H2,
+        #battle-modal .modal-content .battle-player {
+            display: inline;
+            font-size: 24px;
+        }
+
+        #battle-modal .modal-content H3 {
+            clear: both;
+        }
+
+
+        #battle-modal .modal-content INPUT[readonly="true"] {
+            width: 32px;
+            border: 0;
+            background: transparent;
+            display: inline;
+        }

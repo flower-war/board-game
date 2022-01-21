@@ -279,7 +279,7 @@
                 // alert("Collect skull for player " + (player + 1) + "!")
 
                 var tmp = players[player]
-                tmp.skulls = tmp.skulls + 1
+                tmp.skulls = parseInt(tmp.skulls) + 1
 
                 players[player] = tmp
 
@@ -381,18 +381,162 @@
                 return retval
             }
 
-            function showBattleModal(players) {
-                console.log("Battle Modal: ")
-                console.log(players)
+            function showBattleModal(ply) {
+                playerA = 0
+                playerB = 0
 
-                var battleModal = document.getElementById("battle-modal")
-                battleModal.style.display = "block"
+                console.log("Battle Modal: ")
+                console.log(ply)
+
+                // players come in as IDs
+                var ply1 = ply[0]
+                var ply2 = ply[1]
+
+                // get player info
+                var player1 = players[ply1]
+                var player2 = players[ply2]
+
+                var elA = document.getElementById("rollPlayerA")
+                var elB = document.getElementById("rollPlayerB")
+                elA.value = ""
+                elB.value = ""
+
+                // enable both roll buttons
+                var elBtnA = document.getElementById("btnPlayerA")
+                var elBtnB = document.getElementById("btnPlayerB")
+
+                // clear previous battle message
+                var elMsg = document.getElementById("battle-message")
+                elMsg.innerHTML = ""
+
+                elBtnA.disabled = false
+                elBtnB.disabled = false
+
+                // make sure that there are two players in the battle
+                // check for three and four later
+                if (player1 && player2) {
+
+                    var battlePlayerA = document.getElementById("battlePlayerA")
+                    battlePlayerA.value = player1.id + 1
+
+                    var battlePlayerB = document.getElementById("battlePlayerB")
+                    battlePlayerB.value = player2.id + 1
+
+                    var skullsPlayerA = document.getElementById("skullsPlayerA")
+                    skullsPlayerA.value = player1.skulls
+
+                    var skullsPlayerB = document.getElementById("skullsPlayerB")
+                    skullsPlayerB.value = player2.skulls
+                    
+
+                    var battleModal = document.getElementById("battle-modal")
+                    battleModal.style.display = "block"
+
+                }
+
             }
 
             function closeModal() {
 
                 var battleModal = document.getElementById("battle-modal")
                 battleModal.style.display = "none"
+            }
+
+
+            var playerA = 0
+            var playerB = 0
+            function roll(ply) {
+                switch (ply) {
+                    case "A":
+
+                        // random
+                        var rand = Math.floor(Math.random() * 6) + 1;                        
+                        var el = document.getElementById("rollPlayerA")
+                        el.value = rand
+                        playerA = rand
+
+                        var btnA = document.getElementById("btnPlayerA")
+                        btnA.disabled = true
+                        
+                        break
+                    case "B":
+                        // random
+                        var rand = Math.floor(Math.random() * 6) + 1;                        
+                        var el = document.getElementById("rollPlayerB")
+                        el.value = rand
+                        playerB = rand
+
+                        var btnB = document.getElementById("btnPlayerB")
+                        btnB.disabled = true
+
+                        break
+                }
+
+                var winner = 0
+                if (playerA && playerB) {
+                    // enable close button
+                    var score = playerA - playerB
+                    var elMsg = document.getElementById("battle-message")
+
+
+                    var skullsPlayerA = document.getElementById("skullsPlayerA")
+                    var skullsPlayerB = document.getElementById("skullsPlayerB")
+
+                    var elPlayerA = document.getElementById("battlePlayerA")
+                    var elPlayerB = document.getElementById("battlePlayerB")
+
+                    var tmpPlayerA = players[parseInt(elPlayerA.value) - 1]
+                    var tmpPlayerB = players[parseInt(elPlayerB.value) - 1]
+                        
+                    if (score > 0) {
+                        // playerA wins
+
+                        elMsg.innerHTML = "Player " + elPlayerA.value + " wins! "  //score
+
+                        skullsPlayerA.value = parseInt(skullsPlayerA.value) + 1 //score
+                        skullsPlayerB.value = parseInt(skullsPlayerB.value) - 1 //score
+                        
+                        // save values
+                        tmpPlayerA.skulls = skullsPlayerA.value
+                        tmpPlayerB.skulls = skullsPlayerB.value
+
+                        players[parseInt(elPlayerA.value) - 1] = tmpPlayerA
+                        players[parseInt(elPlayerB.value) - 1] = tmpPlayerB
+                        
+                        winner = 1
+                    } else {
+                        if (score < 0) {
+                            // player B wins
+
+                            elMsg.innerHTML = "Player " + elPlayerB.value + " wins! " //(score * -1)
+
+                            skullsPlayerA.value = parseInt(skullsPlayerA.value) - 1 //score
+                            skullsPlayerB.value = parseInt(skullsPlayerB.value) + 1 // score
+                            
+                            // save values
+                            tmpPlayerA.skulls = skullsPlayerA.value
+                            tmpPlayerB.skulls = skullsPlayerB.value
+
+                            players[parseInt(elPlayerA.value) - 1] = tmpPlayerA
+                            players[parseInt(elPlayerB.value) - 1] = tmpPlayerB
+                            
+                            winner = 2
+                        } else {
+                            // tie
+                            elMsg.innerHTML = "The battle ends in a tie."
+                        }
+                    }
+
+                    // update current player score
+                    var currentPlayerScore = document.getElementById("currentPlayerSkulls")
+                    currentPlayerScore.innerHTML = skullsPlayerA.value
+
+                    // enable close button
+                    var btnClose = document.getElementById("btnCloseBattleModal")
+                    btnClose.disabled = false
+                }
+
+                
             }
 
         </script>
@@ -489,10 +633,40 @@
         </section>
 
         <div id="battle-modal" class="modal">
-            <div class="content">
+            <div class="modal-content">
                 <h1>Battle</h1>
 
-                <input type="button" onclick="closeModal()" value="Close Window">
+                <h2 id="battle-message"></h2>
+
+                <div class="two cols">
+                    <div class="col left">
+                        <h2 id="battle-player-a">Player</h2>
+                        <input class="battle-player" id="battlePlayerA" type="text" readonly="true" disabled="true">
+
+                        <h3 id="battle-skulls-a">Skulls</h3>
+                        <input id="skullsPlayerA" type="text" readonly="true" disabled="true">
+
+                        <h3 id="battle-roll-a">Roll</h3>
+
+                        <input id="rollPlayerA" type="text" readonly="true" disabled="true">
+                        <input id="btnPlayerA" type="button" value="Roll" onclick="roll('A')">
+                    </div>
+                    <div class="col right">
+                        <h2 id="battle-player-b">Player</h2>
+                        <input class="battle-player" id="battlePlayerB" type="text" readonly="true" disabled="true">
+
+                        <h3 id="battle-skulls-b">Skulls</h3>
+                        <input id="skullsPlayerB" type="text" readonly="true" disabled="true">
+
+                        <h3 id="battle-roll-b">Roll</h3>
+
+                        <input id="rollPlayerB" type="text" readonly="true" disabled="true">
+                        <input id="btnPlayerB" type="button" value="Roll" onclick="roll('B')">
+                    </div>
+                </div>
+
+                <p class="hr"><hr></p>
+                <input id="btnCloseBattleModal" type="button" onclick="closeModal()" value="Close Window" disabled="true">
             </div>
         </div>
     </body>
