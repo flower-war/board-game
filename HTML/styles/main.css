@@ -1,0 +1,310 @@
+
+BODY { background-color: #222; }
+.game-board {
+position: relative;
+
+width: 650px;
+height: 650px;
+
+background: url("../images/game-board.png") no-repeat;
+background-size: 725px;
+background-position: center -8px;
+border: 1px solid #000;
+border-radius: 50%;
+
+margin-top: 35px;
+margin-left: 120px;
+
+}
+
+.info {
+position: absolute;
+top: 50px;
+left: 810px;
+background-color: #AAA;
+width: 500px;
+}
+
+.player {
+width: 25px;
+
+font-size: 11px;
+font-family: sans-serif;
+font-weight: normal;
+background-color: #F00;
+border: 2px solid #000;
+border-radius: 5px;
+
+text-align: center;
+margin: -70px auto 0 auto;
+padding: 7px 2px;
+
+transform: rotate(180deg);
+}
+
+.player-one { background-color: #EEE; color: #000; }
+.player-two { background-color: #D00; color: #FFF; }
+.player-three { background-color: #00D; color: #FFF; }
+.player-four { background-color: #222; color: #FFF; }
+
+
+.position {
+position: absolute;
+
+width: 70px;
+height: 100px;
+}
+
+.position .content {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transform: rotate(180deg);
+
+    color: #FFF;
+} 
+
+    .position .content .tzompantli {
+        display: block;
+        width: 80%;
+        
+        color: #FFF;
+        font-family: sans-serif;
+        text-align: center;
+        background: transparent;
+        border: 0;
+
+        margin: 19px auto 0 auto;
+    }
+
+.position.one {
+top: 2px; 
+left: 332px;
+transform: rotate(9deg);
+}
+
+.position.two { 
+left: 414px;
+top: 29px;
+transform: rotate(27deg);
+}
+
+.position.three { 
+left: 484px;
+top: 80px;
+transform: rotate(45deg);
+}
+
+.position.four { 
+left: 534px;
+top: 150px;
+transform: rotate(63deg);
+}
+
+.position.five { 
+left: 561px;
+top: 232px;
+transform: rotate(81deg);
+}
+
+.position.six { 
+left: 561px;
+top: 317px;
+transform: rotate(99deg);
+}
+
+.position.seven { 
+left: 535px;
+top: 398px;
+transform: rotate(117deg);
+}
+
+.position.eight { 
+left: 484px;
+top: 469px;
+transform: rotate(136deg);
+}
+
+.position.nine { 
+left: 415px;
+top: 518px;
+transform: rotate(154deg);
+}
+
+.position.ten { 
+left: 332px;
+top: 543px;
+transform: rotate(172deg);
+}
+
+.position.eleven { 
+left: 247px;
+top: 543px;
+transform: rotate(-172deg);
+}
+
+.position.twelve { 
+left: 164px;
+top: 518px;
+transform: rotate(-154deg);
+}
+
+.position.thirteen { 
+left: 95px;
+top: 469px;
+transform: rotate(-136deg);
+}
+
+.position.fourteen { 
+left: 43px;
+top: 398px;
+transform: rotate(-117deg);
+}
+
+.position.fifteen { 
+left: 17px;
+top: 316px;
+transform: rotate(-99deg);
+}
+
+.position.sixteen { 
+left: 17px;
+top: 229px;
+transform: rotate(-81deg);
+}
+
+.position.seventeen { 
+left: 44px;
+top: 147px;
+transform: rotate(-63deg);
+}
+
+.position.eighteen { 
+left: 95px;
+top: 77px;
+transform: rotate(-45deg);
+}
+
+.position.nineteen { 
+left: 164px;
+top: 28px;
+transform: rotate(-27deg);
+}
+
+.position.twenty { 
+left: 245px;
+top: 2px;
+transform: rotate(-9deg);
+}
+
+.tenochtitlan {
+width: 200px;
+
+position: absolute;
+left: 50%;
+margin-left: -90px;
+top: 50%;
+margin-top: -162px;
+}
+
+.templo-mayor {
+background: #333;
+width: 175px;
+height: 175px;
+
+margin: 0 auto;
+border-radius: 4px;
+}
+
+.templo-mayor .temple {
+    width: 49.5%;
+    height: 115px;
+    float: left;
+    padding-top: 60px;
+}
+
+.templo-mayor .temple:first-child {
+    border-right: 1px dashed #CCC;
+}
+    .templo-mayor .temple LABEL {
+        color: #FFF;
+        display: block;
+        width: 100%;
+        font-size: 24px;
+        text-align: center;
+
+        border-bottom: 1px dashed #CCC;
+        margin-bottom: 5px;
+    }
+
+    .templo-mayor .temple INPUT {
+        display: block;
+        width: 80%;
+
+        color: #FFF;
+        font-size: 18px;
+        text-align: center;
+
+        border: 0;
+        background: transparent;
+
+        margin: 0 auto;
+    }
+
+.tenochtitlan .card {
+    display: block;
+
+    width: 80px;
+    height: 120px;
+    border: #0F0;
+
+    background: #FFF;
+
+    float: left;
+    text-align: center;
+    text-decoration: none;
+
+    margin: 5px 9px;
+    margin-top: 10px;
+}
+
+    .tenochtitlan .card SPAN {
+        display: block;
+        width: 100%;
+
+        font-size: 24px;
+        margin-top: 55%;
+        text-align: center;
+    }
+
+    .tenochtitlan .huitzilopochtli .card { background: #000; color: #FFF; }
+    .tenochtitlan .tlaloc .card { background: #FFF; color: #000;}
+
+        .tenochtitlan .card.disabled { opacity: .3; }
+
+
+
+#battle-modal {
+    position: absolute;
+    z-index: 99;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: none;
+
+}
+
+    #battle-modal .content {
+        width: 550px;
+        height: 350px;
+
+        background: #EEE;
+        border: 7px solid #555;
+
+        margin: 180px auto;
+    }

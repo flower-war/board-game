@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Flower War Tester</title>
+        <link rel="stylesheet" href="styles/main.css" type="text/css">
+
+        <script>
+            var numPlayers = 4
+
+            var numberWord = []
+            numberWord[0] = "zero"
+            numberWord[1] = "one"
+            numberWord[2] = "two"
+            numberWord[3] = "three"
+            numberWord[4] = "four"
+            numberWord[5] = "five"
+            numberWord[6] = "six"
+            numberWord[7] = "seven"
+            numberWord[8] = "eight"
+            numberWord[9] = "nine"
+            numberWord[10] = "ten"
+            numberWord[11] = "eleven"
+            numberWord[12] = "twelve"
+            numberWord[13] = "thirteen"
+            numberWord[14] = "fourteen"
+            numberWord[15] = "fifteen"
+            numberWord[16] = "sixteen"
+            numberWord[17] = "seventeen"
+            numberWord[18] = "eighteen"
+            numberWord[19] = "nineteen"
+            numberWord[20] = "twenty"
+
+            var player = {}
+            player.id = 0
+            player.skulls = 0
+            player.space = 0
+
+            var players = []
+
+            var turn = 0;
+            function init() {
+                initPlayers()
+
+                updateTurn(turn)
+
+                var battleModal = document.getElementById("battle-modal")
+                battleModal.style.display = "none"
+            }
+
+            function updateTurn(n) {
+                if (!(n)) { n = turn }
+
+                var player = (n % numPlayers) + 1
+                
+                var turnEl = document.getElementById("currentTurn")
+                var playerEl = document.getElementById("currentPlayer")
+                turnEl.innerHTML = n + 1
+                playerEl.innerHTML = player
+
+                tmp = players[player - 1]
+                var skullCountEl = document.getElementById("currentPlayerSkulls")
+                skullCountEl.innerHTML = tmp.skulls
+                
+                var btnMove = document.getElementById("btnMove")
+                var btnNext = document.getElementById("btnNextTurn")
+                var btnCollect = document.getElementById("btnCollectSkull")
+
+                btnMove.disabled = true
+                btnCollect.disabled = false
+                btnNext.disabled = true
+            }
+
+            function initPlayers(numPlayers) {
+                if (!(numPlayers)) {
+                    numPlayers = 3 // count from zero
+                }
+
+                var sp = []
+                sp[0] = 6
+                sp[1] = 1
+                sp[2] = 16
+                sp[3] = 11
+
+                var playerCount = 0
+
+                for (x in sp) {
+                    playerCount++
+
+                    var tmp = sp[x]
+                    var tmpWord = numberWord[tmp]
+
+                    // log info to players object
+                    var thisPlayer = {}
+                    thisPlayer.id = parseInt(x)+1
+                    thisPlayer.skulls = 0
+                    thisPlayer.space = sp[x]
+
+                    players.push(thisPlayer)
+
+                    tmp = "Player " + numberWord[playerCount] + " starts on space " + tmpWord
+
+                    var els = document.getElementsByClassName(tmpWord)
+                    for (n in els) {
+                        var el = els[n]
+                        var playerHTML = '<div id="player' + titleCase(numberWord[playerCount]) + '" class="player player-' + numberWord[playerCount] + '">' + playerCount + '</div>'
+                    
+                        el.innerHTML = el.innerHTML + playerHTML
+                        
+                    }
+
+                }
+
+                console.log(players)
+            }
+
+
+            function updatePlayer(player, space) {
+                // alert ("Updating player " + player + " to space " + space)
+                if (player) {
+                    // log info to object
+                    var thisPlayer = {}
+                    thisPlayer.id = player - 1
+
+                    var tmpPlayer = players[thisPlayer.id]
+                    thisPlayer.skulls = tmpPlayer.skulls
+                    
+                    console.log("Player: " + thisPlayer)
+                    console.log("Space: " + space)
+
+                    thisPlayer.space = space
+
+                    var zero = ""
+                    if (space < 10) { zero = "0" }
+                    var htmlID = "tz" + zero + space
+
+                    console.log("Looking up element: " + htmlID)
+                    var currentEl = document.getElementById(htmlID)
+                    var currentCount = currentEl.value
+
+                    var tmpWord = numberWord[space]
+                    var els = document.getElementsByClassName(tmpWord)
+                    for (n in els) {
+                        var el = els[n]
+
+                        var playerHTML = '<div id="player' + titleCase(numberWord[player]) + '" class="player player-' + numberWord[player] + '">' + player + '</div>'
+                        el.innerHTML = el.innerHTML + playerHTML
+                    }
+                    
+                    console.log(currentEl)
+
+                    setTimeout(function() {
+                        var tmpEl = document.getElementById(htmlID)
+                        tmpEl.value = parseInt(currentCount)  
+                    },100)
+
+                    players[thisPlayer.id] = thisPlayer
+                    //console.log("Updating player info: ")
+                    //console.log(thisPlayer)
+                    //console.log(players)
+
+                }
+            }
+
+            function checkCollision(player) {
+                var collisions = []
+
+                // check current player aganst other players
+                console.log(player)
+
+                if (player) {
+                    var col = false
+                    for (i in players) {
+                        var tmpPlayer = players[i]
+                        console.log(tmpPlayer)
+
+                        if (player.space) {
+                            if (tmpPlayer.space) {
+
+                                if (player.space == tmpPlayer.space) {
+                                    // collision!
+
+                                    // discard current vs current match
+                                    if (player.id != tmpPlayer.id) {
+
+                                        col = true
+                                        console.log("Collision detected!")
+                                        console.log(player.id)
+                                        console.log(tmpPlayer.id)
+                                        
+                                        collisions.push(player.id)
+                                        collisions.push(tmpPlayer.id)
+
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                }
+                
+                // return
+                return collisions
+            }
+
+
+            function getPlayerPostion(player) {
+                var pos = 0
+                if (player) {
+                    playerEl = document.getElementBy
+                }
+            }
+
+            function movePlayer(player, position) {
+                console.log("Moving player")
+                var btn = document.getElementById("btnMove")
+                var btnNext = document.getElementById("btnNextTurn")
+                btn.disabled = false
+
+                // update object information
+                if (!(player)) {
+                    player = (turn % numPlayers) + 1
+                }
+
+                var curPos = getCurrentPosition(player)
+                // remove the player from the current space
+
+                var playerID = "player" + titleCase(numberWord[player])
+                var playerEl = document.getElementById(playerID)
+                playerEl.remove()
+
+                // generate new space number
+                var newSpace = curPos - 1
+                if (newSpace < 1) { newSpace = 20 }
+                if (newSpace > 20) { newSpace = 1 }
+
+                // random
+                var rand = Math.floor(Math.random() * 6) + 1;
+                var newSpace = curPos - rand
+
+
+                // var newSpace = curPos - 1
+                if (newSpace < 1) { newSpace = 20 }
+                if (newSpace > 20) { newSpace = 1 }
+
+                // add player to the new space
+                updatePlayer(player, newSpace)
+
+                // save object information
+
+                // return
+
+                btn.disabled = true
+                btnNext.disabled = false         
+                       
+                var tmpPlayer = players[player - 1]
+                var collision = checkCollision(tmpPlayer)
+
+                console.log("New Check Collsion Function")
+
+                if (collision.length > 0) {
+                    // a collision has been detected
+
+                    showBattleModal(collision)
+                }
+
+                //collisionDetect(players)
+
+            }
+
+            function nextTurn() {
+                turn++
+                updateTurn(turn)
+            }
+
+            function collectSkull() {
+                var player = turn % numPlayers
+
+                // alert("Collect skull for player " + (player + 1) + "!")
+
+                var tmp = players[player]
+                tmp.skulls = tmp.skulls + 1
+
+                players[player] = tmp
+
+                var curPos = getCurrentPosition(player + 1)
+                increaseSkullCount(curPos)
+
+                var skullCountEl = document.getElementById("currentPlayerSkulls")
+                skullCountEl.innerHTML = tmp.skulls
+
+                var btnCollectSkull = document.getElementById("btnCollectSkull")
+                var btnMove = document.getElementById("btnMove")
+                var btnNext = document.getElementById("btnNextTurn")
+
+                btnNext.disabled = true
+                btnMove.disabled = false
+                btnCollectSkull.disabled = true
+            }
+
+            function increaseSkullCount(space) {
+                //alert(numberWord[space])
+                //alert("increase skull count for " + space)
+                console.log(space)
+                var zero = ""
+                if (space < 10) { zero = "0" }
+                var htmlID = "tz" + zero + space
+
+                console.log(htmlID)
+                var el = document.getElementById(htmlID)
+
+                var retval = parseInt(el.value) + 1
+                if (retval > 13) { retval = 1 }
+                el.value = retval
+                //alert(els[0])
+            }
+
+            function getCurrentPosition(player) {
+
+                // get current position
+
+                var playerID = "player" + titleCase(numberWord[player])
+                var playerEl = document.getElementById(playerID)
+
+                var classList = playerEl.parentElement.classList
+                var cls = classList[1]
+                var clsPos
+                var clsNum = 0
+                for (var i=0; i < numberWord.length; i++) {
+                    if (numberWord[i] == cls) {
+                        clsNum = i
+                        clsPos = cls
+                    }
+                }
+
+                return clsNum
+            }
+
+            function titleCase(word) {
+                var tmp = word
+                var firstLetter = tmp.substring(0,1).toUpperCase();
+                var ret = (firstLetter + tmp.substring(1))
+                return ret
+            }
+
+            function findDuplicates(arry) {
+                var retval = []
+                var dupes = []
+                var count = 0
+                var dupeCount = 0
+
+                for (var i=0; i < arry.length; i++) {
+                    dupeCount = 0
+                    var tmpArr = []
+                    var tmpPlayerBattle = []
+                    for (var ii=0; ii < arry.length; ii++) {
+                        if (arry[i] == arry[ii]) {
+                            dupeCount++
+                            tmpArr.push((ii+1))
+
+                            tmpPlayerBattle.push((ii+1))
+                        }
+                    }
+
+                    dupes = tmpArr
+                    count++
+                }
+                
+                console.log("DUPECOUNT: " + dupeCount)
+                //console.log(dupes)
+                //console.log(tmpPlayerBattle)
+
+                if (dupeCount >= 2) { 
+                    //alert("Battle!")
+                    //retval = tmpArr
+                    console.log(tmpArr)
+                    retval = tmpArr
+                }
+
+                //console.log(retval)
+                return retval
+            }
+
+            function showBattleModal(players) {
+                console.log("Battle Modal: ")
+                console.log(players)
+
+                var battleModal = document.getElementById("battle-modal")
+                battleModal.style.display = "block"
+            }
+
+            function closeModal() {
+
+                var battleModal = document.getElementById("battle-modal")
+                battleModal.style.display = "none"
+            }
+
+        </script>
+    </head>
+    <body onload="init()">
+        
+        <div class="game-board">
+            <div class="position one coatl">
+                <div class="content">
+                    <input id="tz01" type="text" class="tzompantli" value="0" readonly="true" disabled="true">
+                </div>
+            </div>
+            <div class="position two cuetzpali"><div class="content"><input id="tz02" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position three calli"><div class="content"><input id="tz03" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position four ehecatl"><div class="content"><input id="tz04" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position five cipactli">
+                <div class="content">
+                    <input id="tz05" type="text" class="tzompantli" value="0" readonly="true" disabled="true">
+                </div>
+            </div>
+            <div class="position six xochitl"><div class="content"><input id="tz06" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position seven quiyahuitl"><div class="content"><input id="tz07" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position eight tecpatl"><div class="content"><input id="tz08" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position nine olin"><div class="content"><input id="tz09" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position ten cozcacuauhtli">
+                <div class="content">
+                    <input id="tz10" type="text" class="tzompantli" value="0" readonly="true" disabled="true">
+                </div>
+            </div>
+            <div class="position eleven cuauhtli"><div class="content"><input id="tz11" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position twelve ocelotl"><div class="content"><input id="tz12" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position thirteen acatl"><div class="content"><input id="tz13" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position fourteen malinalli"><div class="content"><input id="tz14" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position fifteen ozomahtli">
+                <div class="content">
+                    <input id="tz15" type="text" class="tzompantli" value="0" readonly="true" disabled="true">
+                </div>
+            </div>
+            <div class="position sixteen ozomahtli"><div class="content"><input id="tz16" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position seventeen atl"><div class="content"><input id="tz17" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position eighteen tochtli"><div class="content"><input id="tz18" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position nineteen mazatl"><div class="content"><input id="tz19" type="text" class="tzompantli" value="0" readonly="true" disabled="true"></div></div>
+            <div class="position twenty">
+                <div class="content">
+                    <input id="tz20" type="text" class="tzompantli" value="0" readonly="true" disabled="true">
+                </div>
+            </div>
+
+            <div class="tenochtitlan">
+                <div class="templo-mayor">
+                    <section class="temple">
+                        <label for="huitzilopochtli">War</label>
+                        <input id="huitzilopochtli" value="0">
+                    </section>
+
+                    <section class="temple">
+                        <label for="tlaloc">Rain</label>
+                        <input id="tlaloc" value="0">
+                    </section>
+                </div>
+                <div class="god huitzilopochtli">
+                    <a class="card disabled" href="#"><span>War</span></a>
+                </div>
+                <div class="god tlaloc">
+                    <a class="card disabled" href="#"><span>Rain</span></a>
+                </div>
+            </div>
+        </div>
+
+        <section class="info">
+
+            <div class="players">
+                <label for="selNumPlayers">Number of Players</label>
+                <select id="selNumPlayers" class="numPlayers">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4" selected="true">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+            <h2 class="current-turn">Turn <span id="currentTurn"></span></h2>
+            <h2 class="current-player">Player <span id="currentPlayer"></span></h2>
+            <h3 class="current-player-skulls">Skulls <span id="currentPlayerSkulls">0</span></h2>
+            
+
+            <form class="actions">
+                <input id="btnCollectSkull" type="button" value="Collect Skull" onclick="collectSkull()">
+                <input id="btnMove" type="button" value="Move" onclick="movePlayer()" disabled="true">
+                <input id="btnNextTurn" type="button" value="Next Turn" onclick="nextTurn()" disabled="true">
+            </form>
+        
+        </section>
+
+        <div id="battle-modal" class="modal">
+            <div class="content">
+                <h1>Battle</h1>
+
+                <input type="button" onclick="closeModal()" value="Close Window">
+            </div>
+        </div>
+    </body>
+</html>
