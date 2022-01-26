@@ -48,9 +48,9 @@ The Templo Mayor will include a counter which keeps track of the number of token
 
 The circular game board surrounding Lake Toxcoco and the Templo Mayor represents the Aztec ritual calendar. It is divided into twenty spaces and split into four quadrants representing the compass directions. 
 
-![IMG_1735](https://user-images.githubusercontent.com/6363445/151081616-26bee4e8-2cde-4ac2-a113-6f8bd459e067.jpg)
-
 <img width="1024" alt="Untitled 22" src="https://user-images.githubusercontent.com/6363445/142915773-0096eee6-d919-4611-8967-d92e9459ab3c.PNG">
+
+![IMG_1735](https://user-images.githubusercontent.com/6363445/151081616-26bee4e8-2cde-4ac2-a113-6f8bd459e067.jpg)
 
 ### Movement
 
