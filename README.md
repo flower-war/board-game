@@ -1,8 +1,8 @@
 # Flower War
 
-An Aztec-inspired strategy board game for up to 2-5 players 
+An Aztec-inspired strategy board game for up to 2-6 players 
 
-![IMG_0931](https://user-images.githubusercontent.com/6363445/149651962-98810edd-fc5d-4831-907b-47f51f54f39e.jpg)
+![IMG_1748](https://user-images.githubusercontent.com/6363445/151081070-679cf915-f6fc-4717-a492-1aef5cdab979.jpg)
 
 ## Game Assets
 
@@ -47,6 +47,9 @@ The Templo Mayor will include a counter which keeps track of the number of token
 ### The Game Board
 
 The circular game board surrounding Lake Toxcoco and the Templo Mayor represents the Aztec ritual calendar. It is divided into twenty spaces and split into four quadrants representing the compass directions. 
+
+
+![IMG_1735](https://user-images.githubusercontent.com/6363445/151081049-0e8dfbd2-2ce4-446d-9642-b6277bbab91c.jpg)
 
 <img width="1024" alt="Untitled 22" src="https://user-images.githubusercontent.com/6363445/142915773-0096eee6-d919-4611-8967-d92e9459ab3c.PNG">
 
