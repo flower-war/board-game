@@ -11,7 +11,7 @@ An Aztec-inspired strategy board game for up to 2-6 players
 - (1) Game board - Circular game board divided into 20 sections and four quadrants with a blue section in the middle to represent Lake Toxcoco. Printed in four pieces, diameter up to 21.5”
 - (1) Templo Mayor - 3D printed pyramid with two slots for sacrifices to Huitzilopochtli and Tlaloc. A raspberry pi or arduino powered counter keeps track of the sacrifices that the players make. (For early manual tracking, use a stack of post it strips to tally sacrifices.)
 - (360) Skull Beads - Players can use skull beads, 3D printed skulls, pony beads, flower beads, red beans, or other counters. 
-- (20) Tzompantli - Token containers that can hold up to 12 tokens each. One for each day (space) on the board. 
+- (20) Tzompantli - Skull Racks that can hold up to 12 tokens each. One for each day (space) on the board. 
 - (20) Calendar Discs - Tokens representing each day (space) on the board.
 
 ### Cards 
