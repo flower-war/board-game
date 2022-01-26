@@ -2,7 +2,7 @@
 
 An Aztec-inspired strategy board game for up to 2-6 players 
 
-![IMG_1748](https://user-images.githubusercontent.com/6363445/151081070-679cf915-f6fc-4717-a492-1aef5cdab979.jpg)
+![IMG_1748](https://user-images.githubusercontent.com/6363445/151081588-e79d6f8d-291e-4083-97c5-ce462f008e47.jpg)
 
 ## Game Assets
 
@@ -48,8 +48,7 @@ The Templo Mayor will include a counter which keeps track of the number of token
 
 The circular game board surrounding Lake Toxcoco and the Templo Mayor represents the Aztec ritual calendar. It is divided into twenty spaces and split into four quadrants representing the compass directions. 
 
-
-![IMG_1735](https://user-images.githubusercontent.com/6363445/151081049-0e8dfbd2-2ce4-446d-9642-b6277bbab91c.jpg)
+![IMG_1735](https://user-images.githubusercontent.com/6363445/151081616-26bee4e8-2cde-4ac2-a113-6f8bd459e067.jpg)
 
 <img width="1024" alt="Untitled 22" src="https://user-images.githubusercontent.com/6363445/142915773-0096eee6-d919-4611-8967-d92e9459ab3c.PNG">
 
