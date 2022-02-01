@@ -37,6 +37,14 @@ Land cards send a player to a specific space on the board. This allows them to c
 19 | QUIHUITL - RAIN | 0 | Go to QUIHUITL - RAIN |
 20 | XOCHITL - FLOWER | 0 | Go to XOCHITL - FLOWER | 
 
+### Huitzilopochtli Cards (Red)
+
+These cards are given by the Aztec god Huitzilopochtli when sarifices are made to him. 
+
+\#| Card Title               | Cost | Flavor Text   | Card Action
+--|--------------------------|------|---------------|-------------
+1 | Flower War | 1 | Each Tribe Contributes a Warrior | Take one skull from each player
+
 ### Tlaloc Cards (Blue)
 
 These cards are given by the Aztec god Tlaloc when sarifices are made to him. 
@@ -45,12 +53,4 @@ These cards are given by the Aztec god Tlaloc when sarifices are made to him.
 --|--------------------------|------|---------------|-------------
 1 | Tlaloc's Gift | 1 | Tears Increase the Harvest | Add the cost of this card to the current space 
 
-
-### Huitzilopochtli Cards (Red)
-
-These cards are given by the Aztec god Huitzilopochtli when sarifices are made to him. 
-
-\#| Card Title               | Cost | Flavor Text   | Card Action
---|--------------------------|------|---------------|-------------
-1 | Flower War | 1 | Each Tribe Contributes a Warrior | Take one skull from each player
 
