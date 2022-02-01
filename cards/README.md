@@ -4,7 +4,7 @@ All summary card descriptions will go here with individual card discussions goin
 
 ## Card Packs
 
-Cards are sold in packs of 13 cards, six Tlaloc cards, six Huitzilopochtli, and one rare card. Booster packs contain all 20 land cards and one legendary card. Each game requires a minimum of two booster packs and two card packs, with 4 card packs recommended. The number of cards in the deck both increases variety and gameplay 
+Cards are sold in packs of 13 cards, six Tlaloc cards, six Huitzilopochtli, and one rare card. Booster packs contain all 20 land cards and one legendary card. Each game requires a minimum of two booster packs, one for each god, and at least two card packs for each god (4 card packs total) recommended. The number of cards in the deck both increases variety and gameplay. 
 
 ## Card Groups
 
