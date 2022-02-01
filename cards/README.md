@@ -51,6 +51,6 @@ These cards are given by the Aztec god Tlaloc when sarifices are made to him.
 
 \#| Card Title               | Cost | Flavor Text   | Card Action
 --|--------------------------|------|---------------|-------------
-1 | Tlaloc's Gift | 1 | Tears Increase the Harvest | Add the cost of this card to the current space 
+1 | Tlaloc's Tears | 1 | Tears Increase the Harvest | Add the cost of this card to the current space 
 
 
