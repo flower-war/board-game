@@ -28,7 +28,7 @@ Depending on the calendar disc that is picked up, different effects apply to the
 
 ### Cipactli
 
-Crocodile - Evil spirits - Attack other players using warriors from any space on the board. 
+Crocodile - Evil spirits - Attack other players using warriors from any space on the board
 
 ### Ehecatl
 
@@ -36,7 +36,7 @@ Wind - All players are issued an Atlatl which increases the range of their attac
 
 ### Calli
 
-House - Use spells - ? (Lose -1 skull per battle) 
+House - Use spells -  After a sacrifice is made, a player may choose a card from the discard pile instead
 
 ### Cuetzpalin
 
@@ -52,7 +52,7 @@ Death - All cards are discarded. New cards can still be collected.
 
 ### Mazatl
 
-Deer - Wishes are granted - After a sacrifice is made, a player may choose a card from the discard pile instead. 
+Deer - Wishes are granted - Move to any space on the board.
 
 ### Tochtli
 
@@ -104,4 +104,5 @@ Rain - War cards cannot be used
 
 ### Xochitl
 
-Flower - No effect 
+Flower - Lose -1 skull per battle
+
