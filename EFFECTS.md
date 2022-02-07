@@ -1,5 +1,7 @@
 # All Possible Game Effects
 
+List of all the effects that can happen. These can be made into game cards. 
+
 Attack another player (of your choice)
 - Attack multiple targets 
 - Attack all targets 
