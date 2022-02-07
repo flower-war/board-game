@@ -1,9 +1,9 @@
 # All Possible Game Effects
 
 Attack another player (of your choice)
-Attack multiple targets 
-Attack all targets 
-Attack targets with bonuses 
+- Attack multiple targets 
+- Attack all targets 
+- Attack targets with bonuses 
 
 Increase range (decrease?)
 
@@ -20,7 +20,6 @@ Affect the rules of battle
   - Increase payout 
   - Decrease payout 
   - Flip a coin instead of battling 
-  - Play a card for free
 
 Affect Player Actions  
   - Put one skull back on the space 
@@ -32,9 +31,10 @@ Cancel an attack
   - And give the other player a skull
   - And give the other player a card 
 
-Cancel a payment 
+Cancel a skull payment 
 Cancel a card pickup 
 Cancel a skull pickup 
+Cancel a card cost 
 
 Cancel a card’s effect 
   - And add damage
