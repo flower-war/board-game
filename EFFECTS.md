@@ -20,7 +20,8 @@ Affect the rules of battle
   - Increase payout 
   - Decrease payout 
   - Flip a coin instead of battling 
-  
+  - Play a card for free
+
 Affect Player Actions  
   - Put one skull back on the space 
   - Take an extra skull from the space 
