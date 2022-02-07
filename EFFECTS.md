@@ -11,6 +11,7 @@ Affect the results of the battle
   - Increase player attack 
   - Increase player defense 
   - By number of skulls 
+  - Gain a skull but take damage in battle 
   - Combination 
 
 Affect the rules of battle
