@@ -28,17 +28,16 @@ Acquired by sacrificing skulls to Tlaloc, the god of rain. These cards provide d
 
 ## Objective
 
-Players represent nomadic Aztec tribes searching East, North, West, and South for the sign to settle given to them by the God Huitzilopochtli: an eagle eating a snake on a nopales cactus. The tribes engage in "Flower Wars" against each other to gather skulls to sacrifice to their gods. 
+Players represent nomadic Aztec tribes. The tribes engage in "Flower Wars" against each other to gather skulls to sacrifice to their gods. Each tribe must gather as many skulls as possible before the predicted end of the world occurs
 
-Players must circle the game board until they collect three cards: an eagle, a serpent, and a nopal cactus flower. The player who collects all three cards settles Tenotichitlan and wins the game. 
+Players must circle the game board until the gods set off the apocalypse. The tribe that survives the apocalypse with the most skulls wins.
 
 ## Mechanics 
 
-Along the way, skulls are collected and sacrificed to one of three Aztec deities: 
+Along the way, skulls are collected and sacrificed to one of two Aztec deities: 
 
   Huitzilopochtli (war)
   Tlaloc (rain)
-  Tonanzin (Mary of Guadalupe)
 
 In play, this is represented by a 3D printed Templo Mayor that sits in the center of a circular game board surrounded by a “lake” of blue representing Lake Texcoco. At the top of the templo mayor are two slots one for Huitzilopochtli and one for Tlaloc. When a player makes a “sacrifice” they place a token that they have collected and put it into the slot for the God they wish to sacrifice it to. The token rolls down the slot and into the “lake” which gradually fills with tokens. The lake is partitioned so that sacrifices given to each God fill a different half of the lake. 
 
