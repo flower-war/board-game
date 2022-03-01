@@ -18,10 +18,6 @@ Each turn a player takes a series of actions:
 4. Make sacrifices to the gods
 5. Play cards
 
-### First Turn
-
-The player who moves first does not pick up the skull on their starting space. All other players do. This is to balance first move advantage. 
-
 ### Making Sacrifices
 
 On each turn, players may make sacrifices to either Huitzilopochtli, the god of war, or Tlaloc, the god of rain, or both. To make a sacrifice, a player gives a skull to the god of their choice by putting it into the slot on the Templo Mayor in front of the temple of either Tlaloc or Huitzilopochtli. They can then draw a card from the deck of the god that they made a sacrifice to. 
