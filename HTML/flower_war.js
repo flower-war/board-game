@@ -212,9 +212,12 @@ let player =
         "Az":0,
         "Cath":0,
         "People":0,
-        "Cards": [0],
+        "cardsInHand": [0],
         "Lost":0,
-        "Strategy": 1
+        "Strategy": 1,
+        "possibleMoves":[],
+        "blockedMoves":[],
+        "playerCurrentCard": 0
     },
     {
         "playerID": 2,
@@ -224,9 +227,12 @@ let player =
         "Az":0,
         "Cath":0,
         "People":0,
-        "Cards": [0],
+        "cardsInHand": [0],
         "Lost":0,
-        "Strategy": 2
+        "Strategy": 2,
+        "possibleMoves":[],
+        "blockedMoves":[],
+        "playerCurrentCard": 0
     },
     {
         "playerID": 3,
@@ -236,9 +242,12 @@ let player =
         "Az":0,
         "Cath":0,
         "People":0,
-        "Cards": [0],
+        "cardsInHand": [0],
         "Lost":0,
-        "Strategy": 3
+        "Strategy": 3,
+        "possibleMoves":[],
+        "blockedMoves":[],
+        "playerCurrentCard": 0
     },
     {
         "playerID": 4,
@@ -248,9 +257,12 @@ let player =
         "Az":0,
         "Cath":0,
         "People":0,
-        "Cards": [0],
+        "cardsInHand": [0],
         "Lost":0,
-        "Strategy": 4
+        "Strategy": 4,
+        "possibleMoves":[],
+        "blockedMoves":[],
+        "playerCurrentCard": 0
     }
 ];
 
@@ -399,22 +411,22 @@ let playerTurn = 0;             // Which player's turn is it
 let azTemple = 0;               // Where is the Aztec figure
 let cathTemple = 0;             // Where is the Aztec figure
 let apocFlag = 0;               // Is the Apoc happening (0 for no, 1 for Az, 2 for Cath)
-let currentCard = 0;            // Which card has been drawn
 let actualMove = 0;             // Which space are we moving to
 let hasWon = 0;                 // Has someone won?
 let numPlayers = 0              // Number of players
 let turnOrder = [];             // Turn order
 let players = [];               // Who is playing
-let possibleMoves = [];         // what spaces can we move to?
 let blockedMoves = [];          // What spaces are blocked?
 let startSpace = 0;             // Declare Start
 let startQuad = 0;              // Declare Start Quad
 let playerID = 1;               // Declare Player ID
-let PlayerIndex = (playerID-1); // Player Index
+let playerIndex = (playerID-1); // Player Index
 let primaryF = '';
-let secondaryF = '';    
-let cardsLeft = 46;             // Number of cards dealt
-let cardsInHand = 0;            // Number of cards in hand
+let secondaryF = '';
+let whichFigD = '';
+let whichFigU = '';  
+let cardsLeft = 40;             // Number of cards dealt
+let heldCards = 0;            // Number of cards in hand
 let cardFigMove = "";           // Which figure is the card moving
 let readyToMove = false;        // is the player ready to move?
 let hasMoved = false;           // Has current player moved?
@@ -429,7 +441,7 @@ let startFaith = 2;             // Starting Faith
 let startPeople = 8;            // Starting People
 let bFBon = 2;                  // Basic Faith Bonus
 let bPBon = 1;                  // Basic People Bonus
-let bFpen = 2                   // Basic Faith Penalty
+let bFPen = 2                   // Basic Faith Penalty
 let bPPen = 1;                  // Basic People Penalty
 let fThresh = 6;                // Faith Threshold
 let pThresh = 4;                // People Threshold
@@ -468,7 +480,7 @@ function gameStart() {          // Starting game stuff
         }
 
     gameLogging("Starting the game with " + numPlayers + " players"); // Log
-    
+    blocker();
     turnStart();                // Start the first turn
 }
 
@@ -480,66 +492,57 @@ function turnStart() {          // Turn start stuff
 }
 
 function boardQuery() {  
-    let currentTime = player.at(playerIndex).time; // set current player's Time
-    let playerCurrentPos = player.at(playerIndex).Sp; // Set current player's space
-    let playerQuad = player.at(playerIndex).quadID; // Set current player's Quad
-    let lastSpace = ((playerQuad*5)-1); 
-    let testSpace = (playerCurrentPos) // set test space as current space
+    let lastSpace = ((player.at(playerIndex).quadID*5)-1); 
+    let testSpace = (player.at(playerIndex).spaceID) // set test space as current space
     let blockerTest = false; 
-    possibleMoves = [];
     blockedMoves = [];
+    player.at(playerIndex).possibleMoves.splice(0,player.at(playerIndex).possibleMoves.length);
+    player.at(playerIndex).blockedMoves.splice(0,player.at(playerIndex).blockedMoves.length);
     actualMove = -1;
     
-    if(currentTime < 4) {
+    if(player.at(playerIndex).time < 4) {
         testSpace++; // Don't count yourself.
         for (testSpace;testSpace<=lastSpace;testSpace++) {
             blockerTest = board.at(testSpace).blocker;
             if (blockerTest == false) { // test to see if there's a blocker
-                possibleMoves.push(testSpace);    // if not, push to possibleMoves
+                player.at(playerIndex).possibleMoves.push(testSpace);    // if not, push to possibleMoves
             }
             if (blockerTest == true) {
-                blockedMoves.push (testSpace);
+                player.at(playerIndex).blockedMoves.push (testSpace);
             }
         }
         readyToMove = true;
-    }
-
-    if (currentTime == 4) { // Time to move on
-        if (playerQuad < 4) { // Not in the last quadrant
-            playerQuad++; // increment quad
-            testSpace = ((playerQuad-1)*5);
-            lastSpace = ((playerQuad*5)-1);
+    } else if ((player.at(playerIndex).time == 4) && (player.at(playerIndex).quadID < 4)) { // Not in the last quadrant
+            player.at(playerIndex).quadID++; // increment quad
+            testSpace = ((player.at(playerIndex).quadID-1)*5);
+            lastSpace = ((player.at(playerIndex).quadID*5)-1);
             for (testSpace;testSpace<=lastSpace;testSpace++) { // Test every space left in the quad
                 blockerTest = board.at(testSpace).blocker;
                 if (blockerTest == false) { // test to see if there's a blocker
-                    possibleMoves.push(testSpace)    // if not, push to possibleMoves
+                    player.at(playerIndex).possibleMoves.push(testSpace)    // if not, push to possibleMoves
                 }
                 if (blockerTest == true) {
-                    blockedMoves.push (testSpace);
+                    player.at(playerIndex).blockedMoves.push (testSpace);
                 }
             }
-        }
-        readyToMove = true;
-    }
-    if (currentTime == 4) { 
-        if (playerQuad == 4) { // we are in the last quadrant
-            playerQuad = 1; // set Quad to 1
-            testSpace = ((playerQuad-1)*5);
-            lastSpace = ((playerQuad*5)-1);
+            readyToMove = true;
+        } else if ((player.at(playerIndex).time == 4)  && (player.at(playerIndex).quadID == 4)) { // we are in the last quadrant
+            player.at(playerIndex).quadID = 1; // set Quad to 1
+            testSpace = ((player.at(playerIndex).quadID-1)*5);
+            lastSpace = ((player.at(playerIndex).quadID*5)-1);
             for (testSpace;testSpace<=lastSpace;testSpace++) {
                 blockerTest = board.at(testSpace).blocker;
                 if (blockerTest == false) { // test to see if there's a blocker
-                    possibleMoves.push(testSpace)    // if not, push to possibleMoves
+                    player.at(playerIndex).possibleMoves.push(testSpace)    // if not, push to possibleMoves
                 }
                 if (blockerTest == true) {
-                    blockedMoves.push (testSpace);
+                    player.at(playerIndex).blockedMoves.push (testSpace);
                 }
             }
-        }
         readyToMove = true;
     }
-    gameLogging('Player ' + playerTurn + ' has these moves available: ' + possibleMoves); // Log possible moves
-    gameLogging('Player ' + playerTurn + ' is blocked in these spaces: ' + blockedMoves); // Log possible moves
+    gameLogging('Player ' + playerTurn + ' has these moves available: ' + player.at(playerIndex).possibleMoves); // Log possible moves
+    gameLogging('Player ' + playerTurn + ' is blocked in these spaces: ' + player.at(playerIndex).blockedMoves); // Log possible moves
 }
 
 function boardUpdate(move) { 
@@ -570,6 +573,11 @@ function boardUpdate(move) {
         player.at(playerIndex).Az += board.at(move).Az;
         player.at(playerIndex).Cath += board.at(move).Cath;
         player.at(playerIndex).People += board.at(move).People;
+        if (player.at(playerIndex).time < 4) {
+            player.at(playerIndex).time++;
+        } else if (player.at(playerIndex).time == 4) {
+            player.at(playerIndex).time = 1
+        }
         gameLogging('Updated '+ (playerID) + 's resources successfully');
         
         readyToMove = false;
@@ -577,7 +585,7 @@ function boardUpdate(move) {
 }
 
 function blocker(testNumber) {
-    let blockerDie = getRandomNuber(1, 6); // Roll the die
+    let blockerDie = getRandomNumber(1, 6); // Roll the die
     if (testNumber != null) {
         blockerDie = testNumber;
     }
@@ -769,15 +777,15 @@ function templeHandler(moveWhich) {
                     azTemple++;
                     player.at(playerIndex).Az -=azTemple;
                 }
-                checkTemple(A);
+                checkTemple('A');
             }
             if (apocFlag != 0) {
                 testPeo = player.at(playerIndex).People;
-                if (testPeople > (templeMax-azTemple)) {
+                if (testPeople > (templeMax-azTemple)+1) {
                     azTemple--;
                     player.at(playerIndex).People -=azTemple;
                 }
-                checkTemple(A);
+                checkTemple('A');
             }
         break;
         case C: // move Cath
@@ -788,15 +796,15 @@ function templeHandler(moveWhich) {
                         cathTemple++;
                         player.at(playerIndex).Az -=cathTemple;
                     }
-                    checkTemple(C);
+                    checkTemple('C');
                 }
                 if (apocFlag != 0) {
                     testPeo = player.at(playerIndex).People;
-                    if (testPeople > (templeMax-cathTemple)) {
+                    if (testPeople > (templeMax-cathTemple)+1) {
                         cathTemple--;
                         player.at(playerIndex).People -=cathTemple;
                     }
-                    checkTemple(C);
+                    checkTemple('C');
                 }
             break;
         }
@@ -830,497 +838,300 @@ function checkTemple(WhichTemple) {
 }
 
 function drawCard() {
-    if (cardsLeft == 0) {       // Check if all cards are drawn
-        for (i=0;i<19;i++) {    // If yes, cycle through all non-held cards
-            for(j=0;j<2;j++) {  // Cycle through both copies of each card
-                cards.at(i).copies[j] = 0; // Set each copy as in deck
-                cardsLeft++;    // Increment cardsLeft
-            }
-        }
-        for (i=19;i<21;i++) {   // Cycle through all held cards
-            for(j=0;j<2;j++) {  // Cycle through each copy of held cards
-                if(cards.at(i).copies[j] == 1) {    // If it is discarded
-                    cards.at(i).copies[j] = 0   // Set it as in the deck 
+    
+    let possibleCard = 0;
+    if (cardsLeft == 0)	{
+        for (cardCount=0;cardCount<19;cardCount++) {    // If yes, cycle through all non-held cards
+                for(copyCount=0;copyCount<2;copyCount++) {  // Cycle through both copies of each card
+                    cards.at(cardCount).copies.push(1); // Set each copy as in deck
                     cardsLeft++;    // Increment cardsLeft
+                }
+            }
+        for (cardCount=19;cardCount<21;cardCount++){
+            for(playerCounter=0;playerCounter<turnOrder.length;playerCounter++) {
+                for(checkPlayerHand=0;checkPlayerHand<player.at(playerCounter).cardsInHand.length;checkPlayerHand++) {
+                    if(player.at(playerCounter).cardsInHand.includes(cardCount)!=true) {
+                        cardsLeft++
+                        heldCards--;
+                    cards.at(cardCount).copies.push(1);
+                    }
                 }
             }
         }
     }
     
-    let possibleCard = getRandomNuber(0,20); // Get a random card
+    possibleCard = getRandomNumber(0,20);
+    while (cards.at(possibleCard).copies.length == 0) {
+        possibleCard = getRandomNumber(0,20);
 
-    if (cards.at(possibleCard).copies.includes(0) == true) { // If the card has an unplayed copy
-        currentCard = possibleCard; // Set current card as playable
     }
-    else {   
-        while (cards.at(possibleCard).copies.includes(0) == false) { // if it doesn't then loop
-        possibleCard = getRandomNuber(0,22);
-        }
-    currentCard = possibleCard;
-    }
+    player.at(playerIndex).playerCurrentCard = possibleCard;
     hasDrawn = true;
 }
 
-function cardHandler(currentCard) {
+function setCardAvail(cardNumber) {
+    let discard = cards.at(cardNumber);
+    console.log('popping card '+cards.at(cardNumber).cardTest);
+    console.log('before length: '+cards.at(cardNumber).copies.length);
+    discard.copies.splice(0,1);
+    console.log('after length: '+cards.at(cardNumber).copies.length);
+    cardsLeft--;
+}
+
+function cardHandler(relevantCard) {
     playerIndex = (playerTurn-1);
-    let tFaithB = 0;        // Temp Faith Bonus
-    let tFaithP = 0;        // Temp Faith Penalty
-    let tFaithTotal = 0;    
-    let tPeopleB = 0;       // Temp People Bonus
-    let tPeopleP = 0;       // Temp People Penalty
-    let tPeopleTotal = 0;
-    let tConvert = 0;
+    let randomPick = 0;
         
-    let card_test = cards.at(currentCard).cardTest;
-    let cardDrawn = 0;
+    let card_test = cards.at(relevantCard).cardTest;
+    console.log('relevantCard :'+relevantCard);
+    console.log('card_test :'+cards.at(relevantCard).cardTest);
 
     switch (card_test) {
         case "aBonus":
-            while (cardDrawn == false) {             // Check to see if a card has been drawn
-                for (i=0;i<cards.at(currentCard).copies.length;i++) { // Loop through all copies
-                    if (cards.at(currentCard).copies[i] == 0) { // Check if this copy is available
-                        cards.at(currentCard).copies[i] = 1; // If yes, set it as discarded
-                        cardsLeft--;            // remove it from # of cards left
-                        hasCardResolved = true;       // We've drawn a card.  
-                        break;          
-                    }
-                }
-            }
 
-            tFaithTotal = player.at(playerIndex).Az;
-            tFaithB = bFBon;
-            tFaithTotal += tFaithB;
-            player.at(playerIndex).Az = tFaithTotal;
-
+            setCardAvail(relevantCard);
+            player.at(playerIndex).Az += bFBon;
             break;
 
         case "aPenalty":  // Straight penalty to Az
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
+        
+            setCardAvail(relevantCard);
+            if (player.at(playerIndex).Az < bFPen) {
+                while (player.at(playerIndex).Az<bFPen) {
+                    cardPeopleConvert('A');
                 }
-            }
-            tFaithTotal = player.at(playerIndex).Az; // Set temp faith to player's AZ
-            tPeopleTotal = player.at(playerIndex).People;
-            tFaithP = bFpen;
-            if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-               cardPeopleConvert("A");
-            }
-            else {
-                tFaithTotal -= tFaithP;
-                player.at(playerIndex).Az = tFaithTotal;
-            }
+                player.at(playerIndex).Az -= bFPen;
+            } else {
+                player.at(playerIndex).Az -= bFPen;
+            }            
             break;  
 
         case "cPenalty":  // Straight penalty to Cath
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
+            setCardAvail(relevantCard);
+            if (player.at(playerIndex).Cath < bFPen) {
+                while (player.at(playerIndex).Cath < bFPen) {
+                    cardPeopleConvert('C');
                 }
+                player.at(playerIndex).Cath -= bFPen;
+            } else {
+                player.at(playerIndex).Cath -= bFPen;
             }
-            tFaithTotal = player.at(playerIndex).Cath; // Set temp faith to player's Cath
-            tPeopleTotal = player.at(playerIndex).People;
-            tFaithP = bFpen;
-
-            if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-               cardPeopleConvert("C");
-            }
-            else {
-
-                tFaithTotal -= tFaithP;
-                player.at(playerIndex).Cath = tFaithTotal;
-            }
-            break;  
+            break;
 
         case "cBonus":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
             
-            tFaithTotal = player.at(playerIndex).Cath;
-            tFaithB = bFBon;
-            tFaithTotal += tFaithB;
-            player.at(playerIndex).Cath = tFaithTotal;
+            setCardAvail(relevantCard);
+            player.at(playerIndex).Cath += bFBon;
             break;            
 
         case "gBonus":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            
+            setCardAvail(relevantCard);
 
             if (player.at(playerIndex).Cath < player.at(playerIndex).Az) {
-                tFaithTotal = player.at(playerIndex).Cath;
-                tFaithB = bFBon;
-                tFaithTotal += tFaithB;
-                player.at(playerIndex).Cath = tFaithTotal;
+                player.at(playerIndex).Cath += bFBon;
             } else {
-                tFaithTotal = player.at(playerIndex).Az;
-                tFaithB = bFBon;
-                tFaithTotal += tFaithB;
-                player.at(playerIndex).Az = tFaithTotal;
+                player.at(playerIndex).Az += bFBon;
             }
             break;
             
         case "gPenalty":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
+            setCardAvail(relevantCard);
+            randomPick = 0;
+            if (player.at(playerIndex).Cath == player.at(playerIndex).Az) {
+                randomPick = getRandomNumber(1,2);
             }
 
-            if (player.at(playerIndex).Cath > player.at(playerIndex).Az) {
-                tFaithTotal = player.at(playerIndex).Az; // Set temp faith to player's AZ
-                tPeopleTotal = player.at(playerIndex).People;
-                tFaithP = bFpen;
-
-                if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                    cardPeopleConvert("A");
-                }
-                else {
-                    tFaithTotal -= tFaithP;
-                    player.at(playerIndex).Az = tFaithTotal;
-                }
-            }
-            else {
-                tFaithTotal = player.at(playerIndex).Cath; 
-                tPeopleTotal = player.at(playerIndex).People;
-                tFaithP = bFpen;
-    
-                if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                   cardPeopleConvert("C");
-                }
-                else {
-                    tFaithTotal -= tFaithP;
-                    player.at(playerIndex).Cath = tFaithTotal;
-                }
-            }
+            if ((player.at(playerIndex).Cath < player.at(playerIndex).Az) || (randomPick == 1)) {
+                if (player.at(playerIndex).Az < bFPen) {
+                            while (player.at(playerIndex).Az<bFPen) {
+                                cardPeopleConvert('A');
+                            }
+                            player.at(playerIndex).Az -= bFPen;
+                        } else {
+                            player.at(playerIndex).Az -= bFPen;
+                        }
+            } else if ((player.at(playerIndex).Cath > player.at(playerIndex).Az) || (randomPick == 2)){
+                if (player.at(playerIndex).Cath < bFPen) {
+                            while (player.at(playerIndex).Cath < bFPen) {
+                                cardPeopleConvert('C');
+                            }
+                            player.at(playerIndex).Cath -= bFPen;
+                        } else {
+                            player.at(playerIndex).Cath -= bFPen;
+                        }
+            } 
             break;
 
         case "aCheck":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
+            setCardAvail(relevantCard);
+
+            if(player.at(playerIndex).Az < fThresh) {
+                if (player.at(playerIndex).Az < bFPen) {
+                    while (player.at(playerIndex).Az<bFPen) {
+                        cardPeopleConvert('A');
                     }
-                }
-            }
-
-            tFaithTotal = player.at(playerIndex).Az;
-
-            if(tFaithTotal < fThresh) {
-                tPeopleTotal = player.at(playerIndex).People;
-                tFaithP = bFpen;
-
-                if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                    cardPeopleConvert("A");
-                }
-                else {
-                    tFaithTotal -= tFaithP;
-                    player.at(playerIndex).Az = tFaithTotal;
+                    player.at(playerIndex).Az -= bFPen;
+                } else {
+                    player.at(playerIndex).Az -= bFPen;
                 }
             }
 
             break;
 
         case "cCheck":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
+            setCardAvail(relevantCard);
+
+            if(player.at(playerIndex).Cath < fThresh) {
+                if (player.at(playerIndex).Cath < bFPen) {
+                    while (player.at(playerIndex).Cath<bFPen) {
+                        cardPeopleConvert('C');
                     }
-                }
-            }
-
-            tFaithTotal = player.at(playerIndex).Cath;
-
-            if(tFaithTotal < fThresh) {
-                tPeopleTotal = player.at(playerIndex).People;
-                tFaithP = bFpen;
-
-                if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                    cardPeopleConvert("C");
-                }
-                else {
-                    tFaithTotal -= tFaithP;
-                    player.at(playerIndex).Cath = tFaithTotal;
+                    player.at(playerIndex).Cath -= bFPen;
+                } else {
+                    player.at(playerIndex).Cath -= bFPen;
                 }
             }
 
             break;
 
         case "gCheck":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
 
-            if ((player.at(playerIndex).Cath || player.at(playerIndex).Az) < fThresh) {
-                if (player.at(playerIndex).Cath > player.at(playerIndex).Az) {
-                    
-                    tFaithTotal = player.at(playerIndex).Az; 
-                    tPeopleTotal = player.at(playerIndex).People;
-                    tFaithP = bFpen;
-    
-                    if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                        cardPeopleConvert("A");
+            if ((player.at(playerIndex).Az < fThresh) || (player.at(playerIndex).Cath < fThresh)) {
+                randomPick = 0;
+                if (player.at(playerIndex).Cath == player.at(playerIndex).Az) {
+                    randomPick = getRandomNumber(1,2);
+                    console.log('randomPick '+randomPick);
+                    if (randomPick == 1) {
+                        if (player.at(playerIndex).Az < bFPen) {
+                            while (player.at(playerIndex).Az<bFPen) {
+                                cardPeopleConvert('A');
+                            }
+                            player.at(playerIndex).Az -= bFPen;
+                        } else {
+                            player.at(playerIndex).Az -= bFPen;
+                        }          
+                    } else {
+                        if (randomPick == 2) {
+                            if (player.at(playerIndex).Cath < bFPen) {
+                                while (player.at(playerIndex).Cath<bFPen) {
+                                    cardPeopleConvert('C');
+                                }
+                                player.at(playerIndex).Cath -= bFPen;
+                            } else {
+                                player.at(playerIndex).Cath -= bFPen;
+                            }          
+                        }
                     }
-                    else {
-                        tFaithTotal -= tFaithP;
-                        player.at(playerIndex).Az = tFaithTotal;
+                } else if (player.at(playerIndex).Az < fThresh) {
+                    if (player.at(playerIndex).Az < bFPen) {
+                        while (player.at(playerIndex).Az<bFPen) {
+                            cardPeopleConvert('A');
+                        }
+                        player.at(playerIndex).Az -= bFPen;
+                    } else {
+                        player.at(playerIndex).Az -= bFPen;
+                    }          
+                } else {
+                    if (player.at(playerIndex).Cath < fThresh) {
+                        if (player.at(playerIndex).Cath < bFPen) {
+                            while (player.at(playerIndex).Az<bFPen) {
+                                cardPeopleConvert('C');
+                            }
+                            player.at(playerIndex).Cath -= bFPen;
+                        } else {
+                            player.at(playerIndex).Cath -= bFPen;
+                        }          
                     }
                 }
-                else {
-                    tFaithTotal = player.at(playerIndex).Cath; 
-                    tPeopleTotal = player.at(playerIndex).People;
-                    tFaithP = bFpen;
-        
-                    if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-                       cardPeopleConvert("C");
-                    }
-                    else {
-                        tFaithTotal -= tFaithP;
-                        player.at(playerIndex).Cath = tFaithTotal;
-                    }
-                }
-            }
+            } 
             
             break;
 
         case "pBonus":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
-
-            tPeopleTotal =  player.at(playerIndex).People;
-            tPeopleB = bPBon;
-
-            tPeopleTotal += tPeopleB;
-            player.at(playerIndex).People = tPeopleTotal;
-            
+            setCardAvail(relevantCard);
+            player.at(playerIndex).People += bPBon;
             break;
 
         case "pPenalty":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
-
-            tPeopleTotal = player.at(playerIndex).People;
-            tPeopleP = bPPen;
-            tPeopleTotal -= tPeopleP;
-            if (tPeopleTotal <= 0) {
+            setCardAvail(relevantCard);
+            if ((player.at(playerIndex).People-bPPen) <= 0) {
                 player.at(playerIndex).Lost = 1;
             }
-            player.at(playerIndex).People = tPeopleTotal;
+            player.at(playerIndex).People -= bPPen;
 
             break;
 
         case "pCheck":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
 
             tPeopleTotal = player.at(playerIndex).People; 
 
-            if (tPeopleTotal < pThresh) {
-                tPeopleTotal = player.at(playerIndex).People;
-                tPeopleP = bPPen;
-                tPeopleTotal -= tPeopleP;
-                if (tPeopleTotal <= 0) {
+            if (player.at(playerIndex).People < pThresh) {
+                if ((player.at(playerIndex).People-bPPen) <= 0) {
                     player.at(playerIndex).Lost = 1;
                 }
-                player.at(playerIndex).People = tPeopleTotal;
+                player.at(playerIndex).People -= bPPen;
             }
             
             break;
 
         case "aConvert":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
+            setCardAvail(relevantCard);
+            
+            if (player.at(playerIndex).Az < bFPen) {
+                while (player.at(playerIndex).Az<bFPen) {
+                    cardPeopleConvert('A');
                 }
-            }
-            
-            tFaithP = bFpen;
-            tConvert = (tFaithP *2);
-            tFaithTotal = player.at(playerIndex).Az; // Set temp faith to player's Cath
-            tPeopleTotal = player.at(playerIndex).People;
-
-            if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-               cardPeopleConvert("C");
-            }
-            else {
-
-                tFaithTotal -= tFaithP;
-                player.at(playerIndex).Az = tFaithTotal;
-            }
-            player.at(playerIndex).Cath += tConvert;
-
-            
+                player.at(playerIndex).Az -= bFPen;
+                player.at(playerIndex).Cath += bFBon
+            } else {
+                player.at(playerIndex).Az -= bFPen;
+                player.at(playerIndex).Cath += bFBon
+            }            
             break;
 
         case "cConvert":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }            
+            setCardAvail(relevantCard);       
             
-            tFaithP = bFpen;
-            tConvert = (tFaithP *2);
-            tFaithTotal = player.at(playerIndex).Cath; // Set temp faith to player's Cath
-            tPeopleTotal = player.at(playerIndex).People;
-
-            if (tFaithTotal < tFaithP) { // if Penalty is higher than Faith
-               cardPeopleConvert("C");
-            }
-            else {
-                tFaithTotal -= tFaithP;
-                player.at(playerIndex).Cath = tFaithTotal;
-            }
-            player.at(playerIndex).Az += tConvert;
+            if (player.at(playerIndex).Cath < bFPen) {
+                while (player.at(playerIndex).Cath<bFPen) {
+                    cardPeopleConvert('C');
+                }
+                player.at(playerIndex).Cath -= bFPen;
+                player.at(playerIndex).Az += bFBon
+            } else {
+                player.at(playerIndex).Cath -= bFPen;
+                player.at(playerIndex).Az += bFBon
+            }            
 
             break;
 
         case "aCull":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
 
-            tFaithTotal = player.at(playerIndex).Az;
-            tPeopleTotal = player.at(playerIndex).People;
-            tPeopleP = bPPen;
-            tFaithB = (bPPen * 2);
-
-            if (tPeopleTotal <= tPeopleP) {
-                player.at(playerIndex).Lose = 1;
+            if ((player.at(playerIndex).People-bPPen) <= 0) {
+                player.at(playerIndex).Lost = 1;
             }
-            
-            tFaithTotal += tFaithB;
-            tPeopleTotal -= tPeopleP;
-            player.at(playerIndex).Az = tFaithTotal;
-            player.at(playerIndex).People = tPeopleTotal;
+            player.at(playerIndex).People -= bPPen;
+            player.at(playerIndex).Az += (bFBon*2);
             
             break;
 
         case "cCull":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
                 
-            tFaithTotal = player.at(playerIndex).Cath;
-            tPeopleTotal = player.at(playerIndex).People;
-            tPeopleP = bPPen;
-            tFaithB = (bPPen * 2);
-
-            if (tPeopleTotal <= tPeopleP) {
-                player.at(playerIndex).Lose = 1;
+            if ((player.at(playerIndex).People-bPPen) <= 0) {
+                player.at(playerIndex).Lost = 1;
             }
-            
-            tFaithTotal += tFaithB;
-            tPeopleTotal -= tPeopleP;
-            player.at(playerIndex).Cath = tFaithTotal;
-            player.at(playerIndex).People = tPeopleTotal;
+            player.at(playerIndex).People -= bPPen;
+            player.at(playerIndex).Cath += (bFBon*2);
             
             break;
 
         case "catchUp":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        cardDrawn++;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
                 
             if (player.at(playerIndex).People < pThresh) {
                 player.at(playerIndex).People += bPBon;
@@ -1335,20 +1146,19 @@ function cardHandler(currentCard) {
             break;
         
         case "uFigure":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
 
             let figMovedU = false;
             let whichFigU = cardFigMove;
-                
+
+            if ((azTemple == maxLevel) && (cathTemple == maxLevel)) {
+                whichFigU = 'N';
+            } else if (azTemple == maxLevel) {
+                whichFigU = 'C';
+            } else if (cathTemple == maxLevel) {
+                whichFigU = 'A';
+            }
+
             switch (whichFigU) {
                 case "A":
                     if (azTemple < maxLevel) {
@@ -1374,26 +1184,27 @@ function cardHandler(currentCard) {
                         cardFigMove = "";
                     }
                     break;
+                case "N":
+                        console.log("can't move anything up");
+                        break;
                 }
-            break;
+                break;
+
 
         case "dFigure":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }
+            setCardAvail(relevantCard);
                 
             let figMovedD = false;
-            let whichFigD = "";
             while (figMovedD == false) {
                 whichFigD = cardFigMove;
                 
+                if ((azTemple == 0) && (cathTemple == 0)) {
+                    whichFigD = 'N';
+                } else if (azTemple == 0) {
+                    whichFigD = 'C';
+                } else if (cathTemple == 0) {
+                    whichFigD = 'A';
+                }
                 switch (whichFigD) {
                     case "A":
                         if (azTemple > 0) {
@@ -1431,54 +1242,29 @@ function cardHandler(currentCard) {
                             }
                         }
                         break;
+                    case "N":
+                        console.log("can't move anything down");
+                        figMovedD = true;
+                        break;
                 }
             }
 
             break;
 
         case "iBlock":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        cardsInHand++;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }                
-            
-            if (players.at(playerIndex).Cards.length == 1) {
-                if (players.Cards.at(0) == 0) {
-                    players.Cards.at(0) = currentCard;
-                }
-            } else {
-                players.Cards.push(currentCard);
-            }
+
+            setCardAvail(relevantCard);
+            player.at(playerIndex).cardsInHand.push(relevantCard);
+            heldCards++;
 
             break;
 
         case "rBlock":
-            while (cardDrawn == false) {
-                for (i=0;i<cards.at(currentCard).copies.length;i++) {
-                    if (cards.at(currentCard).copies[i] == 0) {
-                        cards.at(currentCard).copies[i] = 1;
-                        cardsLeft--;
-                        cardsInHand++;
-                        hasCardResolved = true;         
-                        break;
-                    }
-                }
-            }      
+            
+            setCardAvail(relevantCard);
+            player.at(playerIndex).cardsInHand.push(relevantCard);
+            heldCards++;
 
-            if (players.at(playerIndex).Cards.length == 1) {
-                if (players.Cards.at(0) == 0) {
-                    players.Cards.at(0) = currentCard;
-                }
-            } else {
-                players.Cards.push(currentCard);
-            }
 
             break;
 
@@ -1492,79 +1278,24 @@ function cardHandler(currentCard) {
 }
 
 function cardPeopleConvert(whichFaith) {
-    tFaithB = 0;
-    tFaithP = 0;
-    tPeopleP = 0;
-    let tempOverflow = 0;
-
     switch (whichFaith) {
         case "A":
-            tFaithTotal = player.at(playerIndex).Az;
-            tPeopleTotal = player.at(playerIndex).People; // set Player people to temp value
-            if (apocFlag != 2) {
-                tempOverflow = tFaithP - tFaithTotal; // How much extra
-                if (tempOverflow > pCon) { // if the overflow is higher than the conversion rate
-                    tPeopleP = Math.ceil((tempOverflow/pCon)); // Set the people penalty
-                    tFaithB = (tempOverflow % pCon); // set the remainder
-                } else {
-                    tFaithB = (tempOverflow % pCon);
-                    tPeopleP = 1;
-                }                    
-            } else 
-            if (apocFlag == 2) {
-                tempCon = (pCon +1);
-                tempOverflow = tFaithP - tFaithTotal;
-                if (tempOverflow > tempCon) {
-                    tPeopleP = (tempOverflow/tempCon);
-                    tempOverflow -= TempCon;
-                    tFaithB = (tempOverflow % tempCon);
-                } else {
-                    tFaithB = (tempOverflow % tempCon);
-                    tPeopleP = 1;
-                } 
-            }
-            tFaithTotal += tFaithB; // subtract penalty from temp faith
-            tPeopleTotal -= tPeopleP;
-            if (tPeopleTotal <= 0) {
-                player.at(playerIndex).Lost = 1;
-            }
-            player.at(playerIndex).Az = tFaithTotal; //subtract total from Player
-            player.at(playerIndex).People = tPeopleTotal;
-            break;
-
+        if (apocFlag != 1) {
+            player.at(playerIndex).Az += pCon
+            player.at(playerIndex).People--		
+        } else {
+            player.at(playerIndex).Az += (pCon+1)
+            player.at(playerIndex).People--		
+        }
+        break;
         case "C":
-            tFaithTotal = player.at(playerIndex).Cath;
-            tPeopleTotal = player.at(playerIndex).People; // set Player people to temp value
-            if (apocFlag != 1) {
-                tempOverflow = tFaithP - tFaithTotal; // How much extra
-                if (tempOverflow > pCon) { // if the overflow is higher than the conversion rate
-                    tPeopleP = Math.ceil((tempOverflow/pCon)); // Set the people penalty
-                    tFaithB = (tempOverflow % pCon); // set the remainder
-                } else {
-                    tFaithB = (tempOverflow % pCon);
-                    tPeopleP = 1;
-                }                    
-            } else 
-            if (apocFlag == 2) {
-                tempCon = (pCon +1);
-                tempOverflow = tFaithP - tFaithTotal;
-                if (tempOverflow > tempCon) {
-                    tPeopleP = (tempOverflow/tempCon);
-                    tempOverflow -= TempCon;
-                    tFaithB = (tempOverflow % tempCon);
-                } else {
-                    tFaithB = (tempOverflow % tempCon);
-                    tPeopleP = 1;
-                } 
-            }
-            tFaithTotal += tFaithB; // subtract penalty from temp faith
-            tPeopleTotal -= tPeopleP;
-            if (tPeopleTotal <= 0) {
-                player.at(playerIndex).Lost = 1;
-            }
-            player.at(playerIndex).Cath = tFaithTotal; //subtract total from Player
-            player.at(playerIndex).People = tPeopleTotal;
-            break;
+        if (apocFlag != 1) {
+            player.at(playerIndex).Cath += pCon
+            player.at(playerIndex).People--		
+        } else {
+            player.at(playerIndex).Cath += (pCon+1)
+            player.at(playerIndex).People--		
+        }
     }
 }
 
@@ -1592,6 +1323,8 @@ function endTurn() {
                 hasCardResolved = false;
                 hasConverted = false;
                 hasMovedFig = false;
+                whichFigD = '';
+                whichFigU = '';
             }
         }
     }
@@ -1608,15 +1341,15 @@ function endTurn() {
     }
 }
 
-function getRandomNuber(min, max) {
+function getRandomNumber(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
 
     return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-function strategySetup() {
-    for(i=0;i<=playerTurn.length;i++) {
+function strategyStartGame() {
+    for(i=0;i<playerTurn.length;i++) {
         switch (player.Strategy) {
             case 1:
                 if(playerIndex <3){
@@ -1630,6 +1363,62 @@ function strategySetup() {
     }
 
 }
+
+
+function strategyStartTurn() {
+    let currentPlayerA = player.at(playerIndex).Az;
+    let currentPlayerC = player.at(playerIndex).Cath;
+    let currentPlayerFDif = 0;
+    let diffTotal = [];
+    let diffInc = 0;
+    let diffFinal = 0;
+    let highTemp = '';
+    if (azTemple > cathTemple) {
+        highTemp = 'A';
+    } else {
+        highTemp = 'C';
+    }
+    if (apocFlag == 0) {                                // If there is no apoc flag
+        if (highTemp == 'A' && azTemple < maxLevel) {       // if aztec is highest but below max level
+            currentPlayerFDif = (azTemple - cathTemple) + 1;    // how far do I have to move the cath fig to get it above the Az fig
+            diffInc = cathTemple + 1;                           // calulate the difference increment
+            for (i = 0; i <= currentPlayerFDif; i++) {          // for loop
+                diffTotal.push(diffInc);                        // push the cost of moving the opposite figure higher than the highest figure
+                diffInc++
+            }
+            for (j = 0; j < diffTotal.length; j++) { 
+                diffFinal += diffTotal[j];                      // add up the total cost
+            }
+            if ((diffFinal < currentPlayerC) && (currentPlayerC > (currentPlayerA- diffFinal))) {     // if we have enough AND it's more than moving the other figure. 
+                whichFigU = 'A'; // move the other figure.
+            } else {
+                whichFigU = 'C';
+            }
+        } else if (highTemp == 'C' && azTemple < maxLevel) {
+            currentPlayerFDif = (cathTemple - azTemple) + 1;
+            diffInc = azTemple + 1;
+            for (i = 0; i <= currentPlayerFDif; i++) {
+                diffTotal.push(diffInc);
+                diffInc++
+            }
+            for (j = 0; j < diffTotal.length; j++) {
+                diffFinal += diffTotal[j];
+            }
+            if ((diffFinal < currentPlayerA) && (currentPlayerA > (currentPlayerC - diffFinal))) {
+                whichFigU = 'A';
+            } else {
+                whichFigU = 'C';
+            }
+        }
+    } else if ((apocFlag != 0) || (azTemple == maxLevel) || (cathTemple == maxLevel)) {
+        if (highTemp == 'A') {
+            whichFigD = 'A';
+        } else {
+            whichFigD = 'C';
+        }
+    }
+}
+
 
 function moveStrategy(whichPlayer) {
     let fTotal = 0;
@@ -1849,16 +1638,16 @@ function moveStrategy(whichPlayer) {
 }
         
 function strategyCheckMoves(pMoves, resource) {
-    let pMoves = possibleMoves;
     let pMove = 0;
     let checkMove = 0;
     let toCheck = '';
     let aMove = 0;
+    pMoves = possibleMoves;
     
     toCheck = resource;
 
     pMove = board.at(possibleMoves[0]).toCheck;
-    for (i=1;i<=possibleMoves.length;i++) {
+    for (i=1;i<possibleMoves.length;i++) {
         checkMove = board.at(pMoves[i]).toCheck;
         if (checkMove > pMove) {
             pMove = checkMove;
@@ -1907,14 +1696,14 @@ function strategyResourceLoop(whichPlayer) {
 					aFlag = apocFlag;
 					while (aFlag == 0) {
 						while (c1Faith > fThresh) {
-							convertFaith(C);
+							convertFaith('C');
 							c1Faith = player.at(playerIndex).Cath;
 						}
 						a1Faith = player.at(playerIndex).Az;
 						while (a1Faith > fThresh) {
 							if (azTemple > maxTemple) {
 								if (a1Faith > azTemple) {
-									templeHandler(A)
+									templeHandler('A')
 									aFlag = apocFlag;
 								}
 								a1Faith = player.at(playerIndex).Az;
@@ -1924,25 +1713,25 @@ function strategyResourceLoop(whichPlayer) {
 					while (aFlag != 0) {
 						if (azTemple == 1) {
 							if (p1People > 6) {
-								templeHandler (A);
+								templeHandler ('A');
 							}
 						} else {
 							while (c1Faith > fThresh) {
-								convertPeople(C);
+								convertPeople('C');
 								c1Faith = player.at(playerIndex).Cath;
 							}
 							while (a1Faith > fThresh) {
-								convertPeople(A);
+								convertPeople('A');
 								a1Faith = player.at(playerIndex).Az;
 							}
 							p1People = player.at(playerIndex).People;				
 							while (p1People > pThresh) {
 								if ((p1People - (templeMax-cathTemple)) > (pThresh/2)) {
-									templeHandler (A);
+									templeHandler ('A');
 									p1People = player.at(playerIndex).People;	
 									if (azTemple == 1) {
 										if (p1People > 6) {
-											templeHandler (A);
+											templeHandler ('A');
 										}
 									}
 								}
@@ -1954,14 +1743,14 @@ function strategyResourceLoop(whichPlayer) {
 					aFlag = apocFlag;
 					while (aFlag == 0) {
 						while (a1Faith > fThresh) {
-							convertFaith(A);
+							convertFaith('A');
 							a1Faith = player.at(playerIndex).Az;
 						}
 						c1Faith = player.at(playerIndex).Cath;
 						while (c1Faith > fThresh) {
 							if (cathTemple > maxTemple) {
 								if (c1Faith > azTemple) {
-									templeHandler(C)
+									templeHandler('C')
 									aFlag = apocFlag;
 								}
 								c1Faith = player.at(playerIndex).Cath;
@@ -1971,25 +1760,25 @@ function strategyResourceLoop(whichPlayer) {
 					while (aFlag != 0) {
 						if (cathTemple == 1) {
 							if (p1People > 6) {
-								templeHandler (C);
+								templeHandler ('C');
 							}
 						} else {
 							while (c1Faith > fThresh) {
-								convertPeople(C);
+								convertPeople('C');
 								c1Faith = player.at(playerIndex).Cath;
 							}
 							while (a1Faith > fThresh) {
-								convertPeople(A);
+								convertPeople('A');
 								a1Faith = player.at(playerIndex).Az;
 							}
 							p1People = player.at(playerIndex).People;				
 							while (p1People > pThresh) {
 								if ((p1People - (templeMax-cathTemple)) > Math.ceil(pThresh/2)) {
-									templeHandler (C);
+									templeHandler ('C');
 									p1People = player.at(playerIndex).People;	
 									if (azTemple == 1) {
 										if (p1People > 6) {
-											templeHandler (C);
+											templeHandler ('C');
 										}
 									}
 								}
@@ -2022,14 +1811,14 @@ function strategyResourceLoop(whichPlayer) {
                 aFlag = apocFlag;  
                 while (aFlag == 0) {  // and there's no apocalypse
                     while (c2Faith > fThresh) { // While Cath faith is higher than fThresh
-                        convertFaith(C); // Convert to Aztec Faith
+                        convertFaith('C'); // Convert to Aztec Faith
                         c2Faith = player.at(playerIndex).Cath; // Refresh Cath Faith
                     }
                     a2Faith = player.at(playerIndex).Az; 
                     while (a2Faith > fThresh) { // While Aztec Faith is higher than fThresh
                         if (azTemple > maxTemple) { // and Aztec figure is lower than temple Max
                             if (a2Faith > azTemple) { //if we have enough faith to move the figure 
-                                templeHandler(A) // Move the figure.
+                                templeHandler('A') // Move the figure.
                                 aFlag = apocFlag; // Check to see if the apocalypse flag has changed.
                             }
                             a2Faith = player.at(playerIndex).Az; // Update Aztec Faith
@@ -2039,25 +1828,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag != 0) { // If there IS an apocalypse 
                     if (azTemple == 1) { // and Az temple is at the lowest level
                         if (p1People > 6) { // And we have more than 6 people
-                            templeHandler (A); // Win the game
+                            templeHandler ('A'); // Win the game
                         }
                     } else { 
                         while (c2Faith > fThresh) { // while Cath faith is above fThresh
-                            convertPeople(C); // Convert Cath to People
+                            convertPeople('C'); // Convert Cath to People
                             c2Faith = player.at(playerIndex).Cath; // Update Cath
                         }
                         while (a2Faith > fThresh) { // Do the same to Aztec Faith
-                            convertPeople(A);
+                            convertPeople('A');
                             a2Faith = player.at(playerIndex).Az;
                         }
                         p1People = player.at(playerIndex).People;				
                         while (p2People > pThresh) { // if people is above pThresh
                             if ((p2People - (templeMax-azTemple)) > (pThresh/2)) { // and after we pay we will be above .5 pThres
-                                templeHandler (A); // Move figure
+                                templeHandler ('A'); // Move figure
                                 p2People = player.at(playerIndex).People;	// Update people
                                 if (azTemple == 1) { // if we can win, do it.
                                     if (p2People > 6) {
-                                        templeHandler (A);
+                                        templeHandler ('A');
                                     }
                                 }
                             }
@@ -2069,14 +1858,14 @@ function strategyResourceLoop(whichPlayer) {
                 aFlag = apocFlag;  
                 while (aFlag == 0) {  
                     while (a2Faith > fThresh) { 
-                        convertFaith(A); 
+                        convertFaith('A'); 
                         a2Faith = player.at(playerIndex).Az; 
                     }
                     c2Faith = player.at(playerIndex).Cath; 
                     while (c2Faith > fThresh) { 
                         if (cathTemple > maxTemple) { 
                             if (a2Faith > azTemple) { 
-                                templeHandler(C) 
+                                templeHandler('C') 
                                 aFlag = apocFlag; 
                             }
                             c2Faith = player.at(playerIndex).Cath; 
@@ -2086,25 +1875,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag != 0) { 
                     if (cathTemple == 1) { 
                         if (p2People > 6) { 
-                            templeHandler (C); 
+                            templeHandler ('C'); 
                         }
                     } else { 
                         while (c2Faith > fThresh) { 
-                            convertPeople(C); 
+                            convertPeople('C'); 
                             c2Faith = player.at(playerIndex).Cath; 
                         }
                         while (a2Faith > fThresh) { 
-                            convertPeople(A);
+                            convertPeople('A');
                             a2Faith = player.at(playerIndex).Az;
                         }
                         p2People = player.at(playerIndex).People;				
                         while (p2People > pThresh) { 
                             if ((p2People - (templeMax-azTemple)) > Math.floor(pThresh/2)) { 
-                                templeHandler (C); 
+                                templeHandler ('C'); 
                                 p2People = player.at(playerIndex).People;	
                                 if (azTemple == 1) { 
                                     if (p2People > 6) {
-                                        templeHandler (C);
+                                        templeHandler ('C');
                                     }
                                 }
                             }
@@ -2135,23 +1924,23 @@ function strategyResourceLoop(whichPlayer) {
             if(highestTemple == 'A'){
                 while (aFlag ==0 ) {
                     while((p3People < (Math.ceil(pThresh*1.5))) && (c3Faith > fThresh)){
-                            convertPeople(C);
+                            convertPeople('C');
                             p3People = player.at(playerIndex).People;
                             c3Faith = player.at(playerIndex).Cath;
                         }
                     while((p3People < (Math.ceil(pThresh*1.5))) && (a3Faith > fThresh)){
-                        convertPeople(A);
+                        convertPeople('A');
                         p3People = player.at(playerIndex).People;
                         a3Faith = player.at(playerIndex).Az;
                     }
                     while (c3Faith > fThresh) {
-                        convertFaith(C);
+                        convertFaith('C');
                         c3Faith = player.at(playerIndex).Cath;
                     }
                     while (a3Faith > fThresh) { 
                         if (azTemple > maxTemple) { 
                             if (a3Faith > azTemple) { 
-                                templeHandler(A) 
+                                templeHandler('A') 
                                 aFlag = apocFlag; 
                             }
                             a3Faith = player.at(playerIndex).Az; 
@@ -2161,25 +1950,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag !=0 ) {
                     if (azTemple == 1) { 
                         if (p3People > 6) { 
-                            templeHandler (A); 
+                            templeHandler ('A'); 
                         }
                     } else {
                         while((p3People < (Math.ceil(pThresh*1.5))) && (c3Faith > fThresh)){
-                                convertPeople(C);
+                                convertPeople('C');
                                 p3People = player.at(playerIndex).People;
                                 c3Faith = player.at(playerIndex).Cath;
                             }
                         while((p3People < (Math.ceil(pThresh*1.5))) && (a3Faith > fThresh)){
-                            convertPeople(A);
+                            convertPeople('A');
                             p3People = player.at(playerIndex).People;
                             a3Faith = player.at(playerIndex).Az;
                         }
                         while(p3People < (fThresh + (templeMax - azTemple))) {
-                            templeHandler(A);
+                            templeHandler('A');
                             p3People = player.at(playerIndex).People;
                             if (azTemple == 1) { 
                                 if (p3People > 6) { 
-                                    templeHandler (A); 
+                                    templeHandler ('A'); 
                                 }
                             }
                         }
@@ -2189,23 +1978,23 @@ function strategyResourceLoop(whichPlayer) {
             } else {
                 while (aFlag ==0 ) {
                     while((p3People < (Math.ceil(pThresh*1.5))) && (a3Faith > fThresh)){
-                            convertPeople(A);
+                            convertPeople('A');
                             p3People = player.at(playerIndex).People;
                             a3Faith = player.at(playerIndex).Az;
                         }
                     while((p3People < (Math.ceil(pThresh*1.5))) && (c3Faith > fThresh)){
-                        convertPeople(C);
+                        convertPeople('C');
                         p3People = player.at(playerIndex).People;
                         c3Faith = player.at(playerIndex).Cath;
                     }
                     while (a3Faith > fThresh) {
-                        convertFaith(A);
+                        convertFaith('A');
                         a3Faith = player.at(playerIndex).Az;
                     }
                     while (c3Faith > fThresh) { 
                         if (cathTemple > maxTemple) { 
                             if (c3Faith > cathTemple) { 
-                                templeHandler(C) 
+                                templeHandler('C') 
                                 aFlag = apocFlag; 
                             }
                             c3Faith = player.at(playerIndex).Cath;
@@ -2215,25 +2004,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag !=0 ) {
                     if (cathTemple == 1) { 
                         if (p3People > 6) { 
-                            templeHandler (C); 
+                            templeHandler ('C'); 
                         }
                     } else {
                         while((p3People < (Math.ceil(pThresh*1.5))) && (a3Faith > fThresh)){
-                                convertPeople(A);
+                                convertPeople('A');
                                 p3People = player.at(playerIndex).People;
                                 a3Faith = player.at(playerIndex).Az;
                             }
                         while((p3People < (Math.ceil(pThresh*1.5))) && (c3Faith > fThresh)){
-                            convertPeople(C);
+                            convertPeople('C');
                             p3People = player.at(playerIndex).People;
                             c3Faith = player.at(playerIndex).Cath;
                         }
                         while(p3People < (fThresh + (templeMax - cathTemple))) {
-                            templeHandler(C);
+                            templeHandler('C');
                             p3People = player.at(playerIndex).People;
                             if (azTemple == 1) { 
                                 if (p3People > 6) { 
-                                    templeHandler (C); 
+                                    templeHandler ('C'); 
                                 }
                             }
                         }
@@ -2262,17 +2051,17 @@ function strategyResourceLoop(whichPlayer) {
             if(highestTemple == 'A'){
                 while (aFlag ==0 ) {
                     while(p4People < pThresh) {
-                        convertPeople(C);
+                        convertPeople('C');
                         c4Faith = player.at(playerIndex).Cath;
                     }
                     while (c4Faith > fThresh) {
-                        convertFaith(C);
+                        convertFaith('C');
                         c4Faith = player.at(playerIndex).Cath;
                     }
                     while (a4Faith > fThresh) { 
                         if (azTemple > maxTemple) { 
                             if (a4Faith > azTemple) { 
-                                templeHandler(A) 
+                                templeHandler('A') 
                                 aFlag = apocFlag; 
                             }
                             a4Faith = player.at(playerIndex).Az; 
@@ -2282,25 +2071,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag !=0 ) {
                     if (azTemple == 1) { 
                         if (p4People > 6) { 
-                            templeHandler (A); 
+                            templeHandler ('A'); 
                         }
                     } else {
                         while((p4People < pThresh) || ((p4People < (templeMax - azTemple)) && (c4Faith > fThresh))) {
-                                convertPeople(C);
+                                convertPeople('C');
                                 p4People = player.at(playerIndex).People;
                                 c4Faith = player.at(playerIndex).Cath;
                             }
                             while((p4People < pThresh) || ((p4People < (templeMax - azTemple)) && (a4Faith > fThresh))) {
-                            convertPeople(A);
+                            convertPeople('A');
                             p4People = player.at(playerIndex).People;
                             a4Faith = player.at(playerIndex).Az;
                         }
                         while(p4People < ((fThresh*.5) + (templeMax - azTemple))) {
-                            templeHandler(A);
+                            templeHandler('A');
                             p4People = player.at(playerIndex).People;
                             if (azTemple == 1) { 
                                 if (p4People > 6) { 
-                                    templeHandler (A); 
+                                    templeHandler ('A'); 
                                 }
                             }
                         }
@@ -2310,17 +2099,17 @@ function strategyResourceLoop(whichPlayer) {
             } else {
                 while (aFlag == 0) {
                     while(p4People < pThresh) {
-                        convertPeople(A);
+                        convertPeople('A');
                         a4Faith = player.at(playerIndex).Az;
                     }
                     while (a4Faith > fThresh) {
-                        convertFaith(A);
+                        convertFaith('A');
                         a4Faith = player.at(playerIndex).Az;
                     }
                     while (c4Faith > fThresh) { 
                         if (cathTemple > maxTemple) { 
                             if (c4Faith > cathTemple) { 
-                                templeHandler(C) 
+                                templeHandler('C') 
                                 aFlag = apocFlag; 
                             }
                             c4Faith = player.at(playerIndex).Cath; 
@@ -2330,25 +2119,25 @@ function strategyResourceLoop(whichPlayer) {
                 while (aFlag !=0 ) {
                     if (azTemple == 1) { 
                         if (p4People > 6) { 
-                            templeHandler (C); 
+                            templeHandler ('C'); 
                         }
                     } else {
                         while((p4People < pThresh) || ((p4People < (templeMax - cathTemple)) && (c4Faith > fThresh))) {
-                                convertPeople(C);
+                                convertPeople('C');
                                 p4People = player.at(playerIndex).People;
                                 c4Faith = player.at(playerIndex).Cath;
                             }
                             while((p4People < pThresh) || ((p4People < (templeMax - cathTemple)) && (a4Faith > fThresh))) {
-                            convertPeople(A);
+                            convertPeople('A');
                             p4People = player.at(playerIndex).People;
                             a4Faith = player.at(playerIndex).Az;
                         }
                         while(p4People < ((fThresh*.5) + (templeMax - cathTemple))) {
-                            templeHandler(C);
+                            templeHandler('C');
                             p4People = player.at(playerIndex).People;
                             if (cathTemple == 1) { 
                                 if (p4People > 6) { 
-                                    templeHandler (C); 
+                                    templeHandler ('C'); 
                                 }
                             }
                         }
@@ -2362,72 +2151,514 @@ function strategyResourceLoop(whichPlayer) {
 
 function cardTest() {
     let endTest = false;
-    cardDrawn = false;
-    cardsLeft = 42;
     playerTurn = 1;
     player.at(playerIndex).Az = 30;
     player.at(playerIndex).Cath = 30;
     player.at(playerIndex).People = 30;
     cardFigMove = "A";
+    console.log('Player Az starting: '+player.at(playerIndex).Az);
+    console.log('Player Cath starting: '+player.at(playerIndex).Cath);
+    console.log('Player People starting: '+player.at(playerIndex).People);
     while (endTest == false) {
-        testWhichCard = prompt('Test which card?');
-        if (testWhichCard == -1) {
+        testPrompt = prompt('Run which card Test?');
+        switch (testPrompt) {
+            case '99':
             endTest = true;
-        } else {
-            console.log('Player Az before: '+player.at(playerIndex).Az);
-            console.log('Player Cath before: '+player.at(playerIndex).Cath);
-            console.log('Player People before: '+player.at(playerIndex).People);
-            console.log('Az Temple = '+ azTemple);
-            console.log('Cath Temple = '+ cathTemple);
-            console.log('-----')
-            console.log('testing card: '+testWhichCard);
-            console.log('card: '+cards.at(testWhichCard).text);
-            
-            cardDrawn = false;
-            cardHandler(testWhichCard);
-            console.log('Player Az after: '+player.at(playerIndex).Az);
-            console.log('Player Cath after: '+player.at(playerIndex).Cath);
-            console.log('Player People after: '+player.at(playerIndex).People);
-            console.log('-----')
+            break;
+            case '23':
 
-        }   
+                azTemple = 0;
+                cathTemple = 0;
+                testCardAData = 0;
+                testCardCData = 0;
+                testCardPData = 0;
+            for(i=0;i<18;i++) {
+                player.at(playerIndex).Az = 30;
+                player.at(playerIndex).Cath = 30;
+                player.at(playerIndex).People = 30;
+                cardHandler(i);
+                
+                switch (cards.at(i).cardTest) {
+                    case "cPenalty":
+                        testCardCData = 28;
+                        if (testCardCData == player.at(playerIndex).Cath) {
+                            console.log('cPenalty basic test passed!');
+                        } else {
+                            console.log('cPenalty FAILED!!!!');
+                        }
+                    break;
+                    case "aPenalty":
+                        testCardAData = 28;
+                        if (testCardAData == player.at(playerIndex).Az) {
+                            console.log('aPenalty basic test passed!');
+                        } else {
+                            console.log('aPenalty FAILED!!!!');
+                        }
+                    break;
+                    case "gPenalty":
+                        testCardAData = 28;
+                        testCardCData = 28;
+                        if ((testCardAData == player.at(playerIndex).Az) || (testCardCData == player.at(playerIndex).Cath)) {
+                            console.log('gPenalty basic test passed!');
+                        } else {
+                            console.log('gPenalty FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "pPenalty":
+                        testCardPData = 29;
+                        //console.log('pPenalty '+player.at(playerIndex).People);
+                        if (testCardPData == player.at(playerIndex).People) {
+                            console.log('pPenalty basic test passed!');
+                        } else {
+                            console.log('pPenalty FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "aCheck":
+                        if (player.at(playerIndex).Az == 30) {
+                            console.log('aCheck basic test passed!');
+                        } else {
+                            console.log('aCheck FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "cCheck":
+                        if (player.at(playerIndex).Cath == 30) {
+                            console.log('cCheck basic test passed!');
+                        } else {
+                            console.log('cCheck FAILED!!!!');
+                        }
+                        
+                    break;
+                    case "gCheck":
+                        if ((player.at(playerIndex).Cath == 30) && player.at(playerIndex).Az == 30){
+                            console.log('gCheck basic test passed!');
+                        } else {
+                            console.log('gCheck FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "pCheck":
+                        if (player.at(playerIndex).People == 30) {
+                            console.log('pCheck basic test passed!');
+                        } else {
+                            console.log('pCheck FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "aConvert":
+                        testCardAData = 28;
+                        testCardCData = 32;
+                        if ((testCardAData == player.at(playerIndex).Az) && (testCardCData == player.at(playerIndex).Cath)) {
+                            console.log('aConvert basic test passed!');
+                        } else {
+                            console.log('aConvert FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "cConvert":
+                        testCardCData = 28;
+                        testCardAData = 32;
+                        if ((testCardAData == player.at(playerIndex).Az) && (testCardCData == player.at(playerIndex).Cath)) {
+                            console.log('cConvert basic test passed!');
+                        } else {
+                            console.log('cConvert FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "aCull":
+                        testCardAData = 34;
+                        testCardPData = 29;
+                        if ((testCardAData == player.at(playerIndex).Az) && (testCardPData == player.at(playerIndex).People)) {
+                            console.log('aCull basic test passed!');
+                        } else {
+                            console.log('aCull FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "cCull":
+                        testCardCData = 34;
+                        testCardPData = 29;
+                        if ((testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+                            console.log('cCull basic test passed!');
+                        } else {
+                            console.log('cCull FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "aBonus":
+                        testCardAData = 32;
+                        if (testCardAData == player.at(playerIndex).Az) {
+                            console.log('aBonus basic test passed!');
+                        } else {
+                            console.log('aBonus FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "cBonus":
+                        testCardCData = 32;
+                        if (testCardCData == player.at(playerIndex).Cath) {
+                            console.log('cBonus basic test passed!');
+                        } else {
+                            console.log('cBonus FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "gBonus":
+                        testCardAData = 32;
+                        testCardCData = 32;
+                        if ((testCardAData == player.at(playerIndex).Az) || (testCardCData == player.at(playerIndex).Cath)) {
+                            console.log('gBonus basic test passed!');
+                        } else {
+                            console.log('gBonus FAILED!!!!');
+                        }
+                    
+                    break;
+                    case "pBonus":
+                        testCardPData = 31;
+                        if (testCardPData == player.at(playerIndex).People) {
+                            console.log('pBonus basic test passed!');
+                        } else {
+                            console.log('pBonus FAILED!!!!');
+                        }
+                    break;
+                
+                    /*
+                    case uFigure:
+                        
+                    
+                    break;
+                    case dFigure:
+                    
+                    break;
+                    */
+                }
+            }
+            break;
+
+            case "24":
+                for(i=0;i<18;i++) {
+                    player.at(playerIndex).Az = 0;
+                    player.at(playerIndex).Cath = 0;
+                    player.at(playerIndex).People = 30;
+                    cardHandler(i);
+
+                    switch (cards.at(i).cardTest) {
+                        case "cPenalty":
+                            testCardCData = 1;
+                            testCardPData = 29;
+                            if ((testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('cPenalty advanced test passed!');
+                            } else {
+                                console.log('cPenalty FAILED!!!!');
+                            }
+                        break;
+                        case "aPenalty":
+                            testCardAData = 1;
+                            testCardPData = 29;
+                            if ((testCardAData == player.at(playerIndex).Az) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('aPenalty advanced test passed!');
+                            } else {
+                                console.log('aPenalty FAILED!!!!');
+                            }
+                        break;
+                        case "gPenalty":
+                            testCardAData = 1;
+                            testCardCData = 1;
+                            testCardPData = 29;
+                            if (((testCardAData == player.at(playerIndex).Az) || (testCardCData == player.at(playerIndex).Cath)) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('gPenalty advanced test passed!');
+                            } else {
+                                console.log('gPenalty FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "pPenalty":
+                            testCardPData = 29;
+                            //console.log('pPenalty '+player.at(playerIndex).People);
+                            if (testCardPData == player.at(playerIndex).People) {
+                                console.log('pPenalty advanced test passed!');
+                            } else {
+                                console.log('pPenalty FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "aCheck":
+                            testCardAData = 1;
+                            testCardPData = 29;
+                            if ((testCardAData == player.at(playerIndex).Az) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('aCheck advanced test passed!');
+                            } else {
+                                console.log('aCheck FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "cCheck":
+                            testCardCData = 1;
+                            testCardPData = 29;
+                            if ((testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('cCheck advanced test passed!');
+                            } else {
+                                console.log('cCheck FAILED!!!!');
+                            }
+                            
+                        break;
+                        case "gCheck":
+                            testCardAData = 1;
+                            testCardCData = 1;
+                            testCardPData = 29;                  
+                            if ((testCardAData == player.at(playerIndex).Az && testCardPData == player.at(playerIndex).People) || (testCardAData == player.at(playerIndex).Cath && testCardPData == player.at(playerIndex).People)) {
+                                console.log('gCheck advanced test passed!');
+                            } else {
+                                console.log('gCheck FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "pCheck":
+                            if (player.at(playerIndex).People == 30) {
+                                console.log('pCheck advanced test passed!');
+                            } else {
+                                console.log('pCheck FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "aConvert":
+                            testCardAData = 1;
+                            testCardCData = 2;
+                            testCardPData = 29;
+                            if ((testCardAData == player.at(playerIndex).Az) && (testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('aConvert advanced test passed!');
+                            } else {
+                                console.log('aConvert FAILED!!!!');
+                            }
+        
+                        break;
+                        case "cConvert":
+                            testCardAData = 2;
+                            testCardCData = 1;
+                            testCardPData = 29;
+                            if ((testCardAData == player.at(playerIndex).Az) && (testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People))  {
+                                console.log('cConvert advanced test passed!');
+                            } else {
+                                console.log('cConvert FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "aCull":
+                            testCardAData = 4;
+                            testCardPData = 29;
+                            if ((testCardAData == player.at(playerIndex).Az) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('aCull advanced test passed!');
+                            } else {
+                                console.log('aCull FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "cCull":
+                            testCardCData = 4;
+                            testCardPData = 29;
+                            if ((testCardCData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+                                console.log('cCull advanced test passed!');
+                            } else {
+                                console.log('cCull FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "aBonus":
+                            testCardAData = 2;
+                            if (testCardAData == player.at(playerIndex).Az) {
+                                console.log('aBonus advanced test passed!');
+                            } else {
+                                console.log('aBonus FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "cBonus":
+                            testCardCData = 2;
+                            if (testCardCData == player.at(playerIndex).Cath) {
+                                console.log('cBonus advanced test passed!');
+                            } else {
+                                console.log('cBonus FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "gBonus":
+                            testCardAData = 2;
+                            testCardCData = 2;
+                            if ((testCardAData == player.at(playerIndex).Az) || (testCardCData == player.at(playerIndex).Cath)) {
+                                console.log('gBonus advanced test passed!');
+                            } else {
+                                console.log('gBonus FAILED!!!!');
+                            }
+                        
+                        break;
+                        case "pBonus":
+                            testCardPData = 31;
+                            if (testCardPData == player.at(playerIndex).People) {
+                                console.log('pBonus advanced test passed!');
+                            } else {
+                                console.log('pBonus FAILED!!!!');
+                            }
+                        break;
+                    }
+                }
+                break;
+                case "25":
+                    for (timesToDraw = 0; timesToDraw<90;timesToDraw++)
+                    {
+                        turnOrder=[1];
+                        drawCard();
+                        console.log('drew card '+player.at(playerIndex).playerCurrentCard);
+                        for(w=0;w<cards.at(player.at(playerIndex).playerCurrentCard).copies.length;w++) {
+                            console.log('copy length '+cards.at(player.at(playerIndex).playerCurrentCard).copies.length);
+                        }
+                        console.log('CARDS LEFT :'+cardsLeft);
+                        console.log('heldCards :'+heldCards);
+                        cardHandler(player.at(playerIndex).playerCurrentCard);
+                        if (cardsLeft == 0) {
+                            console.log('=========== SHUFFLING ===============');
+                        }
+                    }
+                break;
+                default:
+                    player.at(playerIndex).Az = 0;
+                    player.at(playerIndex).Cath = 0;
+                    player.at(playerIndex).People = 30;
+                    cardHandler(testPrompt);
+
+        }  
     }
 }
 
 function boardTest() {
     endTest = false;
-    testSpaceID = 0;
-    let boardSpace = 0;
-    playerQuad = 0;
-    lastSpace = 0;
-    blockerTest = false;
-    possibleMoves = [];
+    testPrompt = 0;
+    playerID=1;
+    playerIndex=0;
+    player.at(playerIndex).time=1;
     while (endTest == false) {
-        testSpaceID = prompt('test which space');
-        if (testSpaceID == -1) {
+        testPrompt = prompt('Run which test?');
+        if (testPrompt == 99) {
             endTest = true;
             break;
         }
-        playerQuad = board.at(testSpaceID).Quad; // Set current player's Quad
-        boardSpace = board.at(testSpaceID).Space;
-        lastSpace = board.at(((playerQuad*5)-1)).Space; 
-        
-        for (boardSpace;boardSpace<=lastSpace;boardSpace++) {
-            blockerTest = board.at(testSpaceID).blocker;
-            if (blockerTest == false) { // test to see if there's a blocker
-                possibleMoves.push(testSpaceID);    // if not, push to possibleMoves
-                testSpaceID++;       
+        if (testPrompt == 1)  {
+            for(v=0;v<20;v++) {
+                console.log('turn: '+v);
+                console.log('time: '+player.at(playerIndex).time);
+                console.log('quad: '+player.at(playerIndex).quadID);
+                console.log('ACP:' +player.at(playerIndex).Az+' '+player.at(playerIndex).Cath+' '+player.at(playerIndex).People);
+                boardQuery();
+                console.log('moving to: '+player.at(playerIndex).possibleMoves[0]);
+                NewMove = player.at(playerIndex).possibleMoves[0];
+                boardUpdate(NewMove);
+                blocker();
             }
-            if (blockerTest == true) {
-                blockedMoves.push (testSpaceID);
-            }
+        }else {
+            endTest == true;
+            break;
         }
     }        
 }
 
+function genericCheck() {
+    if ((player.at(playerIndex).Az < fThresh) || (player.at(playerIndex).Cath < fThresh)) {
+        randomPick = 0;
+        if (player.at(playerIndex).Cath == player.at(playerIndex).Az) {
+            randomPick = getRandomNumber(1,2);
+            console.log('randomPick '+randomPick);
+            if (randomPick == 1) {
+                if (player.at(playerIndex).Az < bFPen) {
+                    while (player.at(playerIndex).Az<bFPen) {
+                        cardPeopleConvert('A');
+                    }
+                    player.at(playerIndex).Az -= bFPen;
+                } else {
+                    player.at(playerIndex).Az -= bFPen;
+                }          
+            } else {
+                if (randomPick == 2) {
+                    if (player.at(playerIndex).Cath < bFPen) {
+                        while (player.at(playerIndex).Cath<bFPen) {
+                            cardPeopleConvert('C');
+                        }
+                        player.at(playerIndex).Cath -= bFPen;
+                    } else {
+                        player.at(playerIndex).Cath -= bFPen;
+                    }          
+                }
+            }
+        } else if (player.at(playerIndex).Az < fThresh) {
+            if (player.at(playerIndex).Az < bFPen) {
+                while (player.at(playerIndex).Az<bFPen) {
+                    cardPeopleConvert('A');
+                }
+                player.at(playerIndex).Az -= bFPen;
+            } else {
+                player.at(playerIndex).Az -= bFPen;
+            }          
+        } else {
+            if (player.at(playerIndex).Cath < fThresh) {
+                if (player.at(playerIndex).Cath < bFPen) {
+                    while (player.at(playerIndex).Az<bFPen) {
+                        cardPeopleConvert('C');
+                    }
+                    player.at(playerIndex).Cath -= bFPen;
+                } else {
+                    player.at(playerIndex).Cath -= bFPen;
+                }          
+            }
+        }
+    } 
+}
 
-//gameStart();
-//cardTest();
+
+
+function testGcheck() {
+    player.at(playerIndex).Az = 0;
+    player.at(playerIndex).Cath = 0;
+    player.at(playerIndex).People = 30;
+
+    genericCheck();
+    testCardAData = 1;
+    testCardCData = 1;
+    testCardPData = 29;
+    console.log('Az ' +player.at(playerIndex).Az);
+    console.log('testCardAData :'+ testCardAData);
+    console.log('Cath ' +player.at(playerIndex).Cath);
+    console.log('testCardCData :'+ testCardCData);
+    console.log('People ' +player.at(playerIndex).People);
+    console.log('testCardPData :'+ testCardPData);
+    let gcheckTestAz = false;
+    let gcheckTestCath = false;
+    let gcheckTotal = false;
+    console.log('testing Az');
+    if (testCardAData == player.at(playerIndex).Az && testCardPData == player.at(playerIndex).People) {
+        gcheckTestAz == true;
+        console.log('gcheckTestAz ' +gcheckTestAz);
+    }
+    console.log('testing Cath');
+    if ((testCardAData == player.at(playerIndex).Cath) && (testCardPData == player.at(playerIndex).People)) {
+        gcheckTestCath == true;
+        console.log('gcheckTestCath ' +gcheckTestCath);
+    }
+    console.log('testing Total');
+    if ((gcheckTestAz ==true) || (gcheckTestCath== true)) {
+        gcheckTotal = true;
+        console.log('gcheckTotal ' +gcheckTotal);
+    }
+
+    if ((testCardAData == player.at(playerIndex).Az && testCardPData == player.at(playerIndex).People) || (testCardAData == player.at(playerIndex).Cath && testCardPData == player.at(playerIndex).People)) {
+        console.log('gCheck advanced test passed!');
+    } else {
+        console.log('gCheck FAILED!!!!');
+    }
+}
+
+
+gameStart();
+cardTest();
 //boardTest();
 
 
