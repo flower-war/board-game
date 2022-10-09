@@ -1,0 +1,2674 @@
+// variables and JSON
+// ----------------------------------------------------------------
+let board = [
+  {
+    'Identity': {
+      'boardID': 0, // What's the unique space ID
+      'Quad':1, // What quad are we in
+      'Space':1, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0, // What resources does a player get for landing on that space
+      'Cath':1,
+      'People':1
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 1, // What's the unique space ID
+      'Quad':1, // What quad are we in
+      'Space':2, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':2,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 2, // What's the unique space ID
+      'Quad':1, // What quad are we in
+      'Space':3, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':4,
+      'Cath':0,
+      'People':-2
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 3, // What's the unique space ID
+      'Quad':1, // What quad are we in
+      'Space':4, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':1,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 4, // What's the unique space ID
+      'Quad':1, // What quad are we in
+      'Space':5, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':3,
+      'People':-1
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 5, // What's the unique space ID
+      'Quad':2, // What quad are we in
+      'Space':1, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':2,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 6, // What's the unique space ID
+      'Quad':2, // What quad are we in
+      'Space':2, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':0,
+      'People':1
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 7, // What's the unique space ID
+      'Quad':2, // What quad are we in
+      'Space':3, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':0,
+      'People':2
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 8, // What's the unique space ID
+      'Quad':2, // What quad are we in
+      'Space':4, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':3,
+      'Cath':0,
+      'People':-1
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 9, // What's the unique space ID
+      'Quad':2, // What quad are we in
+      'Space':5, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':1,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 10, // What's the unique space ID
+      'Quad':3, // What quad are we in
+      'Space':1, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':1,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 11, // What's the unique space ID
+      'Quad':3, // What quad are we in
+      'Space':2, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':3,
+      'People':-1
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 12, // What's the unique space ID
+      'Quad':3, // What quad are we in
+      'Space':3, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':0,
+      'People':2
+    }
+  },
+  {
+    'Identity': {
+    'boardID': 13, // What's the unique space ID
+    'Quad':3, // What quad are we in
+    'Space':4, // What space # in that quad
+  },        
+  'Contents': {
+    'blocker': false, // is the blocker there
+  },
+  'Resources': {
+      'Az':0,
+      'Cath':1,
+      'People':1
+  }
+  },
+  {
+    'Identity': {
+      'boardID': 14, // What's the unique space ID
+      'Quad':3, // What quad are we in
+      'Space':5, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':2,
+      'Cath':0,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 15, // What's the unique space ID
+      'Quad':4, // What quad are we in
+      'Space':1, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':3,
+      'Cath':0,
+      'People':-2
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 16, // What's the unique space ID
+      'Quad':4, // What quad are we in
+      'Space':2, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':1,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 17, // What's the unique space ID
+      'Quad':4, // What quad are we in
+      'Space':3, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':0,
+      'Cath':4,
+      'People':-2
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 18, // What's the unique space ID
+      'Quad':4, // What quad are we in
+      'Space':4, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':2,
+      'Cath':0,
+      'People':0
+    }
+  },
+  {
+    'Identity': {
+      'boardID': 19, // What's the unique space ID
+      'Quad':4, // What quad are we in
+      'Space':5, // What space # in that quad
+    },        
+    'Contents': {
+      'blocker': false, // is the blocker there
+    },
+    'Resources': {
+      'Az':1,
+      'Cath':0,
+      'People':1
+    }
+  }
+];
+
+let players = [
+  {
+    'playerID': 1, // Player ID #. 
+    'Lost':false, 
+    'Won': false,
+    'Location': {
+      'time': 1, // What's the time count
+      'boardID': 0, // What's the unique board ID of the player's current position
+      'quadID': 0, // which quad is that in
+      'space': 0, // what space are we on in that quad
+      'possibleMoves': {
+        'SpacesLeft': 0,
+        'currentQuad': [], // spaceID, Combat, Az, Cath, People, Blocked
+        'nextQuad': [],
+      },
+      'actualMove': 0, // where are we actually moving
+    },
+    'Strategy': { // longterm state and strategy
+      'StrictThresh':false, // Strict threshold adherence
+      'StrictReserve':false, // Strict reserve adherence
+      'PeopleFirst':false, // Always focus on people first
+      'AggroTemple':false, // Always move temple
+      'AggroMove':false, // Always move to the most advantageous spot
+      'MultiMove':false, // save for multiple moves of the temple
+      'RFocus':[], // A for Az, C for Cath, P for People, B for Both
+      'PBaseline':0, // Absolute lowest values
+      'FBaseline':0,
+      'PReserve':0, // Amount to reserve each turn
+      'FReserve':0,
+    },
+    'Resources':{ // Resources, including held cards
+      'Az':0,
+      'Cath':0,
+      'People':0,
+      'iBlock':0, 
+      'rBlock':0,
+    },
+    'State': { // current state
+      'canWin': false, // Can we win right now
+      'canApoc': false, // can we start the apoc?
+      'canMoveT': false, // Can we move the temple?
+      'canEncounter': false, // Can we encounter another player?
+      'modBlock': false, // can we modify the blocker
+      'tUpFocus': '', // Which temple do we want to move if we draw a card
+      'tDownFocus': '',
+      'currentCard': 0, // Which card are we currently resolving
+      'currentRFocus':[], // what is our current resource focus
+      'currentGoal': {}, // what are our current goals
+    },
+  },
+  {
+    'playerID': 2, // Player ID #. 
+    'Lost':false, 
+    'Won': false,
+    'Location': {
+      'time': 1, // What's the time count
+      'boardID': 0, // What's the unique board ID of the player's current position
+      'quadID': 0, // which quad is that in
+      'space': 0, // what space are we on in that quad
+      'possibleMoves': {
+        'SpacesLeft': 0,
+        'currentQuad': [], // spaceID, Combat, Az, Cath, People, Blocked
+        'nextQuad': [],
+      },
+      'actualMove': 0, // where are we actually moving
+    },
+    'Strategy': { // longterm state and strategy
+      'StrictThresh':false, // Strict threshold adherence
+      'StrictReserve':false, // Strict reserve adherence
+      'PeopleFirst':false, // Always focus on people first
+      'AggroTemple':false, // Always move temple
+      'AggroMove':false, // Always move to the most advantageous spot
+      'MultiMove':false, // save for multiple moves of the temple
+      'RFocus':[], // A for Az, C for Cath, P for People, B for Both
+      'PBaseline':0, // Absolute lowest values
+      'FBaseline':0,
+      'PReserve':0, // Amount to reserve each turn
+      'FReserve':0,
+    },
+    'Resources':{ // Resources, including held cards
+      'Az':0,
+      'Cath':0,
+      'People':0,
+      'iBlock':0, 
+      'rBlock':0,
+    },
+    'State': { // current state
+      'canWin': false, // Can we win right now
+      'canApoc': false, // can we start the apoc?
+      'canMoveT': false, // Can we move the temple?
+      'canEncounter': false, // Can we encounter another player?
+      'modBlock': false,
+      'tUpFocus': '', // Which temple do we want to move if we draw a card
+      'tDownFocus': '',
+      'currentCard': 0, // Which card are we currently resolving
+      'currentRFocus':[], // what is our current resource focus
+      'currentGoal': {}, // what are our current goals
+    },
+  },
+  {
+    'playerID': 3, // Player ID #. 
+    'Lost':false, 
+    'Won': false,
+    'Location': {
+      'time': 1, // What's the time count
+      'boardID': 0, // What's the unique board ID of the player's current position
+      'quadID': 0, // which quad is that in
+      'space': 0, // what space are we on in that quad
+      'possibleMoves': {
+        'SpacesLeft': 0,
+        'currentQuad': [], // spaceID, Combat, Az, Cath, People, Blocked
+        'nextQuad': [],
+      },
+      'actualMove': 0, // where are we actually moving
+    },
+    'Strategy': { // longterm state and strategy
+      'StrictThresh':false, // Strict threshold adherence
+      'StrictReserve':false, // Strict reserve adherence
+      'PeopleFirst':false, // Always focus on people first
+      'AggroTemple':false, // Always move temple
+      'AggroMove':false, // Always move to the most advantageous spot
+      'MultiMove':false, // save for multiple moves of the temple
+      'RFocus':[], // A for Az, C for Cath, P for People, B for Both
+      'PBaseline':0, // Absolute lowest values
+      'FBaseline':0,
+      'PReserve':0, // Amount to reserve each turn
+      'FReserve':0,
+    },
+    'Resources':{ // Resources, including held cards
+      'Az':0,
+      'Cath':0,
+      'People':0,
+      'iBlock':0, 
+      'rBlock':0,
+    },
+    'State': { // current state
+      'canWin': false, // Can we win right now
+      'canApoc': false, // can we start the apoc?
+      'canMoveT': false, // Can we move the temple?
+      'canEncounter': false, // Can we encounter another player?
+      'modBlock': false,
+      'tUpFocus': '', // Which temple do we want to move if we draw a card
+      'tDownFocus': '',
+      'currentCard': 0, // Which card are we currently resolving
+      'currentRFocus':[], // what is our current resource focus
+      'currentGoal': {}, // what are our current goals
+    },
+  },
+  {
+    'playerID': 4, // Player ID #. 
+    'Lost':false, 
+    'Won': false,
+    'Location': {
+      'time': 1, // What's the time count
+      'boardID': 0, // What's the unique board ID of the player's current position
+      'quadID': 0, // which quad is that in
+      'space': 0, // what space are we on in that quad
+      'possibleMoves': {
+        'SpacesLeft': 0,
+        'currentQuad': [], // spaceID, Combat, Az, Cath, People, Blocked
+        'nextQuad': [],
+      },
+      'actualMove': 0, // where are we actually moving
+    },
+    'Strategy': { // longterm state and strategy
+      'StrictThresh':false, // Strict threshold adherence
+      'StrictReserve':false, // Strict reserve adherence
+      'PeopleFirst':false, // Always focus on people first
+      'AggroTemple':false, // Always move temple
+      'AggroMove':false, // Always move to the most advantageous spot
+      'MultiMove':false, // save for multiple moves of the temple
+      'RFocus':[], // A for Az, C for Cath, P for People, B for Both
+      'PBaseline':0, // Absolute lowest values
+      'FBaseline':0,
+      'PReserve':0, // Amount to reserve each turn
+      'FReserve':0,
+    },
+    'Resources':{ // Resources, including held cards
+      'Az':0,
+      'Cath':0,
+      'People':0,
+      'iBlock':0, 
+      'rBlock':0,
+    },
+    'State': { // current state
+      'canWin': false, // Can we win right now
+      'canApoc': false, // can we start the apoc?
+      'canMoveT': false, // Can we move the temple?
+      'canEncounter': false, // Can we encounter another player?
+      'modBlock': false,
+      'tUpFocus': '', // Which temple do we want to move if we draw a card
+      'tDownFocus': '',
+      'currentCard': 0, // Which card are we currently resolving
+      'currentRFocus':[], // what is our current resource focus
+      'currentGoal': {}, // what are our current goals
+    },
+  },
+];
+
+let cards = [
+    {
+      'cardID': 0, // Unique card ID
+      'copies': 2, // How many copies
+      'cardTest': 'aPenalty', // Logical test name
+      'text': 'Penalty to Aztec Faith' // What does the card do
+    },
+    {
+      'cardID': 1,
+      'copies': 2,
+      'cardTest': 'cPenalty', 
+      'text': 'Penalty to Aztec Faith'
+    },
+    {
+      'cardID': 2,
+      'copies': 2,
+      'cardTest': 'gPenalty',
+      'text': 'Penalty to Highest Faith'
+    },
+    {
+      'cardID': 3,
+      'copies': 2,
+      'cardTest': 'pPenalty', 
+      'text': 'Penalty to People'
+    },
+    {
+      'cardID': 4,
+      'copies': 2,
+      'cardTest': 'aCheck',
+      'text': 'Penalty to Aztec Faith if it is lower than Faith Threshold'
+    },
+    {
+      'cardID': 5,
+      'copies': 2,
+      'cardTest': 'cCheck',
+      'text': 'Penalty to Catholic Faith if it is lower than Faith Threshold'
+    },
+    {
+      'cardID': 6,
+      'copies': 2,
+      'cardTest': 'gCheck',
+      'text': "Penalty to highest Faith if any Faith isn't higher than threshold"
+    },
+   {
+      'cardID': 7,
+      'copies': 2,
+      'cardTest': 'pCheck',
+      'text': "Penalty to People if People isn't higher than threshold"
+    },
+    {
+      'cardID': 8,
+      'copies': 2,
+      'cardTest': 'aConvert',
+      'text': 'Convert Aztec Faith to twice the amount of Catholic Faith'
+    },
+    {
+      'cardID': 9,
+      'copies': 2,
+      'cardTest': 'cConvert',
+      'text': 'Convert Catholic Faith to twice the amount of Aztec Faith'
+    },
+    {
+      'cardID': 10,
+      'copies': 2,
+      'cardTest': 'aCull',
+      'text': 'Convert People to Aztec Faith'
+    },
+    {
+      'cardID': 11,
+      'copies': 2,
+      'cardTest': 'cCull',
+      'text': 'Convert People to Catholic Faith'
+    },
+    {
+      'cardID': 12,
+      'copies': 2,
+      'cardTest': 'catchUp',
+      'text': 'Gain Bonus to People if People < X or Bonus to lowest Faith'
+    },
+    {
+      'cardID': 13,
+      'copies': 2,
+      'cardTest': 'aBonus',
+      'text': 'Bonus to Aztec Faith'
+    },
+    {
+      'cardID': 14,
+      'copies': 2,
+      'cardTest': 'cBonus',
+      'text': 'Bonus to Catholic Faith'
+    },
+    {
+      'cardID': 15,
+      'copies': 2,
+      'cardTest': 'gBonus',
+      'text': 'Bonus to Lowest Faith'
+    },
+    {
+      'cardID': 16,
+      'copies': 2,
+      'cardTest': 'pBonus',
+      'text': 'Bonus to People'
+    },
+    {
+      'cardID': 17,
+      'copies': 2,
+      'cardTest': 'uFigure',
+      'text': 'Move Either Figure Up One Step'
+    },
+    {
+      'cardID': 18,
+      'copies': 2,
+      'cardTest': 'dFigure',
+      'cardFigMove': '',
+      'text': 'Move Either Figure Down One Step'
+    },
+    {
+      'cardID': 19,
+      'copies': 2,
+      'cardTest': 'iBlock',
+      'text': 'Ignore Blocker Once (Hold in hand and play when needed)'
+    },
+    {
+      'cardID': 20,
+      'copies': 2,
+      'cardTest': 'rBlock',
+      'text': 'Reroll Blocker (Hold in hand and play when needed)'
+    } /*,
+    {
+      'cardID': 21,
+      'copies': 2,
+      'cardTest': 'nQuad',
+      'text': 'Move Any Player to next Quadrant'
+    },
+    {
+      'cardID': 22,
+      'copies': 2,
+      'cardTest': 'aSpace',
+      'text': 'Move to Any Space'
+    }*/
+]
+
+let temple = [
+	{
+		'maxHeight':6, // How tall is the temple
+		'azLevel':0, // where is the figure currently
+    'azMax': false, // Has the figure reached the top of the temple
+		'cathLevel':0, 
+    'cathMax': false,
+		'apocFlag':0 // Apocalypse state 0 = no, 1 = Aztec apoc, 2 = Catholic Apoc
+	}
+]
+
+let gameState = [
+	{
+		'whoWon': 0, // Who won the game
+		'cardsLeft': 40, // how many cards left in the deck
+		'cardsHeld': 0, // How many cards held by the players
+    'blocker': 0,
+	},/*
+	{
+		'readytoMove': false,
+		'hasMoved': false,
+		'hasDrawn': false,
+		'hasCardResolved': false,
+		'resourceLoopDone':false,
+		'hasFinished':false,
+    'hasWon': false
+	} */
+]
+
+let gameVariables = [
+	{
+		'startFaith': 2, // starting faith
+		'startPeople': 8, // starting people 
+		'faithBonus': 2, // how much faith does a card bonus give
+		'faithPenalty': 2, // how much faith does a card penalty take
+		'peopleBonus': 1, 
+		'peoplePenalty': 1,
+		'faithThreshold':6, // whats the threshold for penalties
+		'peopleThreshold':4, 
+		'faithConversion':2, // Convert to faith
+		'peopleConversion':3 // Convert to people
+	}
+]
+
+let playerTurn = 1;
+let playerIndex = (playerTurn-1); // Player Index
+let turnOrder = [];
+let numPlayers = 4
+
+function gameStart() {
+  let startQuad = 0;
+  let startSpace = 0;
+
+  for(i=0;i<numPlayers;i++) { 
+      if(players.length > numPlayers) { // is players bigger than NumPlayers
+          let extraPlayers = players.length - numPlayers; 
+          for(extraPlayers;extraPlayers>0;extraPlayers--) {
+              {
+                  players.splice(players.length-1,1); // remove the extras
+              }
+          }
+      }
+  }
+
+  for(i=1;i<=numPlayers;i++) { // push player identity to turnOrder
+    turnOrder.push(i);
+  }
+
+
+  for(i=0;i<numPlayers;i++) { // set up player resources and put players on board.
+      startSpace=(i*5);
+      startQuad=(i+1);
+      let obj = players.at(i);
+      for(let j=0;j<20;j++) {
+        let obj2 = board.at(j).Contents;
+        let string = ''+i;
+        if (board.at(j).Identity.boardID == startSpace) {
+          obj2[string] = true
+        } else {
+          obj2[string] = false;
+        }
+        
+      }
+      obj.Location.boardID = startSpace;
+      obj.Location.quadID = startQuad;
+      obj.Location.space = ((startSpace+1)-(startQuad-1)*5);
+      obj.Resources.Az = gameVariables.at(0).startFaith;
+      obj.Resources.Cath = gameVariables[0].startFaith;
+      obj.Resources.People = gameVariables[0].startPeople;
+  }
+
+
+  //strategyStartGame(); // Generate strategy for each player
+  blocker();  // generate first blocker
+  turnStart();
+}
+
+// Core game code
+// ----------------------------------------------------------------
+
+function turnStart() {          // Turn start stuff
+
+  playerTurn=turnOrder[0];
+  playerIndex=(playerTurn-1);
+}
+
+function boardQuery() {
+  let player = players.at(playerIndex)
+  let currentQ = player.Location.possibleMoves.currentQuad;
+  let nextQ = player.Location.possibleMoves.nextQuad;
+  let testSpace = player.Location.boardID; // this is the space we are testing
+  let lastSpace = ((player.Location.quadID*5)-1); // this is the last space in the quad
+  let cQuad = player.Location.quadID;
+  let bRes = board.at(testSpace).Resources
+  let nQuad = 0;
+  let tempArray = [];
+  let combatFlag = false;
+  let i=0;
+  try {
+    if(board.at(testSpace).Contents[playerIndex] == false){
+      throw '***************************** ERROR! PLAYER CURRENT LOCATION DOES NOT MATCH BOARD LOCATION *****************************';
+    }
+    if(player.Location.quadID != board.at(testSpace).Identity.Quad) {
+      throw '***************************** ERROR! PLAYER CURRENT QUAD DOES NOT MATCH BOARD QUAD *****************************';
+    }
+  }
+  catch(err) { // catch any errors
+    console.log(err);
+  }
+  testSpace++; // Can't stay on the same space, so we increment testSpace
+  player.Location.possibleMoves.SpacesLeft = (5-testSpace);
+  i=0;
+  for(testSpace;testSpace<=lastSpace;testSpace++) { //for every space in the quad
+    let bRes = board.at(testSpace).Resources;
+    combatFlag = false;
+    tempArray = [];
+    tempArray.push(testSpace);
+    for(let bchec = 0;bchec<4;bchec++) {
+      let tempObj = board.at(testSpace).Contents
+      if((tempObj[bchec] == true) && (bchec != playerIndex)) {
+        combatFlag = true;
+      }      
+    }
+    if(combatFlag == true) {
+      tempArray.push(true);
+    } else {
+      tempArray.push(false);
+    }
+    if(bRes.Az >0) {
+      tempArray.push(true);
+    } else {
+      tempArray.push(false);
+    }
+    if(bRes.Cath >0) {
+      tempArray.push(true);
+    } else {
+      tempArray.push(false);
+    }
+    if(bRes.People >(-3)) {
+      tempArray.push(true);
+    } else {
+      tempArray.push(false);
+    }
+    if (gameState.blocker == board.at(testSpace).Identity.Space) {
+      tempArray.push(true);
+    } else {
+      tempArray.push(false);
+    }
+    currentQ.push(tempArray);
+  } 
+  
+  if(cQuad<4) {
+    nQuad = cQuad+1;
+    testSpace = ((nQuad-1)*5); // new testSpace is the first space in the next quad
+    lastSpace = ((nQuad*5)-1); // this is the last space in the next quad
+    i=0;
+    for(testSpace;testSpace<=lastSpace;testSpace++) { //for every space in the quad
+      bRes = board.at(testSpace).Resources
+      combatFlag = false;
+      tempArray = [];
+      tempArray.push(testSpace);
+      for(let bchec = 0;bchec<4;bchec++) {
+        let tempObj = board.at(testSpace).Contents
+        if((tempObj[bchec] == true) && (bchec != playerIndex)) {
+          combatFlag = true;
+        }      
+      }
+      if(combatFlag == true) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.Az >0) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.Cath >0) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.People >(-3)) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if (gameState.blocker == board.at(testSpace).Identity.Space) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      nextQ.push(tempArray);
+    } 
+  } else if (cQuad == 4) {
+    nQuad = 1;
+    testSpace = 0;
+    lastSpace = 4;
+    i=0;
+    for(testSpace;testSpace<=lastSpace;testSpace++) { //for every space in the quad
+      bRes = board.at(testSpace).Resources
+      combatFlag = false;
+      tempArray = [];
+      tempArray.push(testSpace);
+      for(let bchec = 0;bchec<4;bchec++) {
+        let tempObj = board.at(testSpace).Contents
+        if((tempObj[bchec] == true) && (bchec != playerIndex)) {
+          combatFlag = true;
+        }      
+      }
+      if(combatFlag == true) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.Az >0) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.Cath >0) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if(bRes.People >(-3)) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      if (gameState.blocker == board.at(testSpace).Identity.Space) {
+        tempArray.push(true);
+      } else {
+        tempArray.push(false);
+      }
+      nextQ.push(tempArray);
+    } 
+  }
+}
+
+function boardUpdate(actualMove) { // we take actualMove from playerStrategy
+  let player = players.at(playerIndex); // who are we moving
+  let currentSpace = player.Location.boardID;
+  let newMove = actualMove; // Where are we going
+  let cBoardLoc = board.at(currentSpace).Contents[playerIndex]; // Current board location
+  let nBoardLoc = board.at(newMove).Contents[playerIndex]; // new board location
+  let time = player.Location.time;
+
+  try {
+    if(cBoardLoc == true) { // Check to see if the player is already on the board. We've done this before, but let's doublecheck
+      cBoardLoc = false; // If they are, take them off
+    } else {
+      throw '***************************** ERROR! PLAYER CURRENT LOCATION DOES NOT MATCH BOARD LOCATION *****************************';
+    }
+  }
+  catch(err) { 
+    console.log(err);
+  }
+
+  try {
+    if(nBoardLoc == false) { // Make sure the player isn't already at the new location
+      nBoardLoc = true; // If they aren't, put them there.
+    } else {
+      throw '***************************** ERROR! PLAYER ALREADY AT NEW LOCATION *****************************';
+    }
+  }
+  catch(err) { 
+    console.log(err);
+  }
+
+  try {
+    if(time <4 ) { // if time is less than 4
+      player.Location.time++; // Increment it
+    } else if (time == 4) { // if time is 4
+      player.Location.time = 1; // reset it
+    } else if ((time <1) || (time >4)) { // if time is invalid, throw error
+      throw '***************************** TIME ERROR! *****************************'
+    }
+  } 
+  catch(err) {
+    console.log(err);
+  }
+
+  try {
+    if(nBoardLoc == true) {
+      player.Location.boardID = newMove;
+      player.Resources.Az += board.at(newMove).Resources.Az
+      player.Resources.Cath += board.at(newMove).Resources.Cath
+      player.Resources.People += board.at(newMove).Resources.People
+    } else if (nBoardLoc == false) {
+      throw '***************************** BOARD AND RESOURCE UPDATE ERROR *****************************'
+    }
+  } 
+  catch(err) {
+    console.log(err);
+  }
+}
+
+function randGen(min, max) {
+  return Math.floor(min + Math.random()*(max - min + 1))
+}
+
+function blocker(test) { // we can feed blocker a number to set a blocker equal to a certain # for testing
+  let setBlocker = 0;
+  setBlocker = randGen(1, 6); // randomly generate the blocker
+  gameState.blocker = setBlocker;
+  for (let i=0;i<20;i++) {  // Iterate through every space
+    if (board.at(i).Identity.Space == setBlocker) { // if the space and blocker die match
+      board.at(i).Contents.blocker = true; // set Blocker to True
+    }
+    else {
+        board.at(i).Contents.blocker = false; 
+    }
+  }
+}
+
+function convertFaith(fromWhich) { // Convert from one type of Faith to the other 
+  let player = players.at(playerIndex); // this is apoc flag independent
+  let playerA = player.Resources.Az;
+  let playerC = player.Resources.Cath;
+  let rate = gameVariables.faithConversion; // conversion rate is Rate:1;
+
+  try {  
+    switch (fromWhich) { // what faith are we spending
+      case 'A': // Aztec
+    
+      if(playerA <rate) { // if we don't have enough
+          throw '***************************** Invalid amount *****************************'; // throw an error
+        } else {
+          player.Resources.Az -= rate; // remove conversion rate from one faith
+          player.Resources.Cath++; // increment the other
+        }
+      break;
+      case 'C':
+        if(playerC <rate) {
+          throw '***************************** Invalid amount *****************************';
+        } else {
+          player.Resources.Cath -= rate;
+          player.Resources.Az++;
+        }
+      break;
+    }
+  }
+  catch(err) { // catch any errors
+    console.log(err);
+  }
+}
+
+function convertPeople(fromWhich) { // convert from faith to people
+  let player = players.at(playerIndex);
+  let playerA = player.Resources.Az;
+  let playerC = player.Resources.Cath;
+  let playerP = player.Resources.People;
+  let rate = gameVariables.peopleConversion; // Rate is X:1 if there's no apoc, X+1:1 if the opposite apoc is going on.
+  let apoc = temple.apocFlag; // this is NOT apoc flag independent
+
+  try {
+    switch (fromWhich) { // what faith are we spending
+      case 'A':
+        if (apoc != 2) { // if we don't have to spend more
+          if(playerA <rate) { // and the player has enough faith
+            throw '***************************** Invalid amount *****************************';
+          } else {
+            player.Resources.Az -= rate; // convert faith to people
+            player.Resources.People++;
+          }
+        } else if (apoc == 2) { // Here's the catholic apocalypse where Aztecs have to spend faith more for people
+          if(playerA <(rate+1)) { 
+            throw '***************************** Invalid amount *****************************';
+          } else {
+            player.Resources.Az -= (rate+1);
+            player.Resources.People++;
+          }
+        }
+      break;
+      case 'C': // Ditto cath
+        if (apoc !=1) {
+          if(playerC <rate) {
+            throw '***************************** Invalid amount *****************************';
+          } else {
+            player.Resources.Cath -= rate;
+            player.Resources.People++;
+          }
+        } else if (apoc == 1){
+          if(playerC <(rate+1)) { // Catholics have to pay more to convert faith to people
+            throw '***************************** Invalid amount *****************************';
+          } else {
+            player.Resources.Cath -= (rate+1);
+            player.Resources.People++;
+          }
+        }
+    } 
+  }
+  catch(err) { // catch any errors
+    console.log(err);
+  }
+}
+
+function templeHandler(moveWhich) {
+  let player = players.at(playerIndex);
+  let max = temple.maxHeight;
+  let aMax = temple.azMax;
+  let cMax = temple.cathMax;
+
+  switch (moveWhich) { // which figure are we moving
+    case 'A':
+      if(aMax == true) { // if azMaz is set, we have reached the top
+        if(player.Resources.People > ((max-temple.azLevel)+1)) { // costs people to move down and if People is 0, you lose
+          temple.azLevel-- 
+          player.Resources.People -= ((max-temple.azLevel)+1); // Cost is always smaller for the first steps in any direction and bigger for last steps. 
+          checkTemple('A'); // Function to check if we have reached the top or bottom
+        }
+      } else if(aMax == false) { // If AzMaz isn't set, we haven't reached the top
+        if(player.Resources.Az >= ((temple.azLevel)+1)) { // faith can be 0.
+          temple.azLevel++
+          player.Resources.Az -= ((temple.azLevel)+1); 
+          checkTemple('A');
+        }
+      }
+    break;
+    case 'C': // ditto cath figure
+      if(cMax == true) {
+        if(player.Resources.People > ((max-temple.cathLevel)+1)) {
+          temple.cathLevel--
+          player.Resources.People -= ((max-temple.cathLevel)+1);
+          checkTemple('C');
+        }
+      } else if (cMax == false){
+        if(player.Resources.Cath >= ((temple.cathLevel)+1)) {
+          temple.cathLevel++
+          player.Resources.Cath -= ((temple.cathLevel)+1);
+          checkTemple('C');
+        }
+      }
+    break;
+  }
+}
+
+function checkTemple(whichTemple) { // check to see if we have reached the top or bottom of the temple
+  let player = players.at(playerIndex);
+  let max = temple.maxHeight;
+  let apoc = temple.apocFlag;
+  let aMax = temple.azMax;
+  let cMax = temple.cathMax;
+
+  switch(whichTemple) { // which figure are we checking
+    case 'A':
+      if (apoc != 0 && (aMax == true)) { // if the flag is set, 
+        if (temple.azLevel == 0) { // we need to see if the figure has reached the bottom.
+          gameWon(player.playerID); // bottom means win
+        } 
+      } else if (temple.azLevel == max) { // if it isn't set, we check to see if it has reached the top.
+        if (apoc == 0) { // if we haven't started the apoc yet
+          temple.apocFlag = 1; // set the apoc flag to Aztec
+        } 
+        temple.azMax = true; // set the flag to say that Aztec temple has reached the top
+      }
+    break;
+    case 'C': // Ditto Catholic
+      if (apoc != 0) {
+        if ((temple.cathLevel == 0) && (cMax == true)) {
+          gameWon(player.playerID);
+        } 
+      } else if (temple.cathLevel == max) {
+        temple.cathMax = true;
+        if (apoc == 0) { 
+          temple.apocFlag = 2;
+        } 
+      }
+    break;
+  }
+}
+
+function gameWon(whoWon) {
+
+  gameState.at(1).hasWon = true; // Setting two flags for now This may change later
+  gameState.at(0).whoWon = whoWon  // one is t/f, the other is player ID. 
+  console.log ('Player '+whoWon+' has won!');
+
+}
+
+function checkLoss(who) { // check to see if someone lost
+  let checkPlayer = who-1; // set who as PlayerIndex
+  let player = players.at(checkPlayer); 
+
+  if (player.Resources.People<=0) { // if People has reached 0
+    player.Lost = true; // Set Lost as true
+    for (let z=0;z<turnOrder.length;z++){ // increment through turn order
+      if (turnOrder.at(z) == who) { // look for the player ID
+        turnOrder.splice(z,1); // // remove player from turn order
+      }
+    }
+  }
+}
+
+function drawCard() {
+  let player = players.at(playerIndex);
+  let actualCard = player.State.currentCard;
+  let potentialCard = -1; // We have a card 0, so we initialize to -1
+
+  shuffleBot(); // reload the deck if necessary
+  
+  do {
+    potentialCard = randGen(0,20); // generate a possible card
+    if(cards.at(potentialCard).copies != 0) { // if that card exists in the deck
+      cards.at(potentialCard).copies--; // remove one copy
+      player.State.currentCard = potentialCard; // give it to the current player
+    }
+  } while (cards.at(potentialCard).copies == 0); // if that card doesn't have any copies, try again.
+
+  cards.at(actualCard).copies--; // remove a copy from the deck
+  gameState.cardsLeft--; // decrement cardsLeft
+}
+
+function shuffleBot() { // Reload the cards
+  let handCards = gamestate.cardsHeld; // How many cards are players holding
+  let iBl = 0; // initialize our variables
+  let rBl = 0;
+  let total = 0;
+
+  if(gameState.cardsLeft == 0) { // Check to see if we need to shuffle.
+    for(let i=0;i<19;i++) { // shuffle all the non-held cards.
+      cards.at(i).copies = 2; // reset the copy state for all the non=held cards.
+    }
+    if (handCards == 0) { // if no players are holding cards
+      for(i=19;i<21;i++) {
+        cards.at(i).copies = 2; // reset the state of all the possible held cards
+      }
+      gameState.cardsLeft == 40; // all the cards are in the deck
+    } else if (handCards != 0) { // if there ARE held cards
+      for(let k=0;k<turnOrder.length;l++){ // check each player
+        let player = players.at(k);
+        iBl += player.Resources.iBlock; // check to see how many of each card they have
+        rBl += player.Resources.rBlock;
+      }
+      total = iBl+rBl; // Total cards held
+      gameState.cardsLeft = (40-total); // reset shuffled cards to total- held cards
+      for(iBl;iBl<2;iBl++) { // count up the copies that could be out there
+        cards.at(19).copies++; //add the ones that aren't in a players hand to the deck
+      }
+      for(rBl;rBl>0;rBl--) {
+        cards.at(20).copies++;
+      }
+    }
+  } 
+}
+
+function cardPC (fromWhich) { // if we don't have enough faith to pay a card penalty
+  let player = players.at(playerIndex);
+  let PC = gameVariables.peopleConversion;
+  let apoc = temple.apocFlag;
+  let ID = player.playerID;
+
+  switch (fromWhich) {
+    case 'A':
+      if (apoc != 2) {  // apoc dependent
+        player.Resources.Az += PC; // Add people conversion rate to Faith
+        player.Resources.People--; // decrement people
+        checkLoss(ID); // Anytime we decrement people, we check to see if the player lost
+      } else if (apoc == 2) { /// opposite Apoc means less faith gained from converting
+        player.Resources.Az += (PC -1); // Less faith gained
+        player.Resources.People--;
+        checkLoss(ID);
+      }
+    break;
+    case 'C': // Ditto catholics
+      if (apoc != 1) {
+        player.Resources.Cath += PC;
+        player.Resources.People--;
+        checkLoss(ID);
+      } else if (apoc == 1) {
+        player.Resources.Cath += (PC -1);
+        player.Resources.People--;
+        checkLoss(ID);
+      }
+  }
+}
+
+function cardHandler(relevantCard) {
+  let player = players.at(playerIndex);
+  let card = cards.at(relevantCard);
+  let test = card.cardTest;
+  let Az = player.Resources.Az;
+  let Cath = player.Resources.Cath;
+  let People = player.Resources.People;
+  let FP = gameVariables.faithPenalty;
+  let FB = gameVariables.faithBonus;
+  let FT = gameVariables.faithThreshold;
+  let PP = gameVariables.peoplePenalty;
+  let PB = gameVariables.peopleBonus;
+  let PT = gameVariables.peopleThreshold;
+  let highest = 0;
+  let ID = player.playerID;
+  
+  highest = highestTemple;
+
+  switch(test) {
+    
+    case 'aPenalty': // Straight Az penalty
+      if (Az >= FP){ // If Az is >= to the penalty, 
+        player.Resources.Az -= FP; // subtract the penalty from Az
+      } else { // If we don't have enough faith
+        cardPC (A); // Convert some people to Az
+        player.Resources.Az -= FP; // then subtract the penalty
+      }
+    break;
+    case 'cPenalty': // straight catholic penalty
+      if (Cath >= FP){
+        player.Resources.Cath -= FP;
+      } else {
+        cardPC (C);
+        player.Resources.Cath -= FP;
+      }
+    break;
+    case 'gPenalty': // penalty to highest faith
+      if (highest == 1){ // if Az is highest, or was randomly picked
+        if (Az >= FP){
+          player.Resources.Az -= FP;
+        } else {
+          cardPC (A); // converting people if we need to
+          player.Resources.Az -= FP;
+        }
+      } else if(highest == 2) { // catholic side
+        if (Cath >= FP){
+          player.Resources.Cath -= FP;
+        } else {
+          cardPC (C);
+          player.Resources.Cath -= FP;
+        }
+      }
+    break;
+    case 'pPenalty': // straight people penalty
+      People -= PP;
+      checkLoss(ID)
+    break;
+    case 'aCheck': // Aztec faith threshhold check
+      if(Az<FT) { // If az faith is below threshold
+        if (Az >= FP) { 
+          player.Resources.Az -= FP; // Az faith penalty
+        } else {
+          cardPC (A);
+          player.Resources.Az -= FP;
+        }
+      }
+    break;
+    case 'cCheck': // Ditto cath
+      if(Cath<FT) {
+        if (Cath >= FP){
+          player.Resources.Cath -= FP;
+        } else {
+          cardPC (C);
+          player.Resources.Cath -= FP;
+        }
+      }
+    break;    
+    case 'gCheck': // if both faiths are below faith check, penalize the highest.
+      if((Az && Cath)<FT) {
+        if(highest == 1) {
+          if (Az >= FP){ 
+            player.Resources.Az -= FP; 
+          } else { 
+            cardPC (A); 
+            player.Resources.Az -= FP; 
+          }
+        } else {
+          if (Cath >= FP){
+            player.Resources.Cath -= FP;
+          } else {
+            cardPC (C);
+            player.Resources.Cath -= FP;
+          }
+        }
+      }
+    break;
+    case 'pCheck': // if people below threshold 
+      if (People<PT) {
+        player.Resources.People -= PP; // Penalize people
+        checkLoss(ID);
+      }
+    break;
+    case 'aConvert': // Forced convert aztec faith to catholic
+      if (Az >= FP){
+        player.Resources.Az -= FP;
+      } else {
+        cardPC (A);
+        player.Resources.Az -= FP;
+      }
+      player.Resources.Cath += (2*FP);
+    break;
+    case 'cConvert': // Ditto catholic
+      if (Cath >= FP){
+        player.Resources.Cath -= FP;
+      } else {
+        cardPC (C);
+        player.Resources.Cath -= FP;
+      }
+      player.Resources.Az += (2*FP);
+    break;
+    case 'aCull': // Forced convert people to aztec faith. Not affected by Apoc
+      player.Resources.People - PP;
+      player.Resources.Az += (gameVariables.peopleConversion);
+      checkLoss(ID);
+    break;
+    case 'cCull': // Ditto Catholic
+      player.Resources.People - PP;
+      player.Resources.Cath += (gameVariables.peopleConversion);
+      checkLoss(ID);
+    break;
+    case 'catchUp': // plus 2 to people if below people threshold, else bonus to lowest faith
+      if(People < PT) {
+        player.Resources.People += 2;
+      } else if (highest == 1) {
+        player.Resources.Cath += FB;
+      } else {
+        player.Resources.Az += FB;
+      }
+    break;
+    case 'aBonus': // straight az faith bonus
+      player.Resources.Az += FB;
+    break;
+    case 'cBonus': // ditto cath
+      player.Resources.Cath += FB;
+    break;
+    case 'gBonus': // bonus to lowest faith
+      if (highest == 1) {
+        player.Resources.Cath += FB;
+      } else {
+        player.Resources.Az += FB;
+      }
+    break;
+    case 'pBonus': // straight people bonus
+      player.Resources.People += PB;
+    break;
+    case 'uFigure': // move a figure up one level for free
+      templeHandler(player.tUpFocus);
+    break;
+    case 'dFigure': // move a figure down one level for free
+      templeHandler(player.tDownFocus);
+    break;
+    case 'iBlock': // ignore blocker once (held in hand)
+      player.Resources.iBlock++;
+    break;
+    case 'rBlock': // reroll blocker once (held in hand)
+      player.Resources.rBlock++;
+    break;
+  }
+  player.State.currentCard = -1;
+}
+
+function endTurn() {
+  let tmp = 0; // place holder
+  
+  for (b=0;b<turnOrder.length;b++) // cycle through turn order
+  {
+    if(b==0) {
+      tmp = turnOrder[0]; // grab the first element
+    }
+    if(b<(turnOrder.length-1)){
+      turnOrder[b]=turnOrder[b+1] // move all elements forward
+    } else if (b=(turnOrder.length-1)){ // put the first element last
+      turnOrder[b]=tmp 
+    }
+  } 
+}
+
+// strategy code
+// ----------------------------------------------------------------
+
+function strategyStartGame() { // stuff we need to do first.
+    
+}
+
+function playerStrategy(who) { // Main strategy loop
+  let player = players.at(playerIndex); 
+  let strat = player.Strategy;
+  let strictThresh = strat.StrictThresh; // Are we strict about staying above Thresholds
+  let strictReserve = strat.StrictReserve; // Are we strict about reserving for card penalties
+  let peopleFirst = strat.PeopleFirst; // do we priorize people first if we are below thresholds
+  let aggroTemple = strat.AggroTemple; // do we aggressively pursue moving the temple
+  let aggroMove = strat.aggroMove; // do we move th the best spot regardless of time
+  let rFocus = strat.rFocus; // What is our primary resource focus
+  let pBase = strat.PBaseline // What's our emergency people level
+  let fBase = strat.FBaseline // What's our emergency people level
+  let cA = player.Resources.Az;
+  let cC = player.Resources.Cath;
+  let cP = player.Resources.People;
+  let fThresh = gameVariables.faithThreshold;
+  let pThresh = gameVariables.peopleThreshold;
+  let fPen = gameVariables.faithPenalty;
+  let pPen = gameVariables.peoplePenalty;
+  let fRate = gameVariables.faithConversion;
+  let pRate = gameVariables.peopleConversion;
+  let sPriority = '';
+  let highF = '';
+  let lowF = '';
+  let fReserve = (fThresh + fPen);
+  let pReserve = (pThresh + pPen);
+  let apoc = temple.apocFlag;
+  let azT = temple.azTemple; // Temple levels
+  let cathT = temple.cathTemple
+  let highT = 0;
+  let highTV =0;
+  let highTF = false;
+  let lowT = 0;
+  let lowTV = 0;
+  let lowTF = false;
+  let aTFlag = false;
+  let aRFlag = false;
+  let cTFlag = false;
+  let cRFlag = false;
+  let pTFlag = false;
+  let pRFlag = false;
+  let tFlag = false;
+  let rFlag = false;
+  let fTFlag = false;
+  let fRFlag = false;
+  let pBFlag = false;
+  let aBFlag = false;
+  let cBFlag = false;
+  let bestT = '';
+  let aBudget = 0;
+  let cBudget = 0;
+  let pBudget = 0;
+  let aBudgetRemain = 0;
+  let pBudgetRemain = 0;
+  let cBudgetRemain = 0;
+  let projectedT = 0;
+  let fCost = 0;
+  let pCost = 0;
+  let totalFCost = 0;
+  let totalPCost = 0;
+  
+
+  if (cAz>cCath) { // figure out which resource is highest.
+    highF = 'A';
+    lowF = 'C';
+  } else if (cAz<cCath) {
+    highF = 'C';
+    lowF = 'A';
+  } else if (cAz=cCath) {
+    if (strat.pFaith = 'A') {
+      highF = 'A';
+      lowF = 'C';
+    } else if (strat.pFaith = 'C') {
+      highF = 'C';
+      lowF = 'A' ;
+    }
+  }
+
+  highT = highestTemple;
+  if (highT = 1) {  // figure out which temple is highest.
+    highTV = azT;
+    lowTV = cathT;
+    highTF = temple.azMax;
+    lowTF = temple.cathMax;
+  } else if (highT = 2) {
+    highTV = cathT;
+    lowTV = azT;
+    lowTF = temple.azMax;
+    highTF = temple.cathMax;
+  } else if (highT = 3) {
+    highTV = cathT;
+    lowTV = azT;
+  }
+  
+  if(cP > pThresh) { // set flags
+    if(cP > pReserve) {
+      pRFlag = true;
+    }
+    pTFlag = true;
+  } else if (cP < pBase) {
+    pBFlag = true;
+  }
+  if(cA > fThresh) {
+    if(cA > fReserve) {
+      aRFlag = true;
+    }
+    aTFlag = true;
+  } else if (cA < fBase) {
+    aBFlag = true;
+  }
+  if(cC > fThresh) {
+    if(cC > fReserve) {
+      cRFlag = true;
+    }
+    cTFlag = true;
+  } else if (cC < fBase) {
+    cBFlag = true;
+  }
+
+  if ((aTFlag == true) && (cTFlag == true) && (pTFlag == true)) {
+    if((aRFlag == true) && (cRFlag == true) && (pRFlag == true)) {
+      rFlag = true;
+    }
+    tFlag = true;  
+  } else if ((aTFlag == true) && (cTFlag == true)) {
+    if((aRFlag == true) && (cRFlag == true)) {
+      fRFlag = true;
+    }
+    fTFlag = true; 
+  }
+
+  bestT = bestTemple(playerIndex); // figure out best temple
+
+  if(strictReserve == true) { // set up budgets
+    aBudget = (cA - fReserve);
+    cBudget = (cC - fReserve);
+    pBudget = (cP - pReserve);
+  } else if (strictThresh == true) {
+    aBudget = (cA - fThresh);
+    cBudget = (cC - fThresh);
+    pBudget = (cP - pThresh);
+  } else {
+    aBudget = (cA - fBase);
+    cBudget = (cC - fBase);
+    pBudget = (cP - pBase);
+  }
+
+  if (pBudget < 0) { // set priority
+    sPriority = 'P'
+  } else {
+    if (apoc == 0) { // spend budgets by conversion
+      switch (bestT) {
+        case 'A':
+          if (cBudget % fRate > 0){
+            cBudgetRemain = (cBudget %fRate);
+            cBudget -= cBudgetRemain
+          }
+          while (cBudget > 0) {
+            convertFaith('C');
+            aBudget++;
+          }
+        break;
+        case 'C':
+        if (aBudget % fRate > 0){
+          aBudgetRemain = (aBudget %fRate);
+          aBudget -= aBudgetRemain
+        }
+        while (cBudget > 0) {
+          convertFaith('A');
+          cBudget++;
+        }
+      }
+    } else if (apoc != 0) {
+      if (aBudget % fRate > 0){
+        aBudgetRemain = (aBudget %pRate);
+        aBudget -= aBudgetRemain
+      }
+      if (cBudget % fRate > 0){
+        cBudgetRemain = (cBudget %pRate);
+        cBudget -= cBudgetRemain
+      }
+      while (aBudget > 0) {
+        convertPeople('A');
+        pBudget++;
+      }
+      while (cBudget > 0) {
+        convertPeople('C');
+        pBudget++;
+      }
+    }
+  }
+}
+
+function highestTemple() { // Figures out which is the HIGHEST temple.
+  let azT = temple.azTemple; // Temple levels
+  let cathT = temple.cathTemple
+  
+  if (azT > cathT) {  
+    return '1'
+  } else if (azT < cathT) { 
+    return '2'
+  } else if (azT = cathT) { 
+    return '3'
+  }
+
+}
+
+function bestTemple(who) { // figures out which is the best to move to win
+  let player = players.at(who);
+  let highT = '';
+  let highTV = 0;
+  let highTF = false;
+  let lowT = '';
+  let lowTV = 0;
+  let lowTF = false;
+  let apoc = temple.apocFlag;
+  let aTL = temple.azLevel;
+  let aTF = temple.azMax;
+  let cTL = temple.cathLevel;
+  let cTF = temple.cathMax;
+  let cA = player.Resources.Az;
+  let cC = player.Resources.Cath;
+  let highF = '';
+  let lowF = '';
+  let highFV = 0;
+  let lowFV = 0;
+  let tDiff = 0;
+  let totalCost = 0;
+  let baseline = player.Strategy.FBaseline;
+  
+
+  if(aTV>=cTV) { // if Aztec is higher than Cath
+    highT ='A'; // Set variables
+    highTV = aTL;
+    highTF = aTF;
+    lowT = 'C';
+    lowTV = cTL;
+    lowTF = cTF;
+  } else if (aTV<cTV)
+  {
+    highT ='C';
+    highTV = cTL;
+    highTF = cTF;
+    highF = cC;
+    lowT = 'A';
+    lowTV = aTL;
+    lowTF = aTF;
+    lowF = cA; 
+  }
+
+  if (cA >= cC) {
+    highF = 'A';
+    highFV = cA;
+    lowF = 'C';
+    lowFV = cC;
+  } else if (cA > cC) {
+    highF = 'C';
+    highFV = cC;
+    lowF = 'A';
+    lowFV = cA;
+  }
+
+  if (apoc != 0) { // if the apoc has started
+    if(lowTF == true){ // best temple to move is always the lowest
+      return lowT;
+    }
+  } else if (apoc == 0) { // if the apoc hasn't started.
+    tDiff = highTV-lowTV; // calculate the difference between the temples
+    for (b=1;b<=(tDiff+1);b++) { // add up the cost of moving the low temple above the high temple
+      totalCost = (lowTV+i);
+    
+    }
+    totalCost += baseline; // add in baseline
+    if (highT == highF) { // if the highest temple and the highest faith are the same
+      return highT; // move the highest temple
+    } else if (highT == lowF) { // if the highest temple equals the lowest faith
+      if ((lowF-totalCost) > highF) { // but we have enough faith to move the lowest temple above the highest faith
+        return lowT; // move the low Temple
+      } else {
+        return highT; // else move the high temple
+      }
+    }
+  }
+}
+
+function calcTempleCost(whichTemple) {
+  let apoc = temple.apocFlag;
+  let aTL = temple.azLevel;
+  let aTF = temple.azMax;
+  let cTL = temple.cathLevel;
+  let cTF = temple.cathMax;
+  let max = gameVariables.maxHeight;
+  let aCost = 0;
+  let cCost = 0;
+  let pCost = 0;
+  let costArray = [];
+
+  switch (whichTemple) {
+    case 'A':
+      if (aTF == false) { // if temple hasn't hit max
+        aCost = (aTL+1); // this is the faith cost formula
+      } else if (aTF == true) { // if it has
+        pCost = ((max-aTL)+1); // this is the people cost formula
+      }
+      costArray = [aCost,0,pCost]; // put it in this array
+      return costArray; // return the array
+    case 'C':
+      if (cTF == false) {
+        cCost = (cTL+1);
+      } else if (cTF == true) {
+        pCost = ((max-cTL)+1);
+      }
+      costArray = [0,cCost,pCost];
+      return costArray;
+  }
+}
+
+function checkOutcomes(who) {
+  let player = players.at(who); 
+  let temp = temple
+  let apoc = temp.apocFlag;
+  let bT = bestTemple(who);
+  let cA = player.Resources.Az;
+  let cC = player.Resources.Cath;
+  let cP = player.Resources.People;
+  let templeCostP = 0
+  let templeCostA = 0
+  let templeCostC = 0
+  let fReserve = player.Strategy.FReserve;
+  let pReserve = player.Strategy.PReserve;
+  let costHolder = [];
+  let btCounter = 0;
+  let tempCost = 0;
+
+  if((player.Resources.iBlock >0) || (player.Resources.rBlock >0)) { // if player has an iBlock card
+    player.State.modBlock = true; // set State flag
+  }
+  
+  if(bT == 'A') { // Get set best temple counter
+    btCounter = temple.azLevel; // btCounter = temple level
+  } else if (bT == 'C') {
+    btCounter = temple.cathLevel;
+  }
+
+  
+  if((apoc !=0)) { // if apoc has started
+    costHolder = calcTempleCost(); 
+    if (cP> (costHolder[2]+pReserve)) { // if we have more people than the cost of moving the temple
+      player.State.canMoveT = true; // set flag
+    }
+    tempCost=0;
+    for (btCounter;btCounter<=0;btCounter--) { // iterate through to zero
+      tempCost = ((temple.maxHeight-btCounter)+1); // calc temple cost
+      templeCostP += tempCost; // Add to running total
+    }
+    tempCost=0;
+    if (cP > templeCostP) { // if people greater than running total
+      player.State.canWin = true; // we can win
+    }
+  } else if (apoc == 0) { // if apoc hasn't started yet
+    if (bT == 'A') { // if this is the aztec temple
+      costHolder = calcTempleCost();
+      if (cA> (costHolder[0]+fReserve)) { // if we have more faith than the cost
+        player.State.canMoveT = true; // we can move the temple
+      }
+      for (btCounter;btCounter<=temp.maxHeight;btCounter++) {
+        tempCost = (btCounter+1); // calc temple cost
+        templeCostA += costHolder[0];
+      }
+      if (cA > (templeCostA+fReserve)) { // if we can move it to the top
+        player.State.canApoc = true; // we can start the apocalypse
+      }
+    } else if (bT == 'C') {
+      costHolder = calcTempleCost();
+      if (cC> (costHolder[1]+fReserve)) {
+        player.State.canMoveT = true;
+      }
+      for (btCounter;btCounter<=temp.maxHeight;btCounter++) {
+        tempCost = (btCounter+1); // calc temple cost
+        templeCostC += costHolder[1];
+      }
+      if (cC > (templeCostC+fReserve)) {
+        player.State.canApoc = true;
+      }
+    }
+  }
+  
+  for(let u = player.Location.possibleMoves.SpacesLeft;u>=0;u--) {
+    if(player.Location.possibleMoves.currentQuad[1] == true) {
+      player.State.canEncounter = true;
+    }
+  }
+  for(let i=0;i<5;i++){
+    if(player.Location.possibleMoves.nextQuad[1] == true) {
+      player.State.canEncounter = true;
+    }
+  }
+}
+
+function setResourceGoals(who) {
+  let player = players.at(who); 
+  let cA = player.Resources.Az;
+  let cC = player.Resources.Cath;
+  let cP = player.Resources.People;
+  let fbase = player.Strategy.FBaseline
+  let pbase = player.Strategy.FBaseline
+  let fthresh = gameVariables.faithThreshold
+  let pthresh = gameVariables.peopleThreshold
+  let fres = player.Strategy.FReserve
+  let pres = player.Strategy.FReserve
+  let aReserveMet = false
+  let aThreshMet = false;
+  let aBaseMet = false;
+  let cReserveMet = false  
+  let cThreshMet = false;
+  let cBaseMet = false;
+  let pReserveMet = false
+  let pThreshMet = false;
+  let pBaseMet = false;
+  let aGoal = 0;
+  let cGoal = 0;
+  let pGoal = 0;
+  let bT = bestTemple(who);
+  let tCost = 0;
+  let goals = [];
+  
+  if(cA > fbase) { // baseline flag
+    aBaseMet = true;
+  }
+  if(cA > fthresh) { // threshold flag
+    aThreshMet = true;
+  }
+  if (cA > fres) { // reserve flag
+    aReserveMet = true;
+  }
+  if(cC > fbase) {
+    cBaseMet = true;
+  }
+  if(cC > fthresh) {
+    cThreshMet = true;
+  }
+  if (cC > fres) {
+    cReserveMet = true;
+  }
+  if(cP > pbase) {
+    pBaseMet = true;
+  }
+  if(cP > pthresh) {
+    pThreshMet = true;
+  }
+  if (cP > pres) {
+    pReserveMet = true;
+  }
+ 
+  switch (player.Strategy.RFocus[0]) { // Primary resource strategy
+    case 'A':
+      if(aBaseMet == false) { // if baseline met
+        aGoal = fbase; // aGoal is baseline
+      } else if(aThreshMet == false) { // if thresh not met
+        aGoal = fthresh; // goal is thresh
+      } else if (aReserveMet == false) { // if reserve not met
+        aGoal = fres; // goal is reserve
+      } else if (aReserveMet == true) { // if reserve is met
+        if(bT == 'A') {
+          tCost = calcTempleCost('A'); // get temple cost
+          aGoal = (fres+tCost[0]); // goal is reserve plus temple cost
+          goals[0] = 'A'; // goal 0 is which resource
+          goals[1] = aGoal; // goal 1 is number
+        }
+      }
+    break;
+    case 'C':
+      if(cBaseMet == false) {
+        cGoal = fbase;
+      } else if(cThreshMet == false) {
+        cGoal = fthresh;
+      } else if (cReserveMet == false) {
+        cGoal = fres;
+      }else if (aReserveMet == true) {
+        if(bT == 'C') {
+          tCost = calcTempleCost('C');
+          cGoal = (fres+tCost[1]);
+          goals[0] = 'C';
+          goals[1] = cGoal;
+        }
+      }
+    break;
+    case 'P':
+      if(pBaseMet == false) {
+        pGoal = pbase;
+      } else if(pThreshMet == false) {
+        pGoal = pthresh;
+      } else if (pReserveMet == false) {
+        pGoal = pres;
+      } else if (pReserveMet == true) {
+          tCost = calcTempleCost(bT);
+          pGoal = (pres+tCost[2]);
+          goals[0] = 'P';
+          goals[1] = pGoal;
+      }
+    break;
+    case 'B': // if strategy is balanced
+      if (cA < cC) { // use the smaller as goal
+        if(aBaseMet == false) {
+          aGoal = fbase;
+        } else if(aThreshMet == false) {
+          aGoal = fthresh;
+        } else if (aReserveMet == false) {
+          aGoal = fres;
+        } else if (aReserveMet == true) {
+          if(bT == 'A') {
+            tCost = calcTempleCost('A');
+            aGoal = (fres+tCost[0]);
+            goals[0] = 'A';
+            goals[1] = aGoal;
+          }
+        }
+      } else if (cA > cC) {
+        if(cBaseMet == false) {
+          cGoal = fbase;
+        } else if(cThreshMet == false) {
+          cGoal = fthresh;
+        } else if (cReserveMet == false) {
+          cGoal = fres;
+        }else if (aReserveMet == true) {
+          if(bT == 'C') {
+            tCost = calcTempleCost('C');
+            cGoal = (fres+tCost[1]);
+            goals[0] = 'C';
+            goals[1] = cGoal;
+          }
+        }
+      } else if (cA == cC) { // if both are equal
+        let highest = highestTemple(); 
+        if (apoc == 0) { // if no apoc
+          if (highest == 1) { // use the highest temple
+            if(aBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              aGoal = fthresh;
+            } else if (aReserveMet == false) {
+              aGoal = fres;
+            } else if (aReserveMet == true) {
+              if(bT == 'A') {
+                tCost = calcTempleCost('A');
+                aGoal = (fres+tCost[0]);
+                goals[0] = 'A';
+                goals[1] = aGoal;
+              }
+            }
+          } else if (highest == 2) {
+            if(cBaseMet == false) {
+              cGoal = fbase;
+            } else if(cThreshMet == false) {
+              cGoal = fthresh;
+            } else if (cReserveMet == false) {
+              cGoal = fres;
+            } else if (cReserveMet == true) {
+              if(bT == 'C') {
+                tCost = calcTempleCost('C');
+                cGoal = (fres+tCost[1]);
+                goals[0] = 'C';
+                goals[1] = cGoal;
+              }
+            }
+          } else if (highest == 3) { // if equal
+            let rand = randGen(1,2) // pick one at random
+            if (rand == 1) {
+              if(aBaseMet == false) {
+                aGoal = fbase;
+              } else if(aThreshMet == false) {
+                aGoal = fthresh;
+              } else if (aReserveMet == false) {
+                aGoal = fres;
+              } else if (aReserveMet == true) {
+                if(bT == 'A') {
+                  tCost = calcTempleCost('A');
+                  aGoal = (fres+tCost[0]);
+                  goals[0] = 'A';
+                  goals[1] = aGoal;
+                }
+              }
+            } else if (rand == 2) {
+              if(cBaseMet == false) {
+                cGoal = fbase;
+              } else if(cThreshMet == false) {
+                cGoal = fthresh;
+              } else if (cReserveMet == false) {
+                cGoal = fres;
+              }else if (aReserveMet == true) {
+                if(bT == 'C') {
+                  tCost = calcTempleCost('C');
+                  cGoal = (fres+tCost[1]);
+                  goals[0] = 'C';
+                  goals[1] = cGoal;
+                }
+              }
+            }
+          }
+        } else if (apoc != 0) { // if there is an apoc
+          if(pBaseMet == false) { // prefer people first
+            pGoal = pbase;
+          } else if(pThreshMet == false) {
+            pGoal = pthresh;
+          } else if (pReserveMet == false) {
+            pGoal = pres;
+          } else if (pReserveMet == true) {
+              tCost = calcTempleCost(bT);
+              pGoal = (pres+tCost[2]);
+              goals[0] = 'P';
+              goals[1] = pGoal;
+          } else {
+            let rand = randGen(1,2) // then random
+            if (rand == 1) {
+              if(aBaseMet == false) {
+                aGoal = fbase;
+              } else if(aThreshMet == false) {
+                aGoal = fthresh;
+              } else if (aReserveMet == false) {
+                aGoal = fres;
+              } else if (aReserveMet == true) {
+                if(bT == 'A') {
+                  tCost = calcTempleCost('A');
+                  aGoal = (fres+tCost[0]);
+                  goals[0] = 'A';
+                  goals[1] = aGoal;
+                }
+              }
+            } else if (rand == 2) {
+              if(cBaseMet == false) {
+                cGoal = fbase;
+              } else if(cThreshMet == false) {
+                cGoal = fthresh;
+              } else if (cReserveMet == false) {
+                cGoal = fres;
+              }else if (aReserveMet == true) {
+                if(bT == 'C') {
+                  tCost = calcTempleCost('C');
+                  cGoal = (fres+tCost[1]);
+                  goals[0] = 'C';
+                  goals[1] = cGoal;
+                }
+              }
+            }
+          }
+        }
+      }
+  }
+  switch (player.Strategy.RFocus[1]) {
+    case 'A':
+      if(aBaseMet == false) {
+        aGoal = fbase;
+      } else if(aThreshMet == false) {
+        aGoal = fthresh;
+      } else if (aReserveMet == false) {
+        aGoal = fres;
+      } else if (aReserveMet == true) {
+        if(bT == 'A') {
+          tCost = calcTempleCost('A');
+          aGoal = (fres+tCost[0]);
+          goals[2] = 'A';
+          goals[3] = aGoal;
+        }
+      }
+    break;
+    case 'C':
+      if(cBaseMet == false) {
+        cGoal = fbase;
+      } else if(cThreshMet == false) {
+        cGoal = fthresh;
+      } else if (cReserveMet == false) {
+        cGoal = fres;
+      }else if (aReserveMet == true) {
+        if(bT == 'C') {
+          tCost = calcTempleCost('C');
+          cGoal = (fres+tCost[1]);
+          goals[2] = 'C';
+          goals[3] = cGoal;
+        }
+      }
+    break;
+    case 'P':
+      if(pBaseMet == false) {
+        pGoal = pbase;
+      } else if(pThreshMet == false) {
+        pGoal = pthresh;
+      } else if (pReserveMet == false) {
+        pGoal = pres;
+      } else if (pReserveMet == true) {
+        if(apoc !=0) {
+          tCost = calcTempleCost(bT);
+          pGoal = (pres+tCost[2]);
+          goals[2] = 'P';
+          goals[3] = pGoal;
+        }
+      }
+    break;
+    case 'B':
+      if (cA < cC) {
+        if(aBaseMet == false) {
+          aGoal = fbase;
+        } else if(aThreshMet == false) {
+          aGoal = fthresh;
+        } else if (aReserveMet == false) {
+          aGoal = fres;
+        } else if (aReserveMet == true) {
+          if(bT == 'A') {
+            tCost = calcTempleCost('A');
+            aGoal = (fres+tCost[0]);
+            goals[2] = 'A';
+            goals[3] = aGoal;
+          }
+        }
+      } else if (cA > cC) {
+        if(cBaseMet == false) {
+          cGoal = fbase;
+        } else if(cThreshMet == false) {
+          cGoal = fthresh;
+        } else if (cReserveMet == false) {
+          cGoal = fres;
+        }else if (aReserveMet == true) {
+          if(bT == 'C') {
+            tCost = calcTempleCost('C');
+            cGoal = (fres+tCost[1]);
+            goals[2] = 'C';
+            goals[3] = cGoal;
+          }
+        }
+      } else if (cA == cC) {
+        let highest = highestTemple();
+        if (apoc == 0) {
+          if (highest == 1) {
+            if(aBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              aGoal = fthresh;
+            } else if (aReserveMet == false) {
+              aGoal = fres;
+            } else if (aReserveMet == true) {
+              if(bT == 'A') {
+                tCost = calcTempleCost('A');
+                aGoal = (fres+tCost[0]);
+                goals[2] = 'A';
+                goals[3] = aGoal;
+              }
+            }
+          } else if (highest == 2) {
+            if(cBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              cGoal = fthresh;
+            } else if (cReserveMet == false) {
+              cGoal = fres;
+            } else if (cReserveMet == true) {
+              if(bT == 'C') {
+                tCost = calcTempleCost('C');
+                cGoal = (fres+tCost[1]); 
+                goals[2] = 'C';
+                goals[3] = cGoal;
+              }
+            }
+          } else if (highest == 3) {
+            let rand = randGen(1,2)
+            if (rand == 1) {
+              if(aBaseMet == false) {
+                aGoal = fbase;
+              } else if(aThreshMet == false) {
+                aGoal = fthresh;
+              } else if (aReserveMet == false) {
+                aGoal = fres;
+              } else if (aReserveMet == true) {
+                if(bT == 'A') {
+                  tCost = calcTempleCost('A');
+                  aGoal = (fres+tCost[0]); 
+                  goals[2] = 'A';
+                  goals[3] = aGoal;
+                }
+              }
+            } else if (rand == 2) {
+              if(cBaseMet == false) {
+                cGoal = fbase;
+              } else if(cThreshMet == false) {
+                cGoal = fthresh;
+              } else if (cReserveMet == false) {
+                cGoal = fres;
+              }else if (aReserveMet == true) {
+                if(bT == 'C') {
+                  tCost = calcTempleCost('C');
+                  cGoal = (fres+tCost[1]);
+                  goals[2] = 'C';
+                  goals[3] = cGoal;
+                }
+              }
+            }
+          }
+        } else if (apoc != 0) {
+          let rand = randGen(1,2)
+          if (rand == 1) {
+            if(aBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              aGoal = fthresh;
+            } else if (aReserveMet == false) {
+              aGoal = fres;
+            } else if (aReserveMet == true) {
+              if(bT == 'A') {
+                tCost = calcTempleCost('A');
+                aGoal = (fres+tCost[0]);
+                goals[2] = 'A';
+                goals[3] = aGoal;
+              }
+            }
+          } else if (rand == 2) {
+            if(cBaseMet == false) {
+              cGoal = fbase;
+            } else if(cThreshMet == false) {
+              cGoal = fthresh;
+            } else if (cReserveMet == false) {
+              cGoal = fres;
+            }else if (aReserveMet == true) {
+              if(bT == 'C') {
+                tCost = calcTempleCost('C');
+                cGoal = (fres+tCost[1]);
+                goals[2] = 'C';
+                goals[3] = cGoal;
+              }
+            }
+          }
+        }
+      }
+  }
+  switch (player.Strategy.RFocus[2]) {
+    case 'A':
+      if(aBaseMet == false) {
+        aGoal = fbase;
+      } else if(aThreshMet == false) {
+        aGoal = fthresh;
+      } else if (aReserveMet == false) {
+        aGoal = fres;
+      } else if (aReserveMet == true) {
+        if(bT == 'A') {
+          tCost = calcTempleCost('A');
+          aGoal = (fres+tCost[0]);
+          goals[4] = 'A';
+          goals[5] = aGoal;
+        }
+      }
+    break;
+    case 'C':
+      if(cBaseMet == false) {
+        cGoal = fbase;
+      } else if(cThreshMet == false) {
+        cGoal = fthresh;
+      } else if (cReserveMet == false) {
+        cGoal = fres;
+      }else if (aReserveMet == true) {
+        if(bT == 'C') {
+          tCost = calcTempleCost('C');
+          cGoal = (fres+tCost[1]);
+          goals[4] = 'C';
+          goals[5] = cGoal;
+        }
+      }
+    break;
+    case 'P':
+      if(pBaseMet == false) {
+        pGoal = pbase;
+      } else if(pThreshMet == false) {
+        pGoal = pthresh;
+      } else if (pReserveMet == false) {
+        pGoal = pres;
+      } else if (pReserveMet == true) {
+        if(apoc !=0) {
+          tCost = calcTempleCost(bT);
+          pGoal = (pres+tCost[2]);
+          goals[4] = 'P';
+          goals[5] = pGoal;
+        }
+      }
+    break;
+    case 'B':
+      if (cA < cC) {
+        if(aBaseMet == false) {
+          aGoal = fbase;
+        } else if(aThreshMet == false) {
+          aGoal = fthresh;
+        } else if (aReserveMet == false) {
+          aGoal = fres;
+        } else if (aReserveMet == true) {
+          if(bT == 'A') {
+            tCost = calcTempleCost('A');
+            aGoal = (fres+tCost[0]);
+            goals[4] = 'A';
+            goals[5] = aGoal;
+          }
+        }
+      } else if (cA > cC) {
+        if(cBaseMet == false) {
+          cGoal = fbase;
+        } else if(cThreshMet == false) {
+          cGoal = fthresh;
+        } else if (cReserveMet == false) {
+          cGoal = fres;
+        }else if (aReserveMet == true) {
+          if(bT == 'C') {
+            tCost = calcTempleCost('C');
+            cGoal = (fres+tCost[1]);
+            goals[4] = 'C';
+            goals[5] = cGoal;
+          }
+        }
+      } else if (cA == cC) {
+        let highest = highestTemple();
+        if (apoc == 0) {
+          if (highest == 1) {
+            if(aBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              aGoal = fthresh;
+            } else if (aReserveMet == false) {
+              aGoal = fres;
+            } else if (aReserveMet == true) {
+              if(bT == 'A') {
+                tCost = calcTempleCost('A');
+                aGoal = (fres+tCost[0]);
+                goals[4] = 'A';
+                goals[5] = aGoal;
+              }
+            }
+          } else if (highest == 2) {
+            if(cBaseMet == false) {
+              cGoal = fbase;
+            } else if(cThreshMet == false) {
+              cGoal = fthresh;
+            } else if (cReserveMet == false) {
+              cGoal = fres;
+            } else if (cReserveMet == true) {
+              if(bT == 'C') {
+                tCost = calcTempleCost('C');
+                cGoal = (fres+tCost[1]);
+                goals[4] = 'C';
+                goals[5] = cGoal;
+              }
+            }
+          } else if (highest == 3) {
+            let rand = randGen(1,2)
+            if (rand == 1) {
+              if(aBaseMet == false) {
+                aGoal = fbase;
+              } else if(aThreshMet == false) {
+                aGoal = fthresh;
+              } else if (aReserveMet == false) {
+                aGoal = fres;
+              } else if (aReserveMet == true) {
+                if(bT == 'A') {
+                  tCost = calcTempleCost('A');
+                  aGoal = (fres+tCost[0]);
+                  goals[4] = 'A';
+                  goals[5] = aGoal;
+                }
+              }
+            } else if (rand == 2) {
+              if(cBaseMet == false) {
+                cGoal = fbase;
+              } else if(cThreshMet == false) {
+                cGoal = fthresh;
+              } else if (cReserveMet == false) {
+                cGoal = fres;
+              }else if (aReserveMet == true) {
+                if(bT == 'C') {
+                  tCost = calcTempleCost('C');
+                  cGoal = (fres+tCost[1]);
+                  goals[4] = 'C';
+                  goals[5] = cGoal;
+                }
+              }
+            }
+          }
+        } else if (apoc != 0) {
+          let rand = randGen(1,2)
+          if (rand == 1) {
+            if(aBaseMet == false) {
+              aGoal = fbase;
+            } else if(aThreshMet == false) {
+              aGoal = fthresh;
+            } else if (aReserveMet == false) {
+              aGoal = fres;
+            } else if (aReserveMet == true) {
+              if(bT == 'A') {
+                tCost = calcTempleCost('A');
+                aGoal = (fres+tCost[0]);
+                goals[4] = 'A';
+                goals[5] = aGoal;
+              }
+            }
+          } else if (rand == 2) {
+            if(cBaseMet == false) {
+              cGoal = fbase;
+            } else if(cThreshMet == false) {
+              cGoal = fthresh;
+            } else if (cReserveMet == false) {
+              cGoal = fres;
+            }else if (aReserveMet == true) {
+              if(bT == 'C') {
+                tCost = calcTempleCost('C');
+                cGoal = (fres+tCost[1]);
+                goals[4] = 'C';
+                goals[5] = cGoal;
+              }
+            }
+          }
+        }
+      }
+  }
+  return goals; // 0/1 is primary type/value, 2/3 sec type/value, 4/5, tertiary type/value
+}
+
+function suggestMovesResource(who, goals) {
+  let player = players.at(who); 
+  let holderArray = goals;
+  let primaryGoals = holderArray.splice(0,2);
+  let secondaryGoals = holderArray.splice(0,2);
+  let lastGoals = holderArray.splice(0,2);
+  let time1Mod = 0;
+  let time2Mod = 0;
+  let score1ToBeat = 0;
+  let Loc1 = 0;
+  let Final1 = 0;
+  let score2ToBeat = 0;
+  let Loc2 = 0;
+  let Final2 = 0;
+  let recommendation = [];
+
+
+  switch(primaryGoals[0]) {
+    case 'A':
+      State1 = player.Resources.Az;
+      Goal1 = primaryGoals[1];
+      if (secondaryGoals[0] == 'C') {
+        State2 = player.Resources.Cath;
+        Goal2 = secondaryGoals[1];
+      } else if (secondaryGoals[0] == 'P') {
+        State2 = player.Resources.People;
+        Goal2 = secondaryGoals[1];
+      }
+      if (lastGoals[0] == 'C') {
+        State3 = player.Resources.Cath;
+        Goal3 = secondaryGoals[1];
+      } else if (lastGoals[0] == 'P') {
+        State3 = player.Resources.People;
+        Goal3 = secondaryGoals[1];
+      }
+    break;
+    case 'C':
+      State1 = player.Resources.Cath;
+      Goal1 = primaryGoals[1];
+      if (secondaryGoals[0] == 'A') {
+        State2 = player.Resources.Az;
+        Goal2 = secondaryGoals[1];
+      } else if (secondaryGoals[0] == 'P') {
+        State2 = player.Resources.People;
+        Goal2 = secondaryGoals[1];
+      }
+      if (lastGoals[0] == 'A') {
+        State3 = player.Resources.Az;
+        Goal3 = secondaryGoals[1];
+      } else if (lastGoals[0] == 'P') {
+        State3 = player.Resources.People;
+        Goal3 = secondaryGoals[1];
+      }
+    break;
+    case 'P':
+      State1 = player.Resources.Peope;
+      Goal1 = primaryGoals[1];
+      if (secondaryGoals[0] == 'A') {
+        State2 = player.Resources.Az;
+        Goal2 = secondaryGoals[1];
+      } else if (secondaryGoals[0] == 'C') {
+        State2 = player.Resources.Cath;
+        Goal2 = secondaryGoals[1];
+      }
+      if (lastGoals[0] == 'A') {
+        State3 = player.Resources.Az;
+        Goal3 = secondaryGoals[1];
+      } else if (lastGoals[0] == 'C') {
+        State3 = player.Resources.Cath;
+        Goal3 = secondaryGoals[1];
+      }
+  }
+
+  for(let e=0;e<player.Location.SpacesLeft;e++) {
+    switch (secondaryGoals[0]) {
+      case 'A':
+        if((board.at(player.Location.possibleMoves[e]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[2]>=score2ToBeat) {
+            score2ToBeat=player.Location.possibleMoves.currentQuad[2];
+            Loc2 = player.Location.possibleMoves.currentQuad[0];
+          }
+        } 
+      break;
+      case 'C':
+        if((board.at(player.Location.possibleMoves[e]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[3]>=score2ToBeat) {
+            score2ToBeat=player.Location.possibleMoves.currentQuad[3];
+            Loc2 = player.Location.possibleMoves.currentQuad[0];
+          }
+        }
+      break;
+      case 'P':
+        if((board.at(player.Location.possibleMoves[e]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[4]>=score2ToBeat) {
+            score2ToBeat=player.Location.possibleMoves.currentQuad[4];
+            Loc2 = player.Location.possibleMoves.currentQuad[0];
+          }
+        }
+    }
+  }
+
+  if(player.Location.Time<3){
+    time2Mod = (board.at(Loc2.Identity.Space - player.Location.Time));
+    score2ToBeat -= time2Mod;
+  }
+
+  for(let f=0;f<player.Location.SpacesLeft;f++) {
+    switch (primaryGoals[0]) {
+      case 'A':
+        if((board.at(player.Location.possibleMoves[f]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[2]>score1ToBeat) {
+            score1ToBeat=player.Location.possibleMoves.currentQuad[2];
+            Loc1 = player.Location.possibleMoves.currentQuad[0];
+          } else if (player.Location.possibleMoves.currentQuad[2]>score1ToBeat) {
+            if(player.Location.possibleMoves.currentQuad[0] == Loc2) {
+              score1ToBeat=player.Location.possibleMoves.currentQuad[2];
+              Loc1 = player.Location.possibleMoves.currentQuad[0];
+            }
+          } 
+        }
+      break;
+      case 'C':
+        if((board.at(player.Location.possibleMoves[f]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[3]>score1ToBeat) {
+            score1ToBeat=player.Location.possibleMoves.currentQuad[3];
+            Loc1 = player.Location.possibleMoves.currentQuad[0];
+          }else if (player.Location.possibleMoves.currentQuad[2]>score1ToBeat) {
+            if(player.Location.possibleMoves.currentQuad[0] == Loc2) {
+              score1ToBeat=player.Location.possibleMoves.currentQuad[2];
+              Loc1 = player.Location.possibleMoves.currentQuad[0];
+            }
+          } 
+        }
+      break;
+      case 'P':
+        if((board.at(player.Location.possibleMoves[f]).Contents.Blocker == false) || (player.State.modBlock == true)) {
+          if(player.Location.possibleMoves.currentQuad[4]>score1ToBeat) {
+            score1ToBeat=player.Location.possibleMoves.currentQuad[4];
+            Loc1 = player.Location.possibleMoves.currentQuad[0];
+          } else if (player.Location.possibleMoves.currentQuad[2]>score1ToBeat) {
+            if(player.Location.possibleMoves.currentQuad[0] == Loc2) {
+              score1ToBeat=player.Location.possibleMoves.currentQuad[2];
+              Loc1 = player.Location.possibleMoves.currentQuad[0];
+            }
+         } 
+        }
+    }
+    
+  }
+
+  if(player.Location.Time<3){
+    time1Mod = (board.at(Loc1.Identity.Space - player.Location.Time));
+    score1ToBeat -= time1Mod;
+  }
+
+  Final1 = ((State1-Goal1)+score1ToBeat);
+  Final2 = ((State2-Goal2)+score2ToBeat); 
+
+  if(Final>=Final2) {
+    recommendation[0] = Loc1;
+    recommendation[1] = Final1;
+  } else if(Final1<Final2) {
+    recommendation[0] = Loc2;
+    recommendation[1] = Final2;
+  }
+  return recommendation; // 0 is board ID, 1 is score.
+}
+
+function suggestMovesPayout(who) {
+  let player = players.at(playerIndex)
+  let cQuad = player.Location.possibleMoves.currentQuad
+  let pFocus = player.Strategy.RFocus[0];
+  let timeMod = 0;
+  let scoreToBeat = 0;
+  let Loc = 0;
+  let recommendation = [];
+
+  switch(pFocus) {
+    case 'A':
+      for(let u = player.Location.possibleMoves.SpacesLeft;u>=0;u--) {
+        if((cQuad[5]== false) || (player.State.modBlock == true)) {
+          if(cQuad[2]>scoreToBeat) {
+            scoreToBeat=cQuad3;
+            Loc = cQuad[0];
+          }
+        }
+      }
+    break;
+    case 'C':
+      if((cQuad[5]== false) || (player.State.modBlock == true)) {
+        for(let u = player.Location.possibleMoves.SpacesLeft;u>=0;u--) {
+          if(cQuad[3]>scoreToBeat) {
+            scoreToBeat=cQuad3;
+            Loc = cQuad[0];
+          }
+        }
+      }
+    break;
+    case 'P':
+      if((cQuad[5]== false) || (player.State.modBlock == true)) {
+        for(let u = player.Location.possibleMoves.SpacesLeft;u>=0;u--) {
+          if(cQuad[4]>scoreToBeat) {
+            scoreToBeat=cQuad3;
+            Loc = cQuad[0];
+          }
+        }
+      }
+  }
+
+  if(player.Location.Time<3){
+    timeMod = (board.at(Loc1.Identity.Space - player.Location.Time));
+    scoreToBeat -= timeMod;
+  }
+
+  recommendation[0] = Loc;
+  recommendation[1] = Final;
+
+  return recommendation;
+}
+
